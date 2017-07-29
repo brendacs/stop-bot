@@ -33,12 +33,17 @@ bot.on('message', (msg) => {
     const cmd = args[0];
     const subcmd = args[1];
     if (cmd === 'stop') {
-      msg.channel.send(date);
-      msg.channel.send('IT\'S TIME TO STOP.');
-      if (subcmd === 'video') {
+      if (!subcmd) {
+        msg.channel.send(date);
+        msg.channel.send('IT\'S TIME TO STOP.');
+      } else if (subcmd === 'video') {
         msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
       } else if (typeof subcmd !== 'undefined') {
-        msg.channel.send('`' + subcmd + '`' + 'will now be stopped.')
+        if (admin) {
+          msg.channel.send('`' + subcmd + '`' + ' will now be stopped.')
+        } else if (!admin) {
+          msg.reply('you can\'t use this command.');
+        }
       } else {
         return;
       }
