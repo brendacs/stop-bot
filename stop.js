@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const logger = require('winston');
+const auth = require('./auth.json')
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -8,7 +9,7 @@ logger.add(logger.transports.Console, {
 });
 logger.level = 'debug';
 
-const TOKEN = 'MzQwNDA0NzU3NjQ4NzY5MDI1.DFyCKA.VYBbTMSAb0Ee1qB9Cg_WjBPk15g';
+const TOKEN = auth.token;
 
 const bot = new Discord.Client({
   token: TOKEN,
@@ -67,7 +68,9 @@ bot.on('message', (msg) => {
       } else {
         msg.reply('what do you want to unstop?');
       }
-    } else return;
+    } else {
+      msg.channel.send('Unknown command.');
+    }
   } else {
     if (msg.author.bot) return;
     else {
