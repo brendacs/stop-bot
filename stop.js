@@ -23,6 +23,8 @@ bot.on('ready', (evt) => {
   logger.info(bot.user.username + ' - ' + bot.user.id);
 });
 
+let stoppedWords = new Array();
+
 bot.on('message', (msg) => {
   string = msg.content
   const date = new Date().toString();
@@ -32,6 +34,7 @@ bot.on('message', (msg) => {
     const args = msg.toString().substring(1).split(' ');
     const cmd = args[0];
     const subcmd = args[1];
+
     if (cmd === 'stop') {
       if (!subcmd) {
         msg.channel.send(date);
@@ -40,29 +43,41 @@ bot.on('message', (msg) => {
         msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
       } else if (typeof subcmd !== 'undefined') {
         if (admin) {
-          msg.channel.send('`' + subcmd + '`' + ' will now be stopped.')
+          stoppedWords.push(subcmd.toLowerCase());
+          // console.log(stoppedWords);
+          msg.channel.send('`' + subcmd + '`' + ' will now be stopped.');
         } else if (!admin) {
           msg.reply('you can\'t use this command.');
         }
-      } else {
-        return;
-      }
+      } else return;
     } else if (cmd === 'go') {
       if (!admin) {
         msg.reply('you can\'t use this command.');
       } else if (admin && typeof subcmd !== 'undefined') {
-        msg.channel.send('`' + subcmd + '`' + ' will no longer be stopped.');
+        let goWord = stoppedWords.indexOf(subcmd);
+        if (goWord !== -1) {
+          stoppedWords.splice(goWord, 1);
+          // console.log(stoppedWords);
+          msg.channel.send('`' + subcmd + '`' + ' will no longer be stopped.');
+        } else {
+          msg.channel.send('`' + subcmd + '`' + ' was not on the list of stopped words.');
+        }
       } else {
         msg.reply('what do you want to unstop?');
       }
-    } else {
-      return;
-    }
-  } else if (string.toLowerCase().indexOf('kek') !== -1 || string.toLowerCase().indexOf('kèk') !== -1) {
-    msg.channel.send(date);
-    msg.reply('IT\'S TIME TO STOP.');
+    } else return;
   } else {
-    return;
+    if (msg.author.bot) return;
+    else {
+      for (let i = 0; i <= stoppedWords.length; i++) {
+        // console.log(stoppedWords);
+        if (string.toString().indexOf(stoppedWords[i]) !== -1) {
+          // console.log(stoppedWords + ' must be stopped now');
+          msg.channel.send(date);
+          msg.reply('IT\'S TIME TO STOP.');
+        } else return;
+      }
+    }
   }
 });
 
