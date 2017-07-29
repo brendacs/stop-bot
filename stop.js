@@ -41,6 +41,8 @@ bot.on('message', (msg) => {
         msg.channel.send('IT\'S TIME TO STOP.');
       } else if (subcmd === 'video') {
         msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
+      } else if (subcmd === 'list') {
+        msg.channel.send('These words are currently being stopped: `' + stoppedWords.join(', ') + '`');
       } else if (typeof subcmd !== 'undefined') {
         if (admin) {
           stoppedWords.push(subcmd.toLowerCase());
@@ -71,11 +73,12 @@ bot.on('message', (msg) => {
     else {
       for (let i = 0; i <= stoppedWords.length; i++) {
         // console.log(stoppedWords);
-        if (string.toString().indexOf(stoppedWords[i]) !== -1) {
-          // console.log(stoppedWords + ' must be stopped now');
+        // console.log(string.toString().toLowerCase().indexOf(stoppedWords[i]));
+        if (string.toString().toLowerCase().indexOf(stoppedWords[i]) !== -1) {
+          // console.log(stoppedWords[i] + ' must be stopped now');
           msg.channel.send(date);
           msg.reply('IT\'S TIME TO STOP.');
-        } else return;
+        }
       }
     }
   }
