@@ -37,6 +37,8 @@ bot.on('message', (msg) => {
       msg.channel.send('IT\'S TIME TO STOP.');
       if (subcmd === 'video') {
         msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
+      } else if (typeof subcmd !== 'undefined') {
+        msg.channel.send('`' + subcmd + '`' + 'will now be stopped.')
       } else {
         return;
       }
