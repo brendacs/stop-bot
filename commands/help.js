@@ -1,4 +1,4 @@
-exports.run = (bot, msg, cmd, richEmbed) => {
+exports.run = (msg, cmd, richEmbed) => {
   const help = require('./help.json');
   if (cmd === 'help') {
     msg.channel.send({
