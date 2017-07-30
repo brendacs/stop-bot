@@ -2,6 +2,8 @@
 
 Made to stop your Discord server from turning into a trollfest.
 
+![stop sign](https://github.com/brendacs/stop-bot/master/images/stop.png)
+
 # Commands
 
 **Prefix:** `!`
