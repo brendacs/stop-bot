@@ -1,0 +1,10 @@
+{
+  "headings": {
+    "stop": "**STOP**",
+    "delete": "**DELETE**",
+    "go": "**GO**"
+  },
+  "stop": "```stop, stop video, stop list, stop <word>```",
+  "delete": "```delete <word>, delete list```",
+  "go": "```go <word>```"
+}
