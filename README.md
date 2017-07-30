@@ -1,8 +1,10 @@
 # Stop Bot
 
-Made to stop your Discord server from turning into a trollfest.
+Made to stop your Discord server from turning into a trollfest through message moderation.
 
 ![stop sign](https://raw.githubusercontent.com/brendacs/stop-bot/master/images/stop.png)
+
+Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200) to invite Stop Bot to your server! It'll need your permission to manage messages.
 
 # Commands
 
