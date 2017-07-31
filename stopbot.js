@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const logger = require('winston');
 const auth = require('./auth.json');
+const commandFile = require('./commands/commands.js');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -41,7 +42,6 @@ bot.on('message', (msg) => {
     let deleteWord = deletedWords.indexOf(subcmd);
 
     try {
-      let commandFile = require('./commands/commands.js');
       commandFile.run(msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, date, richEmbed);
     } catch(err) {
       console.log(err);
