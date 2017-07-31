@@ -42,7 +42,7 @@ bot.on('message', (msg) => {
     let deleteWord = deletedWords.indexOf(subcmd);
 
     try {
-      commandFile.run(msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, date, richEmbed);
+      commandFile.run(msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, bot, date, richEmbed);
     } catch(err) {
       console.log(err);
     }
