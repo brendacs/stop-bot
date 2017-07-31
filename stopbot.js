@@ -36,15 +36,17 @@ bot.on('message', (msg) => {
     const args = msg.toString().substring(1).split(' ');
     const cmd = args[0];
     const subcmd = args[1];
+    const admin = msg.member.hasPermission('ADMINISTRATOR');
+    let stopWord = stoppedWords.indexOf(subcmd);
+    let deleteWord = deletedWords.indexOf(subcmd);
 
     try {
-      let helpFile = require('./commands/help.js');
-      helpFile.run(msg, cmd, richEmbed);
       let commandFile = require('./commands/commands.js');
-      commandFile.run(msg, cmd, subcmd, stoppedWords, deletedWords, date);
+      commandFile.run(msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, date, richEmbed);
     } catch(err) {
       console.log(err);
     }
+
   } else {
     if (msg.author.bot) return;
     else {
@@ -60,6 +62,7 @@ bot.on('message', (msg) => {
           msg.channel.send('Detected something horrible. Deleted.');
         }
       }
+
     }
   }
 });
