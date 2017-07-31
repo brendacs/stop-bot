@@ -25,6 +25,9 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 |Command|Description|Permissions|
 |---|---|--|
+|**General Commands**|||
+|`help`|sends a list of all commands to the channel|everyone|
+|`info`|displays bot stats (# of servers and channels)|everyone|
 |**Stop Commands**|||
 |`stop`|sends a time stamp and message telling offender it's time to stop|everyone|
 |`stop list`|sends a list of all words that will be responded to with stop|everyone|
