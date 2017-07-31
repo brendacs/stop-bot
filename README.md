@@ -16,7 +16,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 |Type|Description|
 |---|---|
-|`help`|self-explanatory|
+|`general`|general bot commands|
 |`stop`|tells the message sender to stop|
 |`delete`|deletes an offending message|
 |`go`|Let the message be sent with no stops or deletions|
