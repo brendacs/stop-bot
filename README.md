@@ -14,7 +14,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 ## Commands
 
-**Prefix:** `!`
+**Prefix:** `!` or mention the bot `@Stop`
 
 **Command types:**
 
@@ -42,3 +42,10 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 |`delete list`|sends a list of all words that will be auto-deleted|everyone|
 |**Go Commands**|||
 |`go <word>`|removes `<word>` from list of words to stop or delete|admin|
+
+**Examples:**
+
+`!stop help` or `@Stop help`
+`!stop kek` or `@Stop stop kek`
+`!delete lel` or `@Stop delete lel`
+`!go 4chan` or `@Stop go 4chan`
