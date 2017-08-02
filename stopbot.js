@@ -32,6 +32,8 @@ bot.on('ready', (evt) => {
       if (err) return console.error(err);
       console.log("Success!");
     });
+
+  bot.user.setPresence({status: 'online', game: {name: '!go fish | !help'}});
 });
 
 messageHandler.run(bot);
