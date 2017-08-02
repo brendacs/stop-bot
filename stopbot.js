@@ -51,6 +51,7 @@ bot.on('message', (msg) => {
     const cmd = args[0];
     const subcmd = args[1];
     const admin = msg.member.hasPermission('ADMINISTRATOR');
+    const mod = msg.member.hasPermission('MANAGE_MESSAGES');
 
     if (wordList[thisGuild]) {
       commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, bot, date, richEmbed);
