@@ -14,7 +14,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 ## Commands
 
-**Prefix:** `!` or mention the bot `@Stop`
+**Prefix:** `!` or mention the bot using `@Stop`
 
 **Command types:**
 
@@ -45,7 +45,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 **Examples:**
 
-`!stop help` or `@Stop help`
-`!stop kek` or `@Stop stop kek`
-`!delete lel` or `@Stop delete lel`
-`!go 4chan` or `@Stop go 4chan`
+* `!stop help` or `@Stop help`
+* `!stop kek` or `@Stop stop kek`
+* `!delete lel` or `@Stop delete lel`
+* `!go 4chan` or `@Stop go 4chan`
