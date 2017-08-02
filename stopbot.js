@@ -33,7 +33,7 @@ bot.on('ready', (evt) => {
   // Server count for discord bot list
   request.post(`https://discordbots.org/api/bots/${bot.user.id}/stats`)
     .set('Authorization', DBOT_TOKEN)
-    .send({server_count: bot.guilds.array().length})
+    .send({server_count: bot.guilds.size})
     .end(err => {
       if (err) return console.error(err);
       console.log("Success!");
