@@ -6,7 +6,7 @@ exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, s
     } else if (subcmd === 'video') {
       msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
     } else if (subcmd === 'list') {
-      if (stoppedWords !== 0) {
+      if (stoppedWords.length !== 0) {
         msg.channel.send('These words are currently being stopped: `' + stoppedWords.join(', ') + '`');
       } else {
         msg.channel.send('There are no words on the stop list.');
