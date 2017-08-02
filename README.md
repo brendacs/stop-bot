@@ -1,8 +1,8 @@
+![stop sign](https://raw.githubusercontent.com/brendacs/stop-bot/master/images/stop.png)
+
 # Stop Bot
 
 Made to stop your Discord server from turning into a trollfest through message moderation.
-
-![stop sign](https://raw.githubusercontent.com/brendacs/stop-bot/master/images/stop.png)
 
 [<img src="https://img.shields.io/badge/discord-js-blue.svg">](https://github.com/hydrabolt/discord.js/)
 [<img src="https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg">](https://github.com/brendacs/stop-bot/pulls)
