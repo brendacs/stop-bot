@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, date) => {
+exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot, date) => {
   if (cmd === 'stop') {
     if (!subcmd) {
       msg.channel.send(date);
@@ -6,7 +6,7 @@ exports.run = (msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, dele
     } else if (subcmd === 'video') {
       msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
     } else if (subcmd === 'list') {
-      if (stoppedWords.length !== 0) {
+      if (stoppedWords !== 0) {
         msg.channel.send('These words are currently being stopped: `' + stoppedWords.join(', ') + '`');
       } else {
         msg.channel.send('There are no words on the stop list.');
@@ -25,5 +25,5 @@ exports.run = (msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, dele
         msg.reply('you can\'t use this command.');
       }
     } else return;
-  } 
+  }
 }

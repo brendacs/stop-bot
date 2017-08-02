@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords) => {
+exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot) => {
   if (cmd === 'delete') {
     if (subcmd === 'list') {
       if (deletedWords.length !== 0) {

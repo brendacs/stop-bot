@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const logger = require('winston');
 const auth = require('./auth.json');
 const commandFile = require('./commands/commands.js');
+const fs = require('fs');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -19,6 +20,8 @@ const bot = new Discord.Client({
 
 const channel = new Discord.Channel();
 const richEmbed = new Discord.RichEmbed();
+const guild = new Discord.Guild();
+const thisGuild = guild.id;
 
 bot.on('ready', (evt) => {
   logger.info('Connected');
@@ -27,24 +30,33 @@ bot.on('ready', (evt) => {
 });
 
 const date = new Date().toString();
-let stoppedWords = new Array();
-let deletedWords = new Array();
+let wordList = JSON.parse(fs.readFileSync('./data/wordList.json', 'utf8'));
 
 bot.on('message', (msg) => {
-  string = msg.content
+  string = msg.content;
+  const thisGuild = msg.guild.id;
+
+  if (!wordList[thisGuild]) {
+    wordList[thisGuild] = {
+      stopList: [],
+      deleteList: []
+    }
+  }
+
+  let stoppedWords = wordList[thisGuild].stopList;
+  let deletedWords = wordList[thisGuild].deleteList;
 
   if (msg.toString().substring(0, 1) === '!') {
     const args = msg.toString().substring(1).split(' ');
     const cmd = args[0];
     const subcmd = args[1];
     const admin = msg.member.hasPermission('ADMINISTRATOR');
-    let stopWord = stoppedWords.indexOf(subcmd);
-    let deleteWord = deletedWords.indexOf(subcmd);
 
-    try {
-      commandFile.run(msg, cmd, subcmd, admin, stopWord, deleteWord, stoppedWords, deletedWords, bot, date, richEmbed);
-    } catch(err) {
-      console.log(err);
+    if (wordList[thisGuild]) {
+      commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, bot, date, richEmbed);
+      fs.writeFile('./data/wordList.json', JSON.stringify(wordList), (err) => {
+        if (err) console.log(err);
+      });
     }
 
   } else {
