@@ -1,9 +1,9 @@
 exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed) => {
-  const helpFile = require('./help.js');
+  const helpFile = require('./help/help.js');
   const infoFile = require('./info.js');
   const stopFile = require('./stop.js');
   const deleteFile = require('./delete.js');
-  const goFile = require('./go.js');
+  const goFile = require('./go/go.js');
 
   const stopWord = stoppedWords.indexOf(subcmd);
   const deleteWord = deletedWords.indexOf(subcmd);
