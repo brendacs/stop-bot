@@ -9,7 +9,7 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
     } else if (typeof parseInt(subcmd) === 'number') {
       msg.delete(0);
       msg.channel.fetchMessages({limit: subcmd})
-        .then(latestMessages) => {
+        .then((latestMessages) => {
           let messageArray = latestMessages.array();
           let messageCount = messageArray.length;
 
