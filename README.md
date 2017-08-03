@@ -27,8 +27,8 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 **Commands:**
 
-Admin = "Administrator" permission
-Mod = "Manage Messages" permission
+* Admin = "Administrator" permission
+* Mod = "Manage Messages" permission
 
 |Command|Description|Permissions|
 |---|---|--|

@@ -7,15 +7,10 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
         msg.channel.send('There are no words on the delete list.')
       }
     } else if (typeof parseInt(subcmd) === 'number') {
-      msg.delete(0);
-      msg.channel.fetchMessages({limit: subcmd})
+      let limit = parseInt(subcmd) + 1;
+      msg.channel.fetchMessages({limit: limit})
         .then((latestMessages) => {
-          let messageArray = latestMessages.array();
-          let messageCount = messageArray.length;
-
-          for (let i = 0; i <= messageCount; i++) {
-            messageArray[i].delete(0);
-          }
+          msg.channel.bulkDelete(latestMessages);
         });
     } else if (typeof subcmd !== 'undefined' && typeof parseInt(subcmd) !== 'number') {
       if (admin) {
