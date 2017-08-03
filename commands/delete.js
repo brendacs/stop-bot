@@ -7,19 +7,17 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
         msg.channel.send('There are no words on the delete list.')
       }
     } else if (typeof parseInt(subcmd) === 'number') {
-      for (let i = 0; i < subcmd; i++) {
-        msg.channel.fetchMessages({limit: subcmd})
-          .then((latestMessages) => {
-            let messageArray = latestMessages.array();
-            let messageCount = messageArray.length;
-
-            for (let i = 0; i <= messageCount; i++) {
-              messageArray[i].delete(0);
-            }
-          });
-      }
       msg.delete(0);
-    } else if (typeof subcmd !== 'undefined') {
+      msg.channel.fetchMessages({limit: subcmd})
+        .then(latestMessages) => {
+          let messageArray = latestMessages.array();
+          let messageCount = messageArray.length;
+
+          for (let i = 0; i < messageCount; i++) {
+            messageArray[i].delete(0);
+          }
+        });
+    } else if (typeof subcmd !== 'undefined' && typeof parseInt(subcmd) !== 'number') {
       if (admin) {
         if (deleteWord !== -1) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
