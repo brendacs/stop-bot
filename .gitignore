@@ -1,3 +1,4 @@
 node_modules/
-auth.json
+lib/
 data/
+auth.json

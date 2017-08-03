@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot) => {
+const deleteCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord) => {
   if (cmd === 'delete') {
     if (subcmd === 'list') {
       if (deletedWords.length !== 0) {
@@ -6,13 +6,13 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
       } else {
         msg.channel.send('There are no words on the delete list.')
       }
-    } else if (typeof parseInt(subcmd) === 'number') {
+    } else if (!isNaN(subcmd)) {
       let limit = parseInt(subcmd) + 1;
       msg.channel.fetchMessages({limit: limit})
         .then((latestMessages) => {
           msg.channel.bulkDelete(latestMessages);
         });
-    } else if (typeof subcmd !== 'undefined' && typeof parseInt(subcmd) !== 'number') {
+    } else if (typeof subcmd !== 'undefined' && isNaN(subcmd)) {
       if (admin) {
         if (deleteWord !== -1) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
@@ -30,3 +30,5 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
     }
   }
 }
+
+export default deleteCmd;

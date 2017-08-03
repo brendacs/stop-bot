@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, fishList, richEmbed) => {
+const goFish = (msg, cmd, subcmd, fishList, richEmbed) => {
   if (subcmd === 'fish') {
     fishEmojis = [':fish:', ':fish_cake:', ':fishing_pole_and_fish:', ':tropical_fish:', ':blowfish:'];
     fishNames = ['Fish', 'Fish Cake', 'Fish on a Fishing Pole', 'Tropical Fish', 'Blowfish'];
@@ -40,3 +40,6 @@ exports.run = (msg, cmd, subcmd, fishList, richEmbed) => {
     msg.channel.send({embed});
   }
 }
+
+export default goFish;
+

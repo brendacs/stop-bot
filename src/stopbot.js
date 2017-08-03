@@ -1,8 +1,8 @@
-const Discord = require('discord.js');
-const logger = require('winston');
-const request = require('superagent');
-const auth = require('./auth.json');
-const messageHandler = require('./messageHandler.js')
+import Discord from 'discord.js';
+import logger from 'winston';
+import request from 'superagent';
+import auth from '../auth.json';
+import messageHandler from './messageHandler.js';
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -36,6 +36,6 @@ bot.on('ready', (evt) => {
   bot.user.setPresence({status: 'online', game: {name: '!go fish | !help'}});
 });
 
-messageHandler.run(bot);
+messageHandler(bot);
 
 bot.login(TOKEN);

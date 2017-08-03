@@ -1,0 +1,21 @@
+{
+  "name": "stopbot-es6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stopbot.js",
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0"
+  },
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "fs": "0.0.1-security",
+    "superagent": "^3.5.2",
+    "winston": "^2.3.1"
+  }
+}

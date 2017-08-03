@@ -1,11 +1,11 @@
-const Discord = require('discord.js');
-const commandFile = require('./commands/commands.js');
-const fs = require('fs');
+import Discord from 'discord.js';
+import fs from 'fs';
+import commands from './commands/commands.js';
 
-exports.run = (bot) => {
+const messageHandler = (bot) => {
   const channel = new Discord.Channel();
   const richEmbed = new Discord.RichEmbed();
-  const date = new Date().toString();
+  
   let wordList = JSON.parse(fs.readFileSync('./data/wordList.json', 'utf8'));
   let fishList = JSON.parse(fs.readFileSync('./data/fishList.json', 'utf8'));
 
@@ -16,7 +16,7 @@ exports.run = (bot) => {
   }
 
   bot.on('message', (msg) => {
-    string = msg.content;
+    const string = msg.content;
     const thisGuild = msg.guild.id;
     const admin = msg.member.hasPermission('ADMINISTRATOR');
     const mod = msg.member.hasPermission('MANAGE_MESSAGES');
@@ -52,25 +52,25 @@ exports.run = (bot) => {
       const cmd = args[0];
       const subcmd = args[1];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
-        writeToFile('./data/wordList.json', wordList);
-        writeToFile('./data/fishList.json', fishList);
+        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
+        writeToFile('../data/wordList.json', wordList);
+        writeToFile('../data/fishList.json', fishList);
       }
     } else if (msg.mentions.users.has('340404757648769025')) {
       const args = msg.toString().split(' ');
       const cmd = args[1];
       const subcmd = args[2];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
-        writeToFile('./data/wordList.json', wordList);
-        writeToFile('./data/fishList.json', fishList);
+        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
+        writeToFile('../data/wordList.json', wordList);
+        writeToFile('../data/fishList.json', fishList);
       }
     } else {
       if (msg.author.bot) return;
       else {
         for (let i = 0; i <= stoppedWords.length; i++) {
           if (string.toString().toLowerCase().indexOf(stoppedWords[i]) !== -1) {
-            msg.channel.send(date);
+            msg.channel.send(new Date().toString());
             msg.reply('IT\'S TIME TO STOP.');
           }
         }
@@ -84,3 +84,5 @@ exports.run = (bot) => {
     }
   });
 }
+
+export default messageHandler;

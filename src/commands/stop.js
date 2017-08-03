@@ -1,7 +1,7 @@
-exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot, date) => {
+const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord) => {
   if (cmd === 'stop') {
     if (!subcmd) {
-      msg.channel.send(date);
+      msg.channel.send(new Date().toString());
       msg.channel.send('IT\'S TIME TO STOP.');
     } else if (subcmd === 'video') {
       msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
@@ -27,3 +27,5 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
     } else return;
   }
 }
+
+export default stopCmd;

@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, bot, richEmbed) => {
+const getInfo = (bot, msg, cmd, richEmbed) => {
   if (cmd === 'info') {
     msg.channel.send({
       embed: richEmbed.setColor('#ff0000').setDescription(
@@ -7,3 +7,5 @@ exports.run = (msg, cmd, bot, richEmbed) => {
     });
   }
 }
+
+export default getInfo;

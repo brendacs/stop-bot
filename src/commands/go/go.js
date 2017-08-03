@@ -1,6 +1,6 @@
-const goFish = require('./goFish.js');
+import goFish from './goFish.js';
 
-exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, bot, richEmbed) => {
+const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, richEmbed) => {
   if (cmd === 'go') {
     if (subcmd === 'fish' || subcmd === 'inv') {
       goFish.run(msg, cmd, subcmd, fishList, richEmbed);
@@ -21,3 +21,5 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
     }
   }
 }
+
+export default goCmd;
