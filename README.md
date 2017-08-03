@@ -27,6 +27,9 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 **Commands:**
 
+Admin = "Administrator" permission
+Mod = "Manage Messages" permission
+
 |Command|Description|Permissions|
 |---|---|--|
 |**General Commands**|||
@@ -40,6 +43,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 |**Delete Commands**|||
 |`delete <word>`|adds `<word>` to list of words that will be auto-deleted after 1 second|admin|
 |`delete list`|sends a list of all words that will be auto-deleted|everyone|
+|`delete <#>`|deletes the last # of messages in the channel|admin or mod|
 |**Go Commands**|||
 |`go <word>`|removes `<word>` from list of words to stop or delete|admin|
 
@@ -52,4 +56,4 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 
 ## Go Fish
 
-The bot doesn't only like to stop things. It likes to go fish too. I'll let you figure this one out on your own.
+The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the go command. I'll let you figure this one out on your own. Have fun!

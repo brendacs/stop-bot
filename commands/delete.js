@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot) => {
+exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot) => {
   if (cmd === 'delete') {
     if (subcmd === 'list') {
       if (deletedWords.length !== 0) {
@@ -6,6 +6,19 @@ exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, s
       } else {
         msg.channel.send('There are no words on the delete list.')
       }
+    } else if (typeof parseInt(subcmd) === 'number') {
+      for (let i = 0; i < subcmd; i++) {
+        msg.channel.fetchMessages({limit: subcmd})
+          .then((latestMessages) => {
+            let messageArray = latestMessages.array();
+            let messageCount = messageArray.length;
+
+            for (let i = 0; i <= messageCount; i++) {
+              messageArray[i].delete(0);
+            }
+          });
+      }
+      msg.delete(0);
     } else if (typeof subcmd !== 'undefined') {
       if (admin) {
         if (deleteWord !== -1) {
@@ -18,7 +31,7 @@ exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, s
         }
       } else if (!admin) {
         msg.reply('you can\'t use this command.');
-      } 
+      }
     } else {
       return;
     }

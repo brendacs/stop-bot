@@ -52,7 +52,7 @@ exports.run = (bot) => {
       const cmd = args[0];
       const subcmd = args[1];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
+        commandFile.run(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
         writeToFile('./data/wordList.json', wordList);
         writeToFile('./data/fishList.json', fishList);
       }
@@ -61,7 +61,7 @@ exports.run = (bot) => {
       const cmd = args[1];
       const subcmd = args[2];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
+        commandFile.run(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
         writeToFile('./data/wordList.json', wordList);
         writeToFile('./data/fishList.json', fishList);
       }

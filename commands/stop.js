@@ -1,4 +1,4 @@
-exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot, date) => {
+exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot, date) => {
   if (cmd === 'stop') {
     if (!subcmd) {
       msg.channel.send(date);
