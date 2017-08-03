@@ -53,8 +53,8 @@ const messageHandler = (bot) => {
       const subcmd = args[1];
       if (wordList[thisGuild]) {
         commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
-        writeToFile('../data/wordList.json', wordList);
-        writeToFile('../data/fishList.json', fishList);
+        writeToFile('./data/wordList.json', wordList);
+        writeToFile('./data/fishList.json', fishList);
       }
     } else if (msg.mentions.users.has('340404757648769025')) {
       const args = msg.toString().split(' ');
@@ -62,8 +62,8 @@ const messageHandler = (bot) => {
       const subcmd = args[2];
       if (wordList[thisGuild]) {
         commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
-        writeToFile('../data/wordList.json', wordList);
-        writeToFile('../data/fishList.json', fishList);
+        writeToFile('./data/wordList.json', wordList);
+        writeToFile('./data/fishList.json', fishList);
       }
     } else {
       if (msg.author.bot) return;

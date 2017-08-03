@@ -3,7 +3,7 @@ import goFish from './goFish.js';
 const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, richEmbed) => {
   if (cmd === 'go') {
     if (subcmd === 'fish' || subcmd === 'inv') {
-      goFish.run(msg, cmd, subcmd, fishList, richEmbed);
+      goFish(msg, cmd, subcmd, fishList, richEmbed);
     } else if (!admin && subcmd !== 'fish' && subcmd !== 'inv') {
       msg.reply('you can\'t use this command.');
     } else if (admin && typeof subcmd !== 'undefined') {
