@@ -13,7 +13,7 @@ exports.run = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
           let messageArray = latestMessages.array();
           let messageCount = messageArray.length;
 
-          for (let i = 0; i < messageCount; i++) {
+          for (let i = 0; i <= messageCount; i++) {
             messageArray[i].delete(0);
           }
         });
