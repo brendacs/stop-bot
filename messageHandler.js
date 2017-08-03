@@ -7,9 +7,10 @@ exports.run = (bot) => {
   const richEmbed = new Discord.RichEmbed();
   const date = new Date().toString();
   let wordList = JSON.parse(fs.readFileSync('./data/wordList.json', 'utf8'));
+  let fishList = JSON.parse(fs.readFileSync('./data/fishList.json', 'utf8'));
 
-  const writeToFile = () => {
-    fs.writeFile('./data/wordList.json', JSON.stringify(wordList), (err) => {
+  const writeToFile = (file, script) => {
+    fs.writeFile(file, JSON.stringify(script), (err) => {
       if (err) console.log(err);
     });
   }
@@ -20,10 +21,26 @@ exports.run = (bot) => {
     const admin = msg.member.hasPermission('ADMINISTRATOR');
     const mod = msg.member.hasPermission('MANAGE_MESSAGES');
 
+    // Initialize word lists for server
     if (!wordList[thisGuild]) {
       wordList[thisGuild] = {
         stopList: [],
         deleteList: []
+      }
+    }
+    // Initialize fish inventory for user
+    if (!fishList[msg.author.id]) {
+      fishList[msg.author.id] = {
+        fish: 0,
+        cake: 0,
+        fishPole: 0,
+        tropical: 0,
+        blowfish: 0,
+        cuteWhale: 0,
+        blueWhale: 0,
+        dolphin: 0,
+        octopus: 0,
+        unicorn: 0
       }
     }
 
@@ -35,16 +52,18 @@ exports.run = (bot) => {
       const cmd = args[0];
       const subcmd = args[1];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, bot, date, richEmbed);
-        writeToFile();
+        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
+        writeToFile('./data/wordList.json', wordList);
+        writeToFile('./data/fishList.json', fishList);
       }
     } else if (msg.mentions.users.has('340404757648769025')) {
       const args = msg.toString().split(' ');
       const cmd = args[1];
       const subcmd = args[2];
       if (wordList[thisGuild]) {
-        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, bot, date, richEmbed);
-        writeToFile();
+        commandFile.run(msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, fishList, bot, date, richEmbed);
+        writeToFile('./data/wordList.json', wordList);
+        writeToFile('./data/fishList.json', fishList);
       }
     } else {
       if (msg.author.bot) return;

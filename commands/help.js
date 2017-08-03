@@ -3,7 +3,6 @@ exports.run = (msg, cmd, richEmbed) => {
   const embed = richEmbed
     .setColor('#ff0000')
     .setDescription(
-
 `${help.headings.general} ${help.general}
 ${help.headings.stop} ${help.stop}
 ${help.headings.delete} ${help.delete}

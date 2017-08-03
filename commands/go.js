@@ -1,8 +1,9 @@
-exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, bot) => {
+exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, bot, richEmbed) => {
   if (cmd === 'go') {
     if (subcmd === 'fish') {
+
       fishEmojis = [':fish:', ':fish_cake:', ':fishing_pole_and_fish:', ':tropical_fish:', ':blowfish:'];
-      fishNames = [' Fish', ' Fish Cake', ' Fish on a Fishing Pole', ' Tropical Fish', ' Blowfish'];
+      fishNames = ['Fish', 'Fish Cake', 'Fish on a Fishing Pole', 'Tropical Fish', 'Blowfish'];
       rareFishEmojis = [':whale:', ':whale2:', ':dolphin:', ':octopus:', ':unicorn:'];
       rareFishNames = ['Cute Whale', 'Blue Whale', 'Dolphin', 'Octopus', 'Unicorn'];
       allFishEmojis = fishEmojis.concat(fishEmojis).concat(fishEmojis).concat(rareFishEmojis);
@@ -14,8 +15,33 @@ exports.run = (msg, cmd, subcmd, admin, thisGuild, stoppedWords, deletedWords, s
         fishCaught.push(allFishEmojis[i]);
       }
       msg.channel.send(fishCaught.join(' '));
-      msg.channel.send('You caught ' + fishNumber + allFishNames[i] + '!');
-    } else if (!admin && subcmd !== 'fish') {
+      msg.channel.send('You caught ' + fishNumber + ' ' + allFishNames[i] + '!');
+
+      // Add amount to data file
+      if (i === 0 || i === 5 || i === 10) fishList[msg.author.id].fish = fishList[msg.author.id].fish + fishNumber;
+      if (i === 1 || i === 6 || i === 11) fishList[msg.author.id].cake = fishList[msg.author.id].cake + fishNumber;
+      if (i === 2 || i === 7 || i === 12) fishList[msg.author.id].fishPole = fishList[msg.author.id].fishPole + fishNumber;
+      if (i === 3 || i === 8 || i === 13) fishList[msg.author.id].tropical = fishList[msg.author.id].tropical + fishNumber;
+      if (i === 4 || i === 9 || i === 14) fishList[msg.author.id].blowfish = fishList[msg.author.id].blowfish + fishNumber;
+      if (i === 5 || i === 10 || i === 15) fishList[msg.author.id].cuteWhale = fishList[msg.author.id].cuteWhale + fishNumber;
+      if (i === 6 || i === 11 || i === 16) fishList[msg.author.id].blueWhale = fishList[msg.author.id].blueWhale + fishNumber;
+      if (i === 7 || i === 12 || i === 17) fishList[msg.author.id].dolphin = fishList[msg.author.id].dolphin + fishNumber;
+      if (i === 8 || i === 13 || i === 18) fishList[msg.author.id].octopus = fishList[msg.author.id].octopus + fishNumber;
+    
+    } else if (subcmd === 'inv') {
+      const embed = richEmbed
+        .setColor('#ff0000')
+        .setDescription(`${msg.author}'s inventory
+
+**${fishList[msg.author.id].fish}**  x  :fish:      **${fishList[msg.author.id].cake}**  x  :fish_cake:      **${fishList[msg.author.id].fishPole}**  x  :fishing_pole_and_fish:
+
+**${fishList[msg.author.id].tropical}**  x  :tropical_fish:      **${fishList[msg.author.id].blowfish}**  x  :blowfish:      **${fishList[msg.author.id].cuteWhale}**  x  :whale:
+
+**${fishList[msg.author.id].blueWhale}**  x  :whale2:      **${fishList[msg.author.id].dolphin}**  x  :dolphin:      **${fishList[msg.author.id].octopus}**  x  :octopus:
+`);
+      msg.channel.send({embed});
+    }
+    else if (!admin && subcmd !== 'fish' && subcmd !== 'inv') {
       msg.reply('you can\'t use this command.');
     } else if (admin && typeof subcmd !== 'undefined') {
       if (stopWord !== -1) {

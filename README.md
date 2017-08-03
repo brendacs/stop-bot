@@ -49,3 +49,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 * `!stop kek` or `@Stop stop kek`
 * `!delete lel` or `@Stop delete lel`
 * `!go 4chan` or `@Stop go 4chan`
+
+## Go Fish
+
+The bot doesn't only like to stop things. It likes to go fish too. I'll let you figure this one out on your own.
