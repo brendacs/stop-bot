@@ -18,8 +18,18 @@ const messageHandler = (bot) => {
   bot.on('message', (msg) => {
     const string = msg.content;
     const thisGuild = msg.guild.id;
-    const admin = msg.member.hasPermission('ADMINISTRATOR');
-    const mod = msg.member.hasPermission('MANAGE_MESSAGES');
+
+    let admin;
+    let mod;
+
+    if (msg.member == null) {
+      const member = msg.guild.fetchMember(msg.author);
+      admin = member.hasPermission('ADMINISTRATOR');
+      mod = member.hasPermission('MANAGE_MESSAGES');
+    } else {
+      admin = msg.member.hasPermission('ADMINISTRATOR');
+      mod = msg.member.hasPermission('MANAGE_MESSAGES');
+    }
 
     // Initialize word lists for server
     if (!wordList[thisGuild]) {
