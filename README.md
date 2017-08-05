@@ -1,4 +1,4 @@
-![stop sign](https://raw.githubusercontent.com/brendacs/stop-bot/master/images/stop.png)
+![stop sign](https://raw.githubusercontent.com/brendacs/stop-bot/master/images/stop-banner-dark.png)
 
 # Stop Bot
 
