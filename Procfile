@@ -1,1 +1,1 @@
-worker: lib/stopbot.js
+worker: node lib/stopbot.js
