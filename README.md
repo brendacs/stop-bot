@@ -5,7 +5,7 @@
 Made to stop your Discord server from turning into a trollfest through message moderation.
 
 [![Discord.js](https://img.shields.io/badge/discord-js-yellow.svg)](https://github.com/hydrabolt/discord.js/)
-[![Servers: 20](https://img.shields.io/badge/servers-20-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Servers: 32](https://img.shields.io/badge/servers-32-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
 
 ## Invite
