@@ -4,13 +4,14 @@
 
 Made to stop your Discord server from turning into a trollfest through message moderation.
 
-[![Discord.js](https://img.shields.io/badge/discord-js-yellow.svg)](https://github.com/hydrabolt/discord.js/)
-[![Servers: 32](https://img.shields.io/badge/servers-32-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
+[![Servers: 50](https://img.shields.io/badge/servers-50-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
 
-## Invite
+## Invites
 
-Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200) to invite Stop Bot to your server! It'll need your permission to manage messages.
+* Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200) to invite Stop Bot to your server! It'll need your permission to manage messages.
+* Join Stop's Discord server [here](https://discord.gg/HwkMkKh) to give feedback, and have fun! The first 50 people to join get a `Special` role!
 
 ## Commands
 
@@ -57,3 +58,7 @@ Click [here](https://discordapp.com/oauth2/authorize?&client_id=3404047576487690
 ## Go Fish
 
 The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the go command. I'll let you figure this one out on your own. Have fun!
+
+# Contributing
+
+Contributions and pull requests are very welcome! This project uses [discord.js](https://github.com/hydrabolt/discord.js/) and ES6 syntax compiled using Babel. To contribute, please clone or fork the dev branch and configure `auth.json`. Read [CONTRIBUTING.md](CONTRIBUTING.md) for more a detailed guide on how to get started. If you are contributing, it is highly recommended that you join [Stop's Discord server](https://discord.gg/HwkMkKh) so you can discuss with me and other contributors.
