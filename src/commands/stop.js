@@ -11,7 +11,7 @@ const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedW
       } else {
         msg.channel.send('There are no words on the stop list.');
       }
-    } else if (typeof subcmd !== 'undefined') {
+    } else if (subcmd) {
       if (admin) {
         if (stopWord !== -1) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to stop.');
