@@ -1,9 +1,21 @@
 import goFish from './goFish.js';
 
+let nextAllowedCapture = 0;
+
 const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, richEmbed) => {
+  const coolDownMinutes = 3;
+  const coolDownSeconds = coolDownMinutes * 60;
+  const coolDownMs = coolDownSeconds * 1000;
+
   if (cmd === 'go') {
     if (subcmd === 'fish' || subcmd === 'inv') {
-      goFish(msg, cmd, subcmd, fishList, richEmbed);
+      let now = Date.now();
+      if (nextAllowedCapture <= now) {
+        goFish(msg, cmd, subcmd, fishList, richEmbed);
+        nextAllowedCapture = msg.createdTimestamp + coolDownMs;
+      } else {
+        msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((nextAllowedCapture - Date.now()) / 1000) + ' more seconds to repair.');
+      }
     } else if (!admin && subcmd !== 'fish' && subcmd !== 'inv') {
       msg.reply('you can\'t use this command.');
     } else if (admin && typeof subcmd !== 'undefined') {
