@@ -5,13 +5,15 @@
 Made to stop your Discord server from turning into a trollfest through message moderation.
 
 [![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
-[![Servers: 50](https://img.shields.io/badge/servers-50-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
+[![Servers: 70](https://img.shields.io/badge/servers-70+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Discord](https://discordapp.com/api/guilds/343657694793826304/widget.png)](https://discord.gg/HwkMkKh)
 
 ## Invites
 
 * Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200) to invite Stop Bot to your server! It'll need your permission to manage messages.
 * Join Stop's Discord server [here](https://discord.gg/HwkMkKh) to give feedback, and have fun! The first 50 people to join get a `Special` role!
+* You can check out stop bot on [discordbots.org](https://discordbots.org/bot/340404757648769025) or [bots.discord.pw](https://bots.discord.pw/bots/340404757648769025).
 
 ## Commands
 
