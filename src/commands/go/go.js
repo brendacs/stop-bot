@@ -1,6 +1,7 @@
 import goFish from './goFish.js';
 
 let nextAllowedCapture = 0;
+let allowedTimes = {};
 
 const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, richEmbed) => {
   const coolDownMinutes = 3;
@@ -10,11 +11,12 @@ const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWor
   if (cmd === 'go') {
     if (subcmd === 'fish' || subcmd === 'inv') {
       let now = Date.now();
-      if (nextAllowedCapture <= now) {
+      if (!allowedTimes[msg.author.id] || allowedTimes[msg.author.id] <= now) {
         goFish(msg, cmd, subcmd, fishList, richEmbed);
         nextAllowedCapture = msg.createdTimestamp + coolDownMs;
+        allowedTimes[msg.author.id] = nextAllowedCapture;
       } else {
-        msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((nextAllowedCapture - Date.now()) / 1000) + ' more seconds to repair.');
+        msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((allowedTimes[msg.author.id] - Date.now()) / 1000) + ' more seconds to repair.');
       }
     } else if (!admin && subcmd !== 'fish' && subcmd !== 'inv') {
       msg.reply('you can\'t use this command.');
