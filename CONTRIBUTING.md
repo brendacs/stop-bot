@@ -6,18 +6,21 @@ Thank you for wanting to contribute and make Stop better for everyone! Here is a
 
 * Before anything else, join [Stop's Discord server](https://discord.gg/HwkMkKh).
 * Clone the repo to your local machine.
-* Use the development branch: `git checkout dev`.
-* Add a bot token to `auth.json` for testing.
+* Use the development branch, `dev1`.
+* Create an app and app bot user at [Discord developers](https://discordapp.com/developers/applications/me).
+* Create an `auth.json` and add your bot token for testing.
 * Run `npm install` to install all dependencies.
-* Use `npm run build` to use Babel to compile the ES6 syntax.
-* Create a branch off of `dev` called `dev/camelCase`.
-  * ex: `dev/makeStopCooler` or `dev/addNewStopSign`
+* Use `npm run build` for Babel to compile the ES6 syntax.
+* Create a branch off of `dev1` called `dev1/camelCase`.
+  * ex: `dev1/makeStopCooler` or `dev1/addNewStopSign`
+* Make sure you have [Node](https://nodejs.org/en/) installed before running.
+  * To run: `node lib/stopbot.js`
 * Start coding and discussing!
 
 ##### Some quick notes:
 
-* The `dbot_token` and `pw_bot` tokens in auth.json should not be used.
-* The files in `data/`are initially empty. They are used for your testing.
+* The server count code snippets in `stopbot.js` may have to be commented out before you can run. These are for posting the server count to the discord bot lists Stop is on. Since the tokens don't exist in your auth.json, it'll throw an error at you. (I'll eventually move these elsewhere so they don't bother you.)
+* Currently, there is no `data/` and no `stopList.json`, `deleteList.json`, or `fishList.json`. You can make empty data files to test, but I am moving everything from crappy JSON to a PostgreSQL server so this won't be an issue soon.
 
 ##### What happens afterwards?
 

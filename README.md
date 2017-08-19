@@ -6,7 +6,7 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 [![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
-[![Servers: 70](https://img.shields.io/badge/servers-70+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Servers: 100+](https://img.shields.io/badge/servers-100+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 [![Discord](https://discordapp.com/api/guilds/343657694793826304/widget.png)](https://discord.gg/HwkMkKh)
 
 ## Invites
@@ -63,4 +63,4 @@ The bot doesn't only like to stop things. It likes to go fish too. You can catch
 
 # Contributing
 
-Contributions and pull requests are very welcome! This project uses [discord.js](https://github.com/hydrabolt/discord.js/) and ES6 syntax compiled using Babel. To contribute, please clone or fork the dev branch and configure `auth.json`. Read [CONTRIBUTING.md](CONTRIBUTING.md) for more a detailed guide on how to get started. If you are contributing, it is highly recommended that you join [Stop's Discord server](https://discord.gg/HwkMkKh) so you can discuss with me and other contributors.
+Contributions and pull requests are very welcome! This project uses [discord.js](https://github.com/hydrabolt/discord.js/) and ES6 syntax compiled using Babel. To contribute, please clone or fork the `dev1` branch and configure an `auth.json`. Read [CONTRIBUTING.md](CONTRIBUTING.md) for more a detailed guide on how to get started. If you are contributing, it is highly recommended that you join [Stop's Discord server](https://discord.gg/HwkMkKh) so you can discuss with me and other contributors.
