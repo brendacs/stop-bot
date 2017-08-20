@@ -5,17 +5,29 @@ import stopCmd from './stop.js';
 import deleteCmd from './delete.js';
 import goCmd from './go/go.js';
 
-const commands = (bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList) => {
+const commands = (bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, fishList) => {
   const richEmbed = new Discord.RichEmbed();
 
-  const stopWord = stoppedWords.indexOf(subcmd);
-  const deleteWord = deletedWords.indexOf(subcmd);
+  let isStopped;
+  let isDeleted;
+
+  if (stopList.indexOf(subcmd) !== -1) {
+    isStopped = true;
+  } else {
+    isStopped = false;
+  }
+
+  if (deleteList.indexOf(subcmd) !== -1) {
+    isDeleted = true;
+  } else {
+    isDeleted = false;
+  }
 
   helpCmd(msg, cmd, richEmbed);
   getInfo(bot, msg, cmd, richEmbed);
-  stopCmd(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord);
-  deleteCmd(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord);
-  goCmd(msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, stopWord, deleteWord, fishList, richEmbed);
+  stopCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  deleteCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  goCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, fishList, richEmbed);
 }
 
 export default commands;

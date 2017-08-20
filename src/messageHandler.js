@@ -1,23 +1,18 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import commands from './commands/commands.js';
+import pg from 'pg';
 
-const messageHandler = (bot) => {
+const messageHandler = (bot, stopClient) => {
   const channel = new Discord.Channel();
   const richEmbed = new Discord.RichEmbed();
-  
-  let wordList = JSON.parse(fs.readFileSync('./data/wordList.json', 'utf8'));
-  let fishList = JSON.parse(fs.readFileSync('./data/fishList.json', 'utf8'));
-
-  const writeToFile = (file, script) => {
-    fs.writeFile(file, JSON.stringify(script), (err) => {
-      if (err) console.log(err);
-    });
-  }
 
   bot.on('message', (msg) => {
+    if (msg.author.bot) return;
+
     const string = msg.content;
     const thisGuild = msg.guild.id;
+    const thisAuthor = msg.author;
 
     let admin;
     let mod;
@@ -31,64 +26,64 @@ const messageHandler = (bot) => {
       mod = msg.member.hasPermission('MANAGE_MESSAGES');
     }
 
-    // Initialize word lists for server
-    if (!wordList[thisGuild]) {
-      wordList[thisGuild] = {
-        stopList: [],
-        deleteList: []
-      }
-    }
-    // Initialize fish inventory for user
-    if (!fishList[msg.author.id]) {
-      fishList[msg.author.id] = {
-        fish: 0,
-        cake: 0,
-        fishPole: 0,
-        tropical: 0,
-        blowfish: 0,
-        cuteWhale: 0,
-        blueWhale: 0,
-        dolphin: 0,
-        octopus: 0,
-        unicorn: 0
-      }
-    }
+    let stopList;
+    let deleteList;
+    let fishList;
 
-    let stoppedWords = wordList[thisGuild].stopList;
-    let deletedWords = wordList[thisGuild].deleteList;
+    const wordListQuery = `SELECT * from word_lists WHERE serverid = '${thisGuild}'`;
+    const fishListQuery = `SELECT * from fish_lists WHERE userid = '${thisAuthor}'`;
 
-    if (msg.toString().substring(0, 1) === '!') {
+    stopClient.query(wordListQuery, function(err, result) {
+      console.log('here 1')
+      if (!result || !result.rows[0]) {
+        stopClient.query(`INSERT INTO word_lists VALUES (${thisGuild}, '{}', '{}')`);
+        stopClient.query(wordListQuery, function(err, result) {
+          stopList = result.rows[0]['stoplist'];
+          deleteList = result.rows[0]['deletelist'];
+          console.log('here 2')
+        });
+      } else {
+        stopList = result.rows[0]['stoplist'];
+        deleteList = result.rows[0]['deletelist'];
+      }
+    });
+
+    stopClient.query(fishListQuery, function(err, result) {
+      if (!result || !result.rows[0]) {
+        stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`);
+        stopClient.query(fishListQuery, function(err, result) {
+          fishList = result.rows[0];
+        })
+      } else {
+        fishList = result.rows[0];
+      }
+    })
+
+    if (msg.toString().substring(0, 1) === '!') { // if prefix is used
       const args = msg.toString().substring(1).split(' ');
       const cmd = args[0];
       const subcmd = args[1];
-      if (wordList[thisGuild]) {
-        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
-        writeToFile('./data/wordList.json', wordList);
-        writeToFile('./data/fishList.json', fishList);
+      if (stopList && deleteList) {
+        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, fishList);
       }
-    } else if (msg.mentions.users.has('340404757648769025')) {
+    } else if (msg.mentions.users.has('340404757648769025')) { // if bot is mentioned
       const args = msg.toString().split(' ');
       const cmd = args[1];
       const subcmd = args[2];
-      if (wordList[thisGuild]) {
-        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stoppedWords, deletedWords, wordList, fishList);
-        writeToFile('./data/wordList.json', wordList);
-        writeToFile('./data/fishList.json', fishList);
+      if (stopList && deleteList) {
+        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, fishList);
       }
     } else {
-      if (msg.author.bot) return;
-      else {
-        for (let i = 0; i < stoppedWords.length; i++) {
-          if (string.toString().toLowerCase().indexOf(stoppedWords[i]) !== -1) {
-            msg.channel.send(new Date().toString());
-            msg.reply('IT\'S TIME TO STOP.');
-          }
+      for (let i = 0; i < stopList.length; i++) {
+        if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
+          msg.channel.send(new Date().toString());
+          msg.reply('IT\'S TIME TO STOP.');
         }
-        for (let i = 0; i < deletedWords.length; i++) {
-          if (string.toString().toLowerCase().indexOf(deletedWords[i]) !== -1) {
-            msg.delete(1000);
-            msg.channel.send('Detected something horrible. Deleted.');
-          }
+      }
+      for (let i = 0; i < deleteList.length; i++) {
+        if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
+          msg.delete(1000);
+          msg.channel.send('Detected something horrible. Deleted.');
         }
       }
     }
