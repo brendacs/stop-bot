@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import fs from 'fs';
-import commands from './commands/commands.js';
 import pg from 'pg';
+import msgParser from './msgParser';
 
 const messageHandler = (bot, stopClient) => {
   const channel = new Discord.Channel();
@@ -9,8 +9,7 @@ const messageHandler = (bot, stopClient) => {
 
   bot.on('message', (msg) => {
     if (msg.author.bot) return;
-
-    const string = msg.content;
+    
     const thisGuild = msg.guild.id;
     const thisAuthor = msg.author;
 
@@ -26,67 +25,52 @@ const messageHandler = (bot, stopClient) => {
       mod = msg.member.hasPermission('MANAGE_MESSAGES');
     }
 
-    let stopList;
-    let deleteList;
-    let fishList;
-
     const wordListQuery = `SELECT * from word_lists WHERE serverid = '${thisGuild}'`;
     const fishListQuery = `SELECT * from fish_lists WHERE userid = '${thisAuthor}'`;
 
-    stopClient.query(wordListQuery, function(err, result) {
-      console.log('here 1')
-      if (!result || !result.rows[0]) {
-        stopClient.query(`INSERT INTO word_lists VALUES (${thisGuild}, '{}', '{}')`);
-        stopClient.query(wordListQuery, function(err, result) {
-          stopList = result.rows[0]['stoplist'];
-          deleteList = result.rows[0]['deletelist'];
-          console.log('here 2')
-        });
-      } else {
-        stopList = result.rows[0]['stoplist'];
-        deleteList = result.rows[0]['deletelist'];
-      }
-    });
-
-    stopClient.query(fishListQuery, function(err, result) {
-      if (!result || !result.rows[0]) {
-        stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`);
-        stopClient.query(fishListQuery, function(err, result) {
-          fishList = result.rows[0];
-        })
-      } else {
-        fishList = result.rows[0];
-      }
-    })
-
-    if (msg.toString().substring(0, 1) === '!') { // if prefix is used
-      const args = msg.toString().substring(1).split(' ');
-      const cmd = args[0];
-      const subcmd = args[1];
-      if (stopList && deleteList) {
-        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, fishList);
-      }
-    } else if (msg.mentions.users.has('340404757648769025')) { // if bot is mentioned
-      const args = msg.toString().split(' ');
-      const cmd = args[1];
-      const subcmd = args[2];
-      if (stopList && deleteList) {
-        commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, fishList);
-      }
-    } else {
-      for (let i = 0; i < stopList.length; i++) {
-        if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
-          msg.channel.send(new Date().toString());
-          msg.reply('IT\'S TIME TO STOP.');
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
+      .then(result => {
+        let guildExists = result.rows[0]['exists'];
+        if (guildExists) {
+          stopClient.query(wordListQuery)
+            .then(result => {
+              let stopList = result.rows[0]['stoplist'];
+              let deleteList = result.rows[0]['deletelist'];
+              msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
+            })
+        } else {
+          stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
+            .then(result => {console.log('inserted')})
+          stopClient.query(wordListQuery)
+            .then(result => {
+              let stopList = result.rows[0]['stoplist'];
+              let deleteList = result.rows[0]['deletelist'];
+              msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
+            })
         }
-      }
-      for (let i = 0; i < deleteList.length; i++) {
-        if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
-          msg.delete(1000);
-          msg.channel.send('Detected something horrible. Deleted.');
-        }
-      }
-    }
+      })
+      .catch(err => console.error(err.stack));
+
+    // stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${thisAuthor})`)
+    //   .then(result => {
+    //     let userExists = result.rows[0]['exists'];
+    //     if (userExists) {
+    //       stopClient.query(fishListQuery)
+    //         .then(result => {
+    //           let fishList = result.rows;
+    //           msgParser(msg, admin, mod, thisGuild, stopList, deleteList, fishList);
+    //         })
+    //     } else {
+    //       stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
+    //         .then(result => {console.log('inserted')})
+    //       stopClient.query(fishListQuery)
+    //         .then(result => {
+    //           let fishList = result.rows;
+    //           msgParser(msg, admin, mod, thisGuild, stopList, deleteList, fishList);
+    //         })
+    //     }
+    //   })
+    //   .catch(err => console.error(err.stack));
   });
 }
 

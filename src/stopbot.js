@@ -6,6 +6,8 @@ import messageHandler from './messageHandler.js';
 import express from 'express';
 import pg from 'pg';
 
+const app = express();
+
 // database configs
 const PGUSER = 'brendazhang';
 const PGDATABASE = 'stopbot_db';
@@ -21,9 +23,13 @@ const config = {
 const stopClient = new pg.Client(config);
 stopClient.connect();
 
+app.listen(5432, () => {
+  console.log('Server started');
+});
+
 // trial query
 stopClient.query(`SELECT * from word_lists WHERE serverid = '264445053596991498'`, (err, result) => {
-  console.log(err ? err : result.rows[0]['stoplist']);
+  console.log(err ? err : result.rows[0]['stoplist'].length);
 });
 
 // Configure logger settings
