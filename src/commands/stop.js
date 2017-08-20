@@ -1,4 +1,4 @@
-const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (cmd === 'stop') {
     if (!subcmd) {
       msg.channel.send(new Date().toString());
@@ -18,7 +18,7 @@ const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, 
         } else if (isDeleted) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
         } else {
-          stopList.push(subcmd.toLowerCase());
+          stopClient.query(`UPDATE word_lists SET stoplist = stoplist || '{${subcmd.toLowerCase()}}' WHERE serverid=${thisGuild}`);
           msg.channel.send('`' + subcmd + '`' + ' will now be stopped.');
         }
       } else if (!admin) {

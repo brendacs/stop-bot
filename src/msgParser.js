@@ -1,21 +1,21 @@
 import commands from './commands/commands.js';
 
-const msgParser = (bot, msg, admin, mod, thisGuild, stopList, deleteList) => {
+const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
   const string = msg.content;
-  
+
   if (msg.toString().substring(0, 1) === '!') { // if prefix is used
     const args = msg.toString().substring(1).split(' ');
     const cmd = args[0];
     const subcmd = args[1];
     if (stopList && deleteList) {
-      commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
+      commands(bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
     }
   } else if (msg.mentions.users.has('340404757648769025')) { // if bot is mentioned
     const args = msg.toString().split(' ');
     const cmd = args[1];
     const subcmd = args[2];
     if (stopList && deleteList) {
-      commands(bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
+      commands(bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
     }
   } else {
     for (let i = 0; i < stopList.length; i++) {

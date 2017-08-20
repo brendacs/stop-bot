@@ -9,7 +9,7 @@ const messageHandler = (bot, stopClient) => {
 
   bot.on('message', (msg) => {
     if (msg.author.bot) return;
-    
+
     const thisGuild = msg.guild.id;
     const thisAuthor = msg.author;
 
@@ -25,8 +25,8 @@ const messageHandler = (bot, stopClient) => {
       mod = msg.member.hasPermission('MANAGE_MESSAGES');
     }
 
-    const wordListQuery = `SELECT * from word_lists WHERE serverid = '${thisGuild}'`;
-    const fishListQuery = `SELECT * from fish_lists WHERE userid = '${thisAuthor}'`;
+    const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
+    const fishListQuery = `SELECT * FROM fish_lists WHERE userid = '${thisAuthor}'`;
 
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
       .then(result => {
@@ -36,7 +36,7 @@ const messageHandler = (bot, stopClient) => {
             .then(result => {
               let stopList = result.rows[0]['stoplist'];
               let deleteList = result.rows[0]['deletelist'];
-              msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
+              msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
         } else {
           stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
@@ -45,7 +45,7 @@ const messageHandler = (bot, stopClient) => {
             .then(result => {
               let stopList = result.rows[0]['stoplist'];
               let deleteList = result.rows[0]['deletelist'];
-              msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
+              msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
         }
       })

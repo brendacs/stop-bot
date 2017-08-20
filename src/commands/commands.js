@@ -5,7 +5,7 @@ import stopCmd from './stop.js';
 import deleteCmd from './delete.js';
 import goCmd from './go/go.js';
 
-const commands = (bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList) => {
+const commands = (bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList) => {
   const richEmbed = new Discord.RichEmbed();
 
   let isStopped;
@@ -25,9 +25,9 @@ const commands = (bot, msg, cmd, subcmd, admin, mod, thisGuild, stopList, delete
 
   helpCmd(msg, cmd, richEmbed);
   getInfo(bot, msg, cmd, richEmbed);
-  stopCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
-  deleteCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
-  // goCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, fishList, richEmbed);
+  stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  deleteCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
 }
 
 export default commands;

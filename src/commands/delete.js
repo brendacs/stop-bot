@@ -1,4 +1,4 @@
-const deleteCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (cmd === 'delete') {
     if (subcmd === 'list') {
       if (deleteList.length !== 0) {
@@ -19,7 +19,7 @@ const deleteCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList
         } else if (isStopped) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to stop.');
         } else {
-          deleteList.push(subcmd.toLowerCase());
+          stopClient.query(`UPDATE word_lists SET deletelist = deletelist || '{${subcmd.toLowerCase()}}' WHERE serverid=${thisGuild}`);
           msg.channel.send('`' + subcmd + '`' + ' will be deleted every time it appears.');
         }
       } else if (!admin) {
