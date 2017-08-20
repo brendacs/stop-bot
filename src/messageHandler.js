@@ -17,9 +17,12 @@ const messageHandler = (bot, stopClient) => {
     let mod;
 
     if (msg.member == null) {
-      const member = msg.guild.fetchMember(msg.author);
-      admin = member.hasPermission('ADMINISTRATOR');
-      mod = member.hasPermission('MANAGE_MESSAGES');
+      // insert null member into cache
+      msg.guild.fetchMember(msg.author, true);
+      
+      // check permissions of member
+      admin = msg.member.hasPermission('ADMINISTRATOR');
+      mod = msg.member.hasPermission('MANAGE_MESSAGES');
     } else {
       admin = msg.member.hasPermission('ADMINISTRATOR');
       mod = msg.member.hasPermission('MANAGE_MESSAGES');
