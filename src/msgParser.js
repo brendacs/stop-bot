@@ -9,13 +9,14 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
       if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
         msg.channel.send(new Date().toString());
         msg.reply('IT\'S TIME TO STOP.');
-        return; // prevents from sending multiple stop messages if multiple stopped words detected in one msg
+        return; // prevents bot from sending multiple messages if multiple words in one msg
       }
     }
     for (let i = 0; i < deleteList.length; i++) {
       if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
         msg.delete(1000);
         msg.channel.send('Detected something horrible. Deleted.');
+        return;
       }
     }
   }
