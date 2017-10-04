@@ -27,11 +27,6 @@ app.listen(5432, () => {
   console.log('Server started');
 });
 
-// trial query
-stopClient.query(`SELECT * from word_lists WHERE serverid = '264445053596991498'`, (err, result) => {
-  console.log(err ? err : result.rows[0]['stoplist'].length);
-});
-
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {

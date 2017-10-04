@@ -11,7 +11,8 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList
       msg.channel.fetchMessages({limit: limit})
         .then((latestMessages) => {
           msg.channel.bulkDelete(latestMessages);
-        });
+        })
+        .catch(err => console.log(err));
     } else if (subcmd && isNaN(subcmd)) {
       if (admin) {
         if (isDeleted) {

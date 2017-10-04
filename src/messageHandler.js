@@ -41,15 +41,17 @@ const messageHandler = (bot, stopClient) => {
               let deleteList = result.rows[0]['deletelist'];
               msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
+            .catch(err => console.log(err));
         } else {
           stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
-            .then(result => {console.log('inserted')})
+            .then(result => {console.log('inserted')});
           stopClient.query(wordListQuery)
             .then(result => {
               let stopList = result.rows[0]['stoplist'];
               let deleteList = result.rows[0]['deletelist'];
               msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
+            .catch(err => console.log(err));
         }
       })
       .catch(err => console.error(err.stack));
