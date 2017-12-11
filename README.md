@@ -6,13 +6,13 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 [![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
-[![Servers: 200+](https://img.shields.io/badge/servers-200+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
-[![Users: 15000+](https://img.shields.io/badge/users-15000+-orange.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Servers: 200+](https://img.shields.io/badge/servers-350+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Users: 15000+](https://img.shields.io/badge/users-20000+-orange.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 
 ## Invites
 
 * Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200) to invite Stop Bot to your server! It'll need your permission to manage messages.
-* Join Stop's Discord server [here](https://discord.gg/HwkMkKh) to give feedback, and have fun! The first 50 people to join get a `Special` role!
+* Join Stop's Discord server [here](https://discord.gg/HwkMkKh) to give feedback, and have fun! The first 20 people to join get a `Special` role!
 * You can check out stop bot on [discordbots.org](https://discordbots.org/bot/340404757648769025) or [bots.discord.pw](https://bots.discord.pw/bots/340404757648769025).
 
 ## Commands
@@ -60,6 +60,8 @@ Made to stop your Discord server from turning into a trollfest through message m
 ## Go Fish
 
 The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the go command. I'll let you figure this one out on your own. Have fun!
+
+(This is temporarily down.)
 
 # Contributing
 
