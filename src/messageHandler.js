@@ -56,26 +56,24 @@ const messageHandler = (bot, stopClient) => {
       })
       .catch(err => console.error(err.stack));
 
-    // stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${thisAuthor})`)
-    //   .then(result => {
-    //     let userExists = result.rows[0]['exists'];
-    //     if (userExists) {
-    //       stopClient.query(fishListQuery)
-    //         .then(result => {
-    //           let fishList = result.rows;
-    //           msgParser(msg, admin, mod, thisGuild, stopList, deleteList, fishList);
-    //         })
-    //     } else {
-    //       stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
-    //         .then(result => {console.log('inserted')})
-    //       stopClient.query(fishListQuery)
-    //         .then(result => {
-    //           let fishList = result.rows;
-    //           msgParser(msg, admin, mod, thisGuild, stopList, deleteList, fishList);
-    //         })
-    //     }
-    //   })
-    //   .catch(err => console.error(err.stack));
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${thisAuthor})`)
+      .then(result => {
+        let userExists = result.rows[0]['exists'];
+        if (userExists) {
+          stopClient.query(fishListQuery)
+            .then(result => {
+              msgParser(msg, admin, mod, thisGuild, stopList, deleteList);
+            })
+        } else {
+          stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
+            .then(result => {console.log('inserted')})
+          stopClient.query(fishListQuery)
+            .then(result => {
+              msgParser(msg, admin, mod, thisGuild, stopList, deleteList);
+            })
+        }
+      })
+      .catch(err => console.error(err.stack));
   });
 }
 

@@ -1,4 +1,4 @@
-const goFish = (msg, cmd, subcmd, fishList, richEmbed) => {
+const goFish = (stopClient, msg, cmd, subcmd, richEmbed) => {
   if (subcmd === 'fish') {
 
     // Arrays of fish names, emojis names, and db names
@@ -28,21 +28,31 @@ const goFish = (msg, cmd, subcmd, fishList, richEmbed) => {
     msg.channel.send(fishCaught.join(' '));
     msg.channel.send('You caught ' + fishNumber + ' ' + allFishNames[fishType] + '!');
 
-    // Add amount to data
-    fishList[allDBNames[fishType]] += fishNumber;
+    // Update database with amount
+    stopClient.query(`UPDATE fish_lists SET ${allDBNames[fishType]} = ${allDBNames[fishType]} + fishNumber WHERE userid=${msg.author.id}`);
 
   } else if (subcmd === 'inv') {
-    
+
+    let fish = stopClient.query(`SELECT fish FROM fish_lists WHERE userid=${msg.author.id}`);
+    let cake = stopClient.query(`SELECT cake FROM fish_lists WHERE userid=${msg.author.id}`);
+    let fishpole = stopClient.query(`SELECT fishpole FROM fish_lists WHERE userid=${msg.author.id}`);
+    let tropical = stopClient.query(`SELECT tropical FROM fish_lists WHERE userid=${msg.author.id}`);
+    let blowfish = stopClient.query(`SELECT blowfish FROM fish_lists WHERE userid=${msg.author.id}`);
+    let cutewhale = stopClient.query(`SELECT cutewhale FROM fish_lists WHERE userid=${msg.author.id}`);
+    let bluewhale = stopClient.query(`SELECT bluewhale FROM fish_lists WHERE userid=${msg.author.id}`);
+    let dolphin = stopClient.query(`SELECT dolphin FROM fish_lists WHERE userid=${msg.author.id}`);
+    let octopus = stopClient.query(`SELECT octopus FROM fish_lists WHERE userid=${msg.author.id}`);
+
     // Rich embed message of inventory
     const embed = richEmbed
       .setColor('#ff0000')
       .setDescription(`${msg.author}'s inventory
 
-  **${fishList['fish']}**  x  :fish:     * *${fishList['cake']}**  x  :fish_cake:      **${fishList['fishpole']}**  x  :fishing_pole_and_fish:
+  **${fish}**  x  :fish:     * *${fishList['cake']}**  x  :fish_cake:      **${fishList['fishpole']}**  x  :fishing_pole_and_fish:
 
   **${fishList['tropical']}**  x  :tropical_fish:      **${fishList['blowfish']}**  x  :blowfish:      **${fishList['cutewhale']}**  x  :whale:
 
-  **${fishList['cutewhale']}**  x  :whale2:      **${fishList['dolphin']}**  x  :dolphin:      **${fishList['octopus']}**  x  :octopus:
+  **${fishList['bluewhale']}**  x  :whale2:      **${fishList['dolphin']}**  x  :dolphin:      **${fishList['octopus']}**  x  :octopus:
   `);
     msg.channel.send({embed});
   }
