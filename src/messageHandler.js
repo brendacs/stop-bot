@@ -11,7 +11,7 @@ const messageHandler = (bot, stopClient) => {
     if (msg.author.bot) return;
 
     const thisGuild = msg.guild.id;
-    const thisAuthor = msg.author;
+    const thisAuthor = msg.author.id;
 
     let admin;
     let mod;
@@ -29,7 +29,8 @@ const messageHandler = (bot, stopClient) => {
     }
 
     const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
-    const fishListQuery = `SELECT * FROM fish_lists WHERE userid = '${thisAuthor}'`;
+    let stopList;
+    let deleteList;
 
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
       .then(result => {
@@ -37,8 +38,8 @@ const messageHandler = (bot, stopClient) => {
         if (guildExists) {
           stopClient.query(wordListQuery)
             .then(result => {
-              let stopList = result.rows[0]['stoplist'];
-              let deleteList = result.rows[0]['deletelist'];
+              stopList = result.rows[0]['stoplist'];
+              deleteList = result.rows[0]['deletelist'];
               msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
             .catch(err => console.log(err));
@@ -47,30 +48,11 @@ const messageHandler = (bot, stopClient) => {
             .then(result => {console.log('inserted')});
           stopClient.query(wordListQuery)
             .then(result => {
-              let stopList = result.rows[0]['stoplist'];
-              let deleteList = result.rows[0]['deletelist'];
+              stopList = result.rows[0]['stoplist'];
+              deleteList = result.rows[0]['deletelist'];
               msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
             })
             .catch(err => console.log(err));
-        }
-      })
-      .catch(err => console.error(err.stack));
-
-    stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${thisAuthor})`)
-      .then(result => {
-        let userExists = result.rows[0]['exists'];
-        if (userExists) {
-          stopClient.query(fishListQuery)
-            .then(result => {
-              msgParser(msg, admin, mod, thisGuild, stopList, deleteList);
-            })
-        } else {
-          stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
-            .then(result => {console.log('inserted')})
-          stopClient.query(fishListQuery)
-            .then(result => {
-              msgParser(msg, admin, mod, thisGuild, stopList, deleteList);
-            })
         }
       })
       .catch(err => console.error(err.stack));

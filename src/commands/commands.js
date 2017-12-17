@@ -23,11 +23,11 @@ const commands = (bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stop
     isDeleted = false;
   }
 
-  helpCmd(msg, cmd, richEmbed);
-  getInfo(bot, msg, cmd, richEmbed);
-  stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
-  deleteCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
-  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
+  if (cmd === 'help') helpCmd(msg, cmd, richEmbed);
+  else if (cmd === 'info') getInfo(bot, msg, cmd, richEmbed);
+  else if (cmd === 'stop') stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  else if (cmd === 'go')  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
 }
 
 export default commands;

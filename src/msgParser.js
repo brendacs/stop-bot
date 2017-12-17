@@ -35,7 +35,7 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
     const args = msg.toString().split(' ');
     const cmd = args[1];
     const subcmd = args[2];
-    if (stopList && deleteList) {
+    if (stopList && deleteList && cmds.indexOf(cmd) !== -1) {
       commands(bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
     }
   } else {
