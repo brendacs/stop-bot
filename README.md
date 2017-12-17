@@ -63,8 +63,6 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the `!go fish` command. Have fun!
 
-(This is temporarily down.)
-
 # Contributing
 
 Contributions and pull requests are very welcome! This project uses [discord.js](https://github.com/hydrabolt/discord.js/) and ES6 syntax compiled using Babel. To contribute, please clone or fork the `dev1` branch and configure an `auth.json`. Read [CONTRIBUTING.md](CONTRIBUTING.md) for more a detailed guide on how to get started. If you are contributing, it is highly recommended that you join [Stop's Discord server](https://discord.gg/HwkMkKh) so you can discuss with me and other contributors.
