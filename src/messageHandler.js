@@ -35,25 +35,17 @@ const messageHandler = (bot, stopClient) => {
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
       .then(result => {
         let guildExists = result.rows[0]['exists'];
-        if (guildExists) {
-          stopClient.query(wordListQuery)
-            .then(result => {
-              stopList = result.rows[0]['stoplist'];
-              deleteList = result.rows[0]['deletelist'];
-              msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
-            })
-            .catch(err => console.log(err));
-        } else {
+        if (!guildExists) {
           stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
             .then(result => {console.log('inserted')});
-          stopClient.query(wordListQuery)
-            .then(result => {
-              stopList = result.rows[0]['stoplist'];
-              deleteList = result.rows[0]['deletelist'];
-              msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
-            })
-            .catch(err => console.log(err));
         }
+        stopClient.query(wordListQuery)
+          .then(result => {
+            stopList = result.rows[0]['stoplist'];
+            deleteList = result.rows[0]['deletelist'];
+            msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.error(err.stack));
   });
