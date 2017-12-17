@@ -6,7 +6,7 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 [![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
-[![Servers: 200+](https://img.shields.io/badge/servers-350+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Servers: 200+](https://img.shields.io/badge/servers-400+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 [![Users: 15000+](https://img.shields.io/badge/users-20000+-orange.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
 
 ## Invites
@@ -49,6 +49,8 @@ Made to stop your Discord server from turning into a trollfest through message m
 |`delete <#>`|deletes the last # of messages in the channel|admin or mod|
 |**Go Commands**|||
 |`go <word>`|removes `<word>` from list of words to stop or delete|admin|
+|`go fish`|catch some fish (cooldown: 3 min)|everyone|
+|`go inv`|see your fish (cooldown: 15 sec)|everyone|
 
 **Examples:**
 
@@ -59,7 +61,7 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 ## Go Fish
 
-The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the go command. I'll let you figure this one out on your own. Have fun!
+The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the `!go fish` command. Have fun!
 
 (This is temporarily down.)
 

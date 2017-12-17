@@ -9,7 +9,7 @@ const helpList = {
     general: "```help, info```",
     stop: "```stop, stop video, stop list, stop <word>```",
     delete: "```delete <word>, delete list, delete <#>```",
-    go: "```go <word>```"
+    go: "```go <word>, go fish, go inv```"
   }
 };
 
