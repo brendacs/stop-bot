@@ -20,11 +20,13 @@ Thank you for wanting to contribute and make Stop better for everyone! Here is a
 ##### Some quick notes:
 
 * The server count code snippets in `stopbot.js` may have to be commented out before you can run. These are for posting the server count to the discord bot lists Stop is on. Since the tokens don't exist in your auth.json, it'll throw an error at you. (I'll eventually move these elsewhere so they don't bother you.)
-* Currently, there is no `data/` and no `stopList.json`, `deleteList.json`, or `fishList.json`. You can make empty data files to test, but I am moving everything from crappy JSON to a PostgreSQL server so this won't be an issue soon.
+* Currently, data is being pushed to a local PostgreSQL database so the SQL commands probably won't work on your machine. You may have to create an empty database to test your changes.
 
 ##### What happens afterwards?
 
 You create a pull request, I review it. I reject or approve it and give comments. You and I fix anything that needs to be fixed. I review it again. I merge and push your changes to `master`. Eventually, major changes will be merged with my private, mysterious `stable` branch which is deployed with Heroku. You also get the shiny, privileged `Contributor` role on [Stop's Discord server](https://discord.gg/HwkMkKh).
+
+(Heroku is currently not being used. I may use a VPS later.)
 
 ## Creating and handling issues
 

@@ -61,7 +61,7 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 ## Go Fish
 
-The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the `!go fish` command. Have fun!
+The bot doesn't only like to stop things. It likes to go fish too. You can catch fish and check your fish inventory all under the `!go fish` and `!go inv` commands. Have fun!
 
 # Contributing
 
