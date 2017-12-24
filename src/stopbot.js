@@ -23,7 +23,7 @@ const config = {
 const stopClient = new pg.Client(config);
 stopClient.connect();
 
-app.listen(5432, () => {
+app.listen(5431, () => {
   console.log('Server started');
 });
 
