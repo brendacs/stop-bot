@@ -6,8 +6,8 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 [![discord.js](https://img.shields.io/badge/discord-js-blue.svg)](https://github.com/hydrabolt/discord.js/)
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
-[![Servers: 200+](https://img.shields.io/badge/servers-400+-red.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
-[![Users: 15000+](https://img.shields.io/badge/users-20000+-orange.svg)](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=8200)
+[![Bot status](https://discordbots.org/api/widget/status/340404757648769025.svg)](https://discordbots.org/bot/340404757648769025)
+[![Server count](https://discordbots.org/api/widget/servers/340404757648769025.svg)](https://discordbots.org/bot/340404757648769025)
 
 ## Invites
 
