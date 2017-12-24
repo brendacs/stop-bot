@@ -24,9 +24,7 @@ Thank you for wanting to contribute and make Stop better for everyone! Here is a
 
 ##### What happens afterwards?
 
-You create a pull request, I review it. I reject or approve it and give comments. You and I fix anything that needs to be fixed. I review it again. I merge and push your changes to `master`. Eventually, major changes will be merged with my private, mysterious `stable` branch which is deployed with Heroku. You also get the shiny, privileged `Contributor` role on [Stop's Discord server](https://discord.gg/HwkMkKh).
-
-(Heroku is currently not being used. I may use a VPS later.)
+You create a pull request, I review it. I reject or approve it and give comments. You and I fix anything that needs to be fixed. I review it again. I merge and push your changes to `master`. Eventually, major changes will be merged with my private, mysterious `stable` branch which is deployed on a Digital Ocean VPS. You also get the shiny `Contributor` role on [Stop's Discord server](https://discord.gg/HwkMkKh).
 
 ## Creating and handling issues
 
