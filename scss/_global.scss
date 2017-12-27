@@ -1,0 +1,26 @@
+h1 {
+  @include primary-font;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+p {
+  @include secondary-font;
+  font-size: 18px;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+a.button {
+  @include primary-button;
+  @include primary-font;
+}
+
+.hide {
+  display: none;
+}
+
+.highlight {
+  color: $brand-color;
+}

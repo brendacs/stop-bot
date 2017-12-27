@@ -1,0 +1,33 @@
+@mixin primary-font {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
+
+@mixin secondary-font {
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing: 1px;
+}
+
+@mixin primary-button {
+  width: 200px;
+  height: 55px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: 0 3px 12px 0 rgba(0,0,0,0.2);
+  transition: all 0.25s ease;
+  color: $brand-color;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.025);
+  }
+}

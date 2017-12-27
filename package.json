@@ -1,0 +1,15 @@
+{
+  "name": "stopbot-es6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "stopbot.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "typeit": "^5.2.0"
+  }
+}

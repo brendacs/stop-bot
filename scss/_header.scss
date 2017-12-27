@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.layer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 60px 80px;
+}
+
+.stop-full {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  height: 100vh;
+  z-index: 1;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
