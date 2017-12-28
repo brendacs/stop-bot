@@ -10,6 +10,22 @@
   display: flex;
   flex-direction: column;
   padding: 60px 80px;
+
+  @media screen and (max-width: 768px) {
+    padding-left: 40px;
+    padding-top: 40px;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding-right: 40px;
+  }
+}
+
+.last-p {
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 }
 
 .stop-full {
@@ -18,6 +34,14 @@
   right: 40px;
   height: 100vh;
   z-index: 1;
+
+  @media screen and (max-width: 768px) {
+    right: 0px;
+  }
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 }
 
 .links {
