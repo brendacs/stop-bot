@@ -1,4 +1,4 @@
-import goFish from './gofish.js';
+import goFish from './goFish.js';
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
