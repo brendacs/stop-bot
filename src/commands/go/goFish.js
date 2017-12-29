@@ -18,7 +18,7 @@ const goFish = (stopClient, msg, cmd, subcmd, richEmbed, fishList) => {
     const fishCaught = [];
 
     // Get random fish and random number of fish
-    const fishType = Math.floor(Math.random() * 20);
+    const fishType = Math.floor(Math.random() * 20)
     const fishNumber = Math.floor(Math.random() * 5) + 1;
 
     // Push emojis to temp array to join for message
