@@ -47,6 +47,7 @@ const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, de
               }
             }
           })
+          .catch(err => console.log(err));
       })
       .catch(err => console.error(err.stack));
   }

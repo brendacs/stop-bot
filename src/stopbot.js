@@ -21,9 +21,15 @@ const config = {
 
 // database connection
 const stopClient = new pg.Client(config);
-stopClient.connect();
+stopClient.connect()
+  .then(client => {
+    console.log('Connected to DB')
+  })
+  .catch(err => {
+    console.log('Error connecting: ', err.message, err.stack)
+  })
 
-app.listen(5431, () => {
+app.listen(5434, () => {
   console.log('Server started');
 });
 

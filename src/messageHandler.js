@@ -37,7 +37,8 @@ const messageHandler = (bot, stopClient) => {
         let guildExists = result.rows[0]['exists'];
         if (!guildExists) {
           stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
-            .then(result => {console.log('inserted')});
+            .then(result => {console.log('inserted')})
+            .catch(err => console.log(err));
         }
         stopClient.query(wordListQuery)
           .then(result => {
