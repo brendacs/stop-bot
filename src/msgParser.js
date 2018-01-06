@@ -21,7 +21,7 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
     }
   }
 
-  if (msg.toString().substring(0, 1) === '!') { // if prefix is used
+  if (msg.toString().substring(0, 1) === 't') { // if prefix is used
     const args = msg.toString().substring(1).split(' ');
     const cmd = args[0];
     const subcmd = args[1];
