@@ -5,6 +5,7 @@ const helpCmd = (msg, cmd, richEmbed) => {
     .setColor('#ff0000')
     .setDescription(
 `${helpList.headings.general} ${helpList.commands.general}
+${helpList.headings.set} ${helpList.commands.set}
 ${helpList.headings.stop} ${helpList.commands.stop}
 ${helpList.headings.delete} ${helpList.commands.delete}
 ${helpList.headings.go} ${helpList.commands.go}

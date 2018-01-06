@@ -4,7 +4,7 @@ const getPrefix = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
   const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${msg.guild.id}'`;
   stopClient.query(prefixQuery)
     .then(result => {
-      const defaultPrefix = 't';
+      const defaultPrefix = '!';
       let prefix = result.rows[0]['prefix'] !== '' ? result.rows[0]['prefix'] : defaultPrefix;
       msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList, prefix);
     })
@@ -13,7 +13,7 @@ const getPrefix = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
 
 const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList, prefix) => {
   const string = msg.content;
-  const cmds = ['help', 'info', 'stop', 'delete', 'go', 'set'];
+  const cmds = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set'];
 
   const checkMessage = () => {
     for (let i = 0; i < stopList.length; i++) {

@@ -1,6 +1,7 @@
 import Discord from 'discord.js';
 import helpCmd from './help/help.js';
 import getInfo from './info.js';
+import getUpdates from './updates.js';
 import stopCmd from './stop.js';
 import deleteCmd from './delete.js';
 import goCmd from './go/go.js';
@@ -26,6 +27,7 @@ const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisG
 
   if (cmd === 'help') helpCmd(msg, cmd, richEmbed);
   else if (cmd === 'info') getInfo(bot, msg, cmd, richEmbed);
+  else if (cmd === 'updates') getUpdates(bot, msg, cmd, richEmbed);
   else if (cmd === 'stop') stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
   else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
   else if (cmd === 'go')  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
