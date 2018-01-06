@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import pg from 'pg';
-import msgParser from './msgParser';
+import getPrefix from './msgParser';
 
 const messageHandler = (bot, stopClient) => {
   const channel = new Discord.Channel();
@@ -32,6 +32,18 @@ const messageHandler = (bot, stopClient) => {
     let stopList;
     let deleteList;
 
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM server_settings WHERE serverid=${thisGuild})`)
+    .then(result => {
+      let guildExists = result.rows[0]['exists'];
+      if (!guildExists) {
+        stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${thisGuild}, '')`)
+          .then(result => {
+            console.log('inserted settings');
+          })
+          .catch(err => console.log(err));
+      }
+    });
+
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
       .then(result => {
         let guildExists = result.rows[0]['exists'];
@@ -47,7 +59,7 @@ const messageHandler = (bot, stopClient) => {
           .then(result => {
             stopList = result.rows[0]['stoplist'];
             deleteList = result.rows[0]['deletelist'];
-            msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
+            getPrefix(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
           })
           .catch(err => console.log(err));
       })

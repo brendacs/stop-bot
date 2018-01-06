@@ -1,8 +1,19 @@
 import commands from './commands/commands.js';
 
-const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
+const getPrefix = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
+  const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  stopClient.query(prefixQuery)
+    .then(result => {
+      const defaultPrefix = 't';
+      let prefix = result.rows[0]['prefix'] !== '' ? result.rows[0]['prefix'] : defaultPrefix;
+      msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList, prefix);
+    })
+    .catch(err => console.log(err));
+}
+
+const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList, prefix) => {
   const string = msg.content;
-  const cmds = ['help', 'info', 'stop', 'delete', 'go'];
+  const cmds = ['help', 'info', 'stop', 'delete', 'go', 'set'];
 
   const checkMessage = () => {
     for (let i = 0; i < stopList.length; i++) {
@@ -21,26 +32,26 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
     }
   }
 
-  if (msg.toString().substring(0, 1) === 't') { // if prefix is used
-    const args = msg.toString().substring(1).split(' ');
-    const cmd = args[0];
-    const subcmd = args[1];
-    if (stopList && deleteList && cmds.indexOf(cmd) !== -1) {
-      commands(bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
-    } else {
-      // check messages beginning with exclamation marks and are not commands
-      checkMessage();
-    }
-  } else if (msg.mentions.users.has('340404757648769025')) { // if bot is mentioned
-    const args = msg.toString().split(' ');
-    const cmd = args[1];
-    const subcmd = args[2];
-    if (stopList && deleteList && cmds.indexOf(cmd) !== -1) {
-      commands(bot, stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList);
-    }
+  let args, cmd, subcmd, thirdcmd;
+
+  if (msg.toString().substring(0, 1) === prefix) { // if prefix is used
+    args = msg.toString().substring(1).split(' ');
+    cmd = args[0];
+    subcmd = args[1];
+    thirdcmd = args[2];
+  } else if (msg.mentions.users.has(bot.user.id)) { // if bot is mentioned
+    args = msg.toString().split(' ');
+    cmd = args[1];
+    subcmd = args[2];
+    thirdcmd = args[3];
+  }
+
+  if (cmd !== undefined && stopList && deleteList && cmds.indexOf(cmd) !== -1) {
+    commands(bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList);
   } else {
+    // check messages beginning with exclamation marks and are not commands
     checkMessage();
   }
 }
 
-export default msgParser
+export default getPrefix;
