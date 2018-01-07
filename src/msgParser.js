@@ -12,25 +12,7 @@ const getPrefix = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
 }
 
 const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList, prefix) => {
-  const string = msg.content;
   const cmds = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set'];
-
-  const checkMessage = () => {
-    for (let i = 0; i < stopList.length; i++) {
-      if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
-        msg.channel.send(new Date().toString());
-        msg.reply('IT\'S TIME TO STOP.');
-        return; // prevents bot from sending multiple messages if multiple words in one msg
-      }
-    }
-    for (let i = 0; i < deleteList.length; i++) {
-      if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
-        msg.delete(1000);
-        msg.channel.send('Detected something horrible. Deleted.');
-        return;
-      }
-    }
-  }
 
   let args, cmd, subcmd, thirdcmd;
 
@@ -50,7 +32,25 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
     commands(bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList);
   } else {
     // check messages beginning with exclamation marks and are not commands
-    checkMessage();
+    checkMessage(msg, stopList, deleteList);
+  }
+}
+
+const checkMessage = (msg, stopList, deleteList) => {
+  const string = msg.content;
+  for (let i = 0; i < stopList.length; i++) {
+    if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
+      msg.channel.send(new Date().toString());
+      msg.reply('IT\'S TIME TO STOP.');
+      return; // prevents bot from sending multiple messages if multiple words in one msg
+    }
+  }
+  for (let i = 0; i < deleteList.length; i++) {
+    if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
+      msg.delete(1000);
+      msg.channel.send('Detected something horrible. Deleted.');
+      return;
+    }
   }
 }
 
