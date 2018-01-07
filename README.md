@@ -17,13 +17,14 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 ## Commands
 
-**Prefix:** `!` or mention the bot using `@Stop`
+**Default prefix:** `!` or mention the bot using `@Stop`
 
 **Command types:**
 
 |Type|Description|
 |---|---|
 |`general`|general bot commands|
+|`set`|bot server settings|
 |`stop`|tells the message sender to stop|
 |`delete`|deletes an offending message|
 |`go`|let the message be sent with no stops or deletions|
@@ -38,13 +39,17 @@ Made to stop your Discord server from turning into a trollfest through message m
 |**General Commands**|||
 |`help`|sends a list of all commands to the channel|everyone|
 |`info`|displays bot stats (# of servers and channels)|everyone|
+|**Set Commands**|||
+|set|displays list of options (things that can be set)|admin or mod|
+|set <option> <setting>|sets <option> to your custom <setting>|admin or mod|
+|set prefix <setting>|sets prefix to your custom <setting>|admin or mod|
 |**Stop Commands**|||
 |`stop`|sends a time stamp and message telling offender it's time to stop|everyone|
 |`stop list`|sends a list of all words that will be responded to with stop|everyone|
 |`stop video`|sends a passionate video to aid you in stopping the offender|everyone|
-|`stop <word>`|adds `<word>` to list of words to stop|admin|
+|`stop <words>`|adds `<words>` to list of words to stop|admin|
 |**Delete Commands**|||
-|`delete <word>`|adds `<word>` to list of words that will be auto-deleted after 1 second|admin|
+|`delete <words>`|adds `<words>` to list of words that will be auto-deleted after 1 second|admin|
 |`delete list`|sends a list of all words that will be auto-deleted|everyone|
 |`delete <#>`|deletes the last # of messages in the channel|admin or mod|
 |**Go Commands**|||
@@ -52,11 +57,22 @@ Made to stop your Discord server from turning into a trollfest through message m
 |`go fish`|catch some fish (cooldown: 3 min)|everyone|
 |`go inv`|see your fish (cooldown: 15 sec)|everyone|
 
+**Notes:**
+
+* Only setting currently is prefix
+* Custom prefix can only be one character long
+* Separate words to stop or delete with a space
+  * Example: `!stop word1 word2 word2`
+  * Example: `!delete word1 word2 word2`
+* Go command only takes one word at a time
+
 **Examples:**
 
 * `!stop help` or `@Stop help`
 * `!stop kek` or `@Stop stop kek`
+* `!stop troll weird` or `@Stop stop troll weird`
 * `!delete lel` or `@Stop delete lel`
+* `!delete stupid idiot` or `@Stop delete stupid idiot`
 * `!go 4chan` or `@Stop go 4chan`
 
 ## Go Fish
