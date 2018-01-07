@@ -25,9 +25,9 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
 
 **Other updates**
 
-- Updated ${"`" + "help" + "`"} command with set section, set commands, and updates command. Also subtle update to stop and delete commands (${"`" + "stop <word>" + "`"} became ${"`" + "stop <words>" "`"}).
+- Updated ${"`" + "help" + "`"} command with set section, set commands, and updates command. Subtle update to stop and delete in help (${"`" + "stop <word>" + "`"} became ${"`" + "stop <words>" + "`"}).
 - Server count in bot's user presence is now updated every time a server invites Stop.
-- Started testing and developing bot on separate "Stop Testing" bot to avoid usage interruption.
+- Started testing and developing bot on separate "Stop Testing" bot.
 - Dev note: Code more modular, such as permissions checks.
 
 If you enjoy using Stop bot, please upvote it on the [Discord Bot List](https://discordbots.org/bot/340404757648769025)! :heart:`
