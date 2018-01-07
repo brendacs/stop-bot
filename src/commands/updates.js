@@ -17,6 +17,7 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
         embed: richEmbed.setColor('#ff0000').setDescription(
 `**Update #3**
 
+- Something people have wanted for a long time: multiple words can be stopped or deleted at once. Words must be separated with a space. Example: ${"`" + "stop word1 word2 word3" + "`"}. ${"`" + "go" + "`"} command must still be used on one word at a time.
 - Bot's prefix is now customizable through ${"`" + "set prefix" + "`"} (must have manage messages or administrator permissions).
 - Added set command for all server settings (only one setting currently available).
 - Added updates command. Bot DMs updates and links user to the Stop Bot support server's #updates channel and #github-log channel.

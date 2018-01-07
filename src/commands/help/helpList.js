@@ -9,8 +9,8 @@ const helpList = {
   commands: {
     general: "```help, info, updates```",
     set: "```set, set <option> <setting>```",
-    stop: "```stop, stop video, stop list, stop <word>```",
-    delete: "```delete <word>, delete list, delete <#>```",
+    stop: "```stop, stop video, stop list, stop <words>```",
+    delete: "```delete <words>, delete list, delete <#>```",
     go: "```go <word>, go fish, go inv```"
   }
 };
