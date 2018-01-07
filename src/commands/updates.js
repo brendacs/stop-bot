@@ -20,14 +20,15 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
 - Something people have wanted for a long time: multiple words can be stopped or deleted at once. Words must be separated with a space. Example: ${"`" + "!stop word1 word2 word3" + "`"}.
 - ${"`" + "go" + "`"} command must still be used on one word at a time.
 - Bot's prefix is now customizable through ${"`" + "set prefix" + "`"}. User must have manage messages or administrator permissions to change settings.
-- Added ${"`" + "set" + "`"} command for all server settings (only one setting currently available).
+- Added ${"`" + "set" + "`"} command for all bot settings (only one setting currently available).
 - Added ${"`" + "updates" + "`"} command. Bot DMs latest updates and links user to the Stop Bot support server's #updates channel and #github-log channel.
-- Updated ${"`" + "help" + "`"} command with set section, set commands, and updates command.
 
 **Other updates**
 
+- Updated ${"`" + "help" + "`"} command with set section, set commands, and updates command. Also subtle update to stop and delete commands (${"`" + "stop <word>" + "`"} became ${"`" + "stop <words>" "`"}).
 - Server count in bot's user presence is now updated every time a server invites Stop.
 - Started testing and developing bot on separate "Stop Testing" bot to avoid usage interruption.
+- Dev note: Code more modular, such as permissions checks.
 
 If you enjoy using Stop bot, please upvote it on the [Discord Bot List](https://discordbots.org/bot/340404757648769025)! :heart:`
         )
