@@ -40,7 +40,7 @@ logger.add(logger.transports.Console, {
 });
 logger.level = 'debug';
 
-const TOKEN = auth.testing_token;
+const TOKEN = auth.token;
 const DBOT_TOKEN = auth.dbot_token;
 const PWBOT_TOKEN = auth.pwbot_token;
 
@@ -55,21 +55,21 @@ bot.on('ready', (evt) => {
   logger.info(bot.user.username + ' - ' + bot.user.id);
 
   // Server count for discord bot lists
-  // request.post(`https://discordbots.org/api/bots/${bot.user.id}/stats`)
-  //   .set('Authorization', DBOT_TOKEN)
-  //   .send({server_count: bot.guilds.size})
-  //   .end(err => {
-  //     if (err) return console.error(err);
-  //     console.log("Success (dbot)!");
-  //   });
+  request.post(`https://discordbots.org/api/bots/${bot.user.id}/stats`)
+    .set('Authorization', DBOT_TOKEN)
+    .send({server_count: bot.guilds.size})
+    .end(err => {
+      if (err) return console.error(err);
+      console.log("Success (dbot)!");
+    });
 
-  // request.post(`https://bots.discord.pw/api/bots/${bot.user.id}/stats`)
-  //   .set('Authorization', PWBOT_TOKEN)
-  //   .send({server_count: bot.guilds.size})
-  //   .end(err => {
-  //     if (err) return console.error(err);
-  //     console.log("Success (pwbot)!");
-  //   });
+  request.post(`https://bots.discord.pw/api/bots/${bot.user.id}/stats`)
+    .set('Authorization', PWBOT_TOKEN)
+    .send({server_count: bot.guilds.size})
+    .end(err => {
+      if (err) return console.error(err);
+      console.log("Success (pwbot)!");
+    });
 
   bot.user.setPresence({status: 'online', game: {name: `!go fish | !help | ${bot.guilds.size} servers`, type: 0}});
 });
