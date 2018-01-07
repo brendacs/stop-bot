@@ -1,7 +1,8 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import pg from 'pg';
-import getPrefix from './msgParser';
+import getPrefix from './msgParser.js';
+import { checkAdmin, checkMod } from './checkPerms.js';
 
 const messageHandler = (bot, stopClient) => {
   const channel = new Discord.Channel();
@@ -13,20 +14,8 @@ const messageHandler = (bot, stopClient) => {
     const thisGuild = msg.guild.id;
     const thisAuthor = msg.author.id;
 
-    let admin;
-    let mod;
-
-    if (msg.member == null) {
-      // insert null member into cache
-      msg.guild.fetchMember(msg.author, true);
-      
-      // check permissions of member
-      admin = msg.member.hasPermission('ADMINISTRATOR');
-      mod = msg.member.hasPermission('MANAGE_MESSAGES');
-    } else {
-      admin = msg.member.hasPermission('ADMINISTRATOR');
-      mod = msg.member.hasPermission('MANAGE_MESSAGES');
-    }
+    let admin = checkAdmin(msg);
+    let mod = checkMod(msg);
 
     const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
     let stopList;

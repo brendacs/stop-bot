@@ -1,6 +1,13 @@
 import setPrefix from './setPrefix.js';
 
 const setInit = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed) => {
+  if (!admin || !mod) {
+    const embed = richEmbed
+      .setColor('#ff0000')
+      .setDescription(`You are not permitted to change this bot's settings. You must have **manage messages** or **administrator** permissions.`);
+    msg.channel.send({embed})
+    return;
+  };
   const settingsQuery = `SELECT * FROM server_settings WHERE serverid='${thisGuild}'`;
   stopClient.query(settingsQuery)
     .then(result => {
