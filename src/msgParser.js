@@ -24,7 +24,7 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
   } else if (msg.mentions.users.has(bot.user.id)) { // if bot is mentioned
     args = msg.toString().split(' ');
     cmd = args[1];
-    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(1).join(', ') : args[2];
+    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(2).join(', ') : args[2];
     thirdcmd = args[3];
   }
 
