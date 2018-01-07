@@ -59,11 +59,10 @@ Made to stop your Discord server from turning into a trollfest through message m
 
 **Notes:**
 
-* Only setting currently is prefix
 * Custom prefix can only be one character long
 * Separate words to stop or delete with a space
-  * Example: `!stop word1 word2 word2`
-  * Example: `!delete word1 word2 word2`
+  * Example: `!stop word1 word2 word3`
+  * Example: `!delete word1 word2 word3`
 * Go command only takes one word at a time
 
 **Examples:**
