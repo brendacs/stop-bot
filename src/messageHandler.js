@@ -17,10 +17,6 @@ const messageHandler = (bot, stopClient) => {
     let admin = checkAdmin(msg);
     let mod = checkMod(msg);
 
-    const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
-    let stopList;
-    let deleteList;
-
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM server_settings WHERE serverid=${thisGuild})`)
     .then(result => {
       let guildExists = result.rows[0]['exists'];
@@ -32,6 +28,10 @@ const messageHandler = (bot, stopClient) => {
           .catch(err => console.log(err));
       }
     });
+
+    const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
+    let stopList;
+    let deleteList;
 
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
       .then(result => {

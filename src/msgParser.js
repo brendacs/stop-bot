@@ -19,12 +19,12 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
   if (msg.toString().substring(0, 1) === prefix) { // if prefix is used
     args = msg.toString().substring(1).split(' ');
     cmd = args[0];
-    subcmd = args[1];
+    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(1).join(', ') : args[1];
     thirdcmd = args[2];
   } else if (msg.mentions.users.has(bot.user.id)) { // if bot is mentioned
     args = msg.toString().split(' ');
     cmd = args[1];
-    subcmd = args[2];
+    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(1).join(', ') : args[2];
     thirdcmd = args[3];
   }
 
