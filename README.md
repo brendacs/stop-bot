@@ -8,11 +8,12 @@ Made to stop your Discord server from turning into a trollfest through message m
 [![PRs welcome](https://img.shields.io/badge/pull%20requests-yes-brightgreen.svg)](https://github.com/brendacs/stop-bot/pulls)
 [![Bot status](https://discordbots.org/api/widget/status/340404757648769025.svg)](https://discordbots.org/bot/340404757648769025)
 [![Server count](https://discordbots.org/api/widget/servers/340404757648769025.svg)](https://discordbots.org/bot/340404757648769025)
+[![Chat count](https://img.shields.io/discord/343657694793826304.svg)](https://discord.gg/FXCe7bX)
 
 ## Invites
 
 * Click [here](https://discordapp.com/oauth2/authorize?&client_id=340404757648769025&scope=bot&permissions=75776) to invite Stop Bot to your server! It'll need your permission to manage messages.
-* Join Stop's Discord server [here](https://discord.gg/HwkMkKh) to give feedback, and have fun! The first 20 people to join get a `Special` role!
+* Join Stop's Discord support server [here](https://discord.gg/HwkMkKh) to give feedback, report issues, and have fun! The first 20 people to join get a `Special` role!
 * You can check out stop bot on [discordbots.org](https://discordbots.org/bot/340404757648769025) or [bots.discord.pw](https://bots.discord.pw/bots/340404757648769025).
 
 ## Commands
