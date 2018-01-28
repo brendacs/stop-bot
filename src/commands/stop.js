@@ -1,7 +1,10 @@
-const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+  let mentions = msg.mentions.users;
+  let mentionsNum = msg.mentions.users.array().length;
   if (!subcmd) {
-    msg.channel.send(new Date().toString());
-    msg.channel.send('IT\'S TIME TO STOP.');
+    msg.channel.send(`${new Date().toString()}\nIT\'S TIME TO STOP.`);
+  } else if (mentions.first() !== undefined) {
+    msg.channel.send(`${new Date().toString()}\n${mentions.first(mentionsNum)} IT\'S TIME TO STOP.`);
   } else if (subcmd === 'video') {
     msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
   } else if (subcmd === 'list') {
