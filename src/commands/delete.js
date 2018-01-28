@@ -5,8 +5,7 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList
       embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be deleted.`)
     });
     return;
-  }
-  if (subcmd === 'list') {
+  } else if (subcmd === 'list') {
     if (deleteList.length !== 0) {
       msg.channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`')
     } else {
