@@ -71,7 +71,7 @@ bot.on('ready', (evt) => {
       console.log("Success (pwbot)!");
     });
 
-  bot.user.setPresence({status: 'online', game: {name: `!go fish | !help | ${bot.guilds.size} servers`, type: 0}});
+  bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
 });
 
 messageHandler(bot, stopClient);

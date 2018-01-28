@@ -1,4 +1,11 @@
 const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+  const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
+  if (reserved.indexOf(subcmd) !== -1) {
+    msg.channel.send({
+      embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be deleted.`)
+    });
+    return;
+  }
   if (subcmd === 'list') {
     if (deleteList.length !== 0) {
       msg.channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`')
