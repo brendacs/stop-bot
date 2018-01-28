@@ -29,7 +29,7 @@ const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisG
   else if (cmd === 'info') getInfo(bot, msg, cmd, richEmbed);
   else if (cmd === 'updates') getUpdates(bot, msg, cmd, richEmbed);
   else if (cmd === 'stop') stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
-  else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
+  else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
   else if (cmd === 'go')  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
   else if (cmd === 'set') setInit(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed);
 }

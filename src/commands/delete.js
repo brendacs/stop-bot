@@ -1,4 +1,4 @@
-const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
   const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
   if (reserved.indexOf(subcmd) !== -1) {
     msg.channel.send({
@@ -12,6 +12,7 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList
       msg.channel.send('There are no words on the delete list.')
     }
   } else if (!isNaN(subcmd)) {
+    console.log('not isnan');
     let limit = parseInt(subcmd) + 1;
     if (limit >= 100) {
       msg.channel.send({
@@ -21,7 +22,13 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList
     }
     msg.channel.fetchMessages({limit: limit})
       .then((latestMessages) => {
-        msg.channel.bulkDelete(latestMessages);
+        let mentions = msg.mentions.users;
+        let mentionsNum = msg.mentions.users.array().length;
+        if (mentionsNum === 0) msg.channel.bulkDelete(latestMessages);
+        else {
+          let latestByUser = latestMessages.filter((message) => message.author === mentions.first());
+          msg.channel.bulkDelete(latestByUser);
+        }
       })
       .catch(err => console.log(err));
   } else if (subcmd && isNaN(subcmd)) {

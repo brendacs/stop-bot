@@ -16,15 +16,20 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
 
   let args, cmd, subcmd, thirdcmd;
 
+  let mentions = msg.mentions.users;
+  let mentionsNum = msg.mentions.users.array().length;
+
   if (msg.toString().substring(0, 1) === prefix) { // if prefix is used
     args = msg.toString().substring(1).split(' ');
     cmd = args[0];
-    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(1).join(', ') : args[1];
+    // only join into strings to be added to lists if command is "stop" or "delete", and does not mention a user
+    subcmd = ((cmd === 'stop' || cmd === 'delete') && mentionsNum === 0) ? [...args].slice(1).join(', ') : args[1];
     thirdcmd = args[2];
   } else if (msg.mentions.users.has(bot.user.id)) { // if bot is mentioned
     args = msg.toString().split(' ');
     cmd = args[1];
-    subcmd = (cmd === 'stop' || cmd === 'delete') ? [...args].slice(2).join(', ') : args[2];
+    // only join into strings to be added to lists if command is "stop" or "delete", and does not mention a user
+    subcmd = ((cmd === 'stop' || cmd === 'delete') && mentionsNum === 0) ? [...args].slice(2).join(', ') : args[2];
     thirdcmd = args[3];
   }
 
