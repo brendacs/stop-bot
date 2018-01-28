@@ -1,4 +1,4 @@
-const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
   if (subcmd === 'list') {
     if (deleteList.length !== 0) {
       msg.channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`')
@@ -7,6 +7,12 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList
     }
   } else if (!isNaN(subcmd)) {
     let limit = parseInt(subcmd) + 1;
+    if (limit >= 100) {
+      msg.channel.send({
+        embed: richEmbed.setColor('#ff0000').setDescription(`Number of messages must be under 100.`)
+      });
+      return;
+    }
     msg.channel.fetchMessages({limit: limit})
       .then((latestMessages) => {
         msg.channel.bulkDelete(latestMessages);
