@@ -1,3 +1,5 @@
+import { getToggleDM } from '../getSettings.js';
+
 const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
   const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
   if (!subcmd) return;
@@ -8,7 +10,16 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild
     return;
   } else if (subcmd === 'list') {
     if (deleteList.length !== 0) {
-      msg.channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`')
+      getToggleDM(stopClient, msg).then(enabled => {
+        if (enabled) {
+          msg.member.createDM()
+            .then(channel => {
+              channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`');
+            });
+        } else {
+          msg.channel.send('These words are currently being deleted: `' + deleteList.join(', ') + '`');
+        }
+      });
     } else {
       msg.channel.send('There are no words on the delete list.')
     }

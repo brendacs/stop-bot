@@ -37,3 +37,14 @@ export const getDeleteMessage = async (stopClient, msg) => {
     .catch(err => console.log(err));
   return deleteMessage;
 }
+
+export const getToggleDM = async (stopClient, msg) => {
+  const toggleDMQuery = `SELECT dmlists FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  let enabled = await stopClient.query(toggleDMQuery)
+    .then(result => {
+      let status = result.rows[0]['dmlists'] ? true : false;
+      return status;
+    })
+    .catch(err => console.log(err));
+  return enabled;
+}

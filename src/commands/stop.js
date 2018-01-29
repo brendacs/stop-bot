@@ -1,9 +1,8 @@
-import { getStopMessage } from '../getSettings.js';
+import { getStopMessage, getToggleDM } from '../getSettings.js';
 
 const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
-  console.log('stopping')
 
   getStopMessage(stopClient, msg).then(stopMessage => {
     if (!subcmd) {
@@ -14,7 +13,16 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
       msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
     } else if (subcmd === 'list') {
       if (stopList.length !== 0) {
-        msg.channel.send('These words are currently being stopped: `' + stopList.join(', ') + '`');
+        getToggleDM(stopClient, msg).then(enabled => {
+          if (enabled) {
+            msg.member.createDM()
+              .then(channel => {
+                channel.send('These words are currently being stopped: `' + stopList.join(', ') + '`');
+              });
+          } else {
+            msg.channel.send('These words are currently being stopped: `' + stopList.join(', ') + '`');
+          }
+        });
       } else {
         msg.channel.send('There are no words on the stop list.');
       }
