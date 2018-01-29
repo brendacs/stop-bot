@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import pg from 'pg';
-import getPrefix from './msgParser.js';
+import msgParser from './msgParser.js';
 import { checkAdmin, checkMod } from './checkPerms.js';
 
 const messageHandler = (bot, stopClient) => {
@@ -48,7 +48,7 @@ const messageHandler = (bot, stopClient) => {
           .then(result => {
             stopList = result.rows[0]['stoplist'];
             deleteList = result.rows[0]['deletelist'];
-            getPrefix(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
+            msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
           })
           .catch(err => console.log(err));
       })
