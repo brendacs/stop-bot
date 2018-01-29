@@ -25,7 +25,7 @@ const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisG
     isDeleted = false;
   }
 
-  if (cmd === 'help') helpCmd(msg, cmd, richEmbed);
+  if (cmd === 'help' || cmd === 'dmhelp') helpCmd(msg, cmd, richEmbed);
   else if (cmd === 'info') getInfo(bot, msg, cmd, richEmbed);
   else if (cmd === 'updates') getUpdates(bot, msg, cmd, richEmbed);
   else if (cmd === 'stop') stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);

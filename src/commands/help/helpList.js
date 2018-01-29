@@ -1,5 +1,6 @@
 const helpList = {
   headings: {
+    docs: "**DOCUMENTATION**",
     general: "**GENERAL**",
     set: "**SET**",
     stop: "**STOP**",
@@ -7,10 +8,10 @@ const helpList = {
     go: "**GO**"
   },
   commands: {
-    general: "```help, info, updates```",
-    set: "```set, set <option> <setting>```",
-    stop: "```stop, stop video, stop list, stop <words>```",
-    delete: "```delete <words>, delete list, delete <#>```",
+    general: "```help, dmhelp, info, updates```",
+    set: "```set, set default, set prefix, set stopmsg <setting>, set deletemsg <setting>, set toggledm```",
+    stop: "```stop [@user], stop video, stop list, stop <words>```",
+    delete: "```delete <words>, delete list, delete <#> [@user]```",
     go: "```go <word>, go fish, go inv```"
   }
 };

@@ -39,13 +39,19 @@ Made to stop your Discord server from turning into a trollfest through message m
 |---|---|--|
 |**General Commands**|||
 |`help`|sends a list of all commands to the channel|everyone|
+|`dmhelp`|sends a list of all commands to your DMs|everyone|
 |`info`|displays bot stats (# of servers and channels)|everyone|
 |**Set Commands**|||
-|`set`|displays list of options (things that can be set)|admin or mod|
+|`set`|displays list of settings options (things that can be set)|admin or mod|
 |`set <option> <setting>`|sets `<option>` to your custom `<setting>`|admin or mod|
+|`set default`|resets all settings back to their default|admin or mod|
 |`set prefix <setting>`|sets prefix to your custom `<setting>`|admin or mod|
+|`set stopmsg <setting>`|sets stop message to your custom `<setting>`|admin or mod|
+|`set deletemsg <setting>`|sets delete message to your custom `<setting>`|admin or mod|
+|`set toggledm`|toggles DMing of stop/delete lists to avoid in-channel sending|admin or mod|
 |**Stop Commands**|||
-|`stop`|sends a time stamp and message telling offender it's time to stop|everyone|
+|`stop`|sends a time stamp and message telling everyone it's time to stop|everyone|
+|`stop @<user>`|sends a time stamp and message telling <user> it's time to stop|everyone|
 |`stop list`|sends a list of all words that will be responded to with stop|everyone|
 |`stop video`|sends a passionate video to aid you in stopping the offender|everyone|
 |`stop <words>`|adds `<words>` to list of words to stop|admin|
@@ -53,6 +59,7 @@ Made to stop your Discord server from turning into a trollfest through message m
 |`delete <words>`|adds `<words>` to list of words that will be auto-deleted after 1 second|admin|
 |`delete list`|sends a list of all words that will be auto-deleted|everyone|
 |`delete <#>`|deletes the last # of messages in the channel|admin or mod|
+|`delete <#> @<user>`|deletes the last # of messages from <user>|admin or mod|
 |**Go Commands**|||
 |`go <word>`|removes `<word>` from list of words to stop or delete|admin|
 |`go fish`|catch some fish (cooldown: 3 min)|everyone|
