@@ -15,22 +15,20 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
     .then((channel) => {
       channel.send({
         embed: richEmbed.setColor('#ff0000').setDescription(
-`**Update #3**
+`**Update #4**
 
-- Something people have wanted for a long time: multiple words can be stopped or deleted at once. Words must be separated with a space. Example: ${"`" + "!stop word1 word2 word3" + "`"}.
-- ${"`" + "go" + "`"} command must still be used on one word at a time.
-- Bot's prefix is now customizable through ${"`" + "set prefix" + "`"}. User must have manage messages or administrator permissions to change settings.
-- Added ${"`" + "set" + "`"} command for all bot settings (only one setting currently available).
-- Added ${"`" + "updates" + "`"} command. Bot DMs latest updates and links user to the Stop Bot support server's #updates channel and #github-log channel.
+- Users are now mentionable: ${"`" + "stop <user>" + "`"} and ${"`" + "delete <#> <user>" + "`"}.
+- ${"`" + "delete <#> <user>" + "`"} deletes the last ${"`" + "#" + "`"} of messages from ${"`" + "user" + "`"}.
+- You can now set the bot to send stopped and deleted word lists through DM with ${"`" + "set toggledm" + "`"}. This can be disabled again under the same command.
+- Stop and delete warnings are now both customizable through ${"`" + "set stopmsg <msg>" + "`"} and ${"`" + "set deletemsg <msg>" + "`"} where ${"`" + "msg" + "`"} is your custom message.
 
 **Other updates**
 
-- Updated ${"`" + "help" + "`"} command with set section, set commands, and updates command. Subtle update to stop and delete in help (${"`" + "stop <word>" + "`"} became ${"`" + "stop <words>" + "`"}).
-- Server count in bot's user presence is now updated every time a server invites Stop.
-- Started testing and developing bot on separate "Stop Testing" bot.
-- Dev note: Code more modular, such as permissions checks.
+- If bulk delete number is >= 100, a warning message is sent to user.
+- Fixed bug where commands and subcommands could be stopped/deleted.
+- Documentation has been made more clear in help and info commands.
 
-If you enjoy using Stop bot, please upvote it on the [Discord Bot List](https://discordbots.org/bot/340404757648769025)! :heart:`
+If you enjoy using Stop Bot, please upvote it on the [Discord Bot List](https://discordbots.org/bot/stop-bot)! :heart:`
         )
       })
   });
