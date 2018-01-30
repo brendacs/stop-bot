@@ -21,6 +21,7 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
 - ${"`" + "delete <#> <user>" + "`"} deletes the last ${"`" + "#" + "`"} of messages from ${"`" + "user" + "`"}.
 - You can now set the bot to send stopped and deleted word lists through DM with ${"`" + "set toggledm" + "`"}. This can be disabled again under the same command.
 - Stop and delete warnings are now both customizable through ${"`" + "set stopmsg <msg>" + "`"} and ${"`" + "set deletemsg <msg>" + "`"} where ${"`" + "msg" + "`"} is your custom message.
+- ${"`" + "dmhelp" + "`"} command was added. Use this instead of ${"`" + "help" + "`"} to get the commands in your DMs.
 
 **Other updates**
 
