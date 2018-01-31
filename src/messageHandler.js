@@ -40,7 +40,7 @@ const messageHandler = (bot, stopClient) => {
           stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
             .then(result => {
               console.log('inserted');
-              bot.user.setPresence({status: 'online', game: {name: `!go fish | !help | ${bot.guilds.size} servers`, type: 0}});
+              bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
             })
             .catch(err => console.log(err));
         }
