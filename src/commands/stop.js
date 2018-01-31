@@ -5,8 +5,14 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
   let mentionsNum = msg.mentions.users.array().length;
 
   getStopMessage(stopClient, msg).then(stopMessage => {
+    const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
     if (!subcmd) {
       msg.channel.send(stopMessage);
+    } else if (reserved.indexOf(subcmd) !== -1) {
+      msg.channel.send({
+        embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be stopped.`)
+      });
+      return;
     } else if (mentions.first() !== undefined) {
       msg.channel.send(`${mentions.first(mentionsNum)}\n${stopMessage}`);
     } else if (subcmd === 'video') {
