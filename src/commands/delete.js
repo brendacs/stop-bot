@@ -23,7 +23,7 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild
     } else {
       msg.channel.send('There are no words on the delete list.')
     }
-  } else if (!isNaN(subcmd)) {
+  } else if (!isNaN(subcmd) && mod) {
     let limit = parseInt(subcmd) + 1;
     if (limit >= 100) {
       msg.channel.send({
