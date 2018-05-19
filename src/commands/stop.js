@@ -5,7 +5,7 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
   let mentionsNum = msg.mentions.users.array().length;
 
   getStopMessage(stopClient, msg).then(stopMessage => {
-    const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
+    const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix'];
     if (!subcmd) {
       msg.channel.send(stopMessage);
     } else if (reserved.indexOf(subcmd) !== -1) {

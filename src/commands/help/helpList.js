@@ -8,7 +8,7 @@ const helpList = {
     go: "**GO**"
   },
   commands: {
-    general: "```help, dmhelp, info, updates```",
+    general: "```help, dmhelp, info, updates, reset```",
     set: "```set, set default, set prefix, set stopmsg <setting>, set deletemsg <setting>, set toggledm```",
     stop: "```stop [@user], stop video, stop list, stop <words>```",
     delete: "```delete <words>, delete list, delete <#> [@user]```",
