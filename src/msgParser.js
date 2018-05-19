@@ -6,7 +6,7 @@ import {
 } from './getSettings.js';
 
 const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
-  const cmds = ['help', 'dmhelp', 'info', 'updates', 'stop', 'delete', 'go', 'set'];
+  const cmds = ['help', 'dmhelp', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'reset'];
 
   let args, cmd, subcmd, thirdcmd;
 

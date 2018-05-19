@@ -41,6 +41,8 @@ Made to stop your Discord server from turning into a trollfest through message m
 |`help`|sends a list of all commands to the channel|everyone|
 |`dmhelp`|sends a list of all commands to your DMs|everyone|
 |`info`|displays bot stats (# of servers and channels)|everyone|
+|`updates`|sends latest bot update notes to your DMs|everyone|
+|`reset`|resets bot to default settings, including lists|admin or mod|
 |**Set Commands**|||
 |`set`|displays list of settings options (things that can be set)|admin or mod|
 |`set <option> <setting>`|sets `<option>` to your custom `<setting>`|admin or mod|

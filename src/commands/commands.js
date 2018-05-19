@@ -6,6 +6,7 @@ import stopCmd from './stop.js';
 import deleteCmd from './delete.js';
 import goCmd from './go/go.js';
 import setInit from './set/set.js';
+import resetCmd from './reset.js';
 
 const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList) => {
   const richEmbed = new Discord.RichEmbed();
@@ -32,6 +33,7 @@ const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisG
   else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
   else if (cmd === 'go')  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
   else if (cmd === 'set') setInit(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed);
+  else if (cmd === 'reset') resetCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed);
 }
 
 export default commands;
