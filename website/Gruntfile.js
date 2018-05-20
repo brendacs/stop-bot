@@ -35,4 +35,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('minify', ['cssmin']);
   grunt.registerTask('dev', ['sass', 'minify']);
+  grunt.registerTask('build', ['dev', 'watch']);
 };
