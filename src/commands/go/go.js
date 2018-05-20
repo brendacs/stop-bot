@@ -57,10 +57,14 @@ const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, de
     msg.reply('you can\'t use this command.');
   } else if (admin && typeof subcmd !== 'undefined') {
     if (isStopped) {
+      subcmd = subcmd.replace(/'/g, "''");
       stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${thisGuild}`);
+      subcmd = subcmd.replace(/''/g, "'");
       msg.channel.send('`' + subcmd + '`' + ' will no longer be stopped.');
     } else if (isDeleted) {
+      subcmd = subcmd.replace(/'/g, "''");
       stopClient.query(`UPDATE word_lists SET deletelist = array_remove(deletelist, '${subcmd}') WHERE serverid=${thisGuild}`);
+      subcmd = subcmd.replace(/''/g, "'");
       msg.channel.send('`' + subcmd + '`' + ' will no longer be deleted.');
     } else {
       msg.channel.send('`' + subcmd + '`' + ' was not on the list of stopped or deleted words.');

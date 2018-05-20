@@ -39,7 +39,9 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
         } else if (isDeleted) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
         } else {
+          subcmd = subcmd.replace(/'/g, "''");
           stopClient.query(`UPDATE word_lists SET stoplist = stoplist || '{${subcmd.toLowerCase()}}' WHERE serverid=${thisGuild}`);
+          subcmd = subcmd.replace(/''/g, "'");
           msg.channel.send('`' + subcmd + '`' + ' will now be stopped.');
         }
       } else if (!admin) {
