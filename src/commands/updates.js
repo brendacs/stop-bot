@@ -15,19 +15,17 @@ const getUpdateDM = (bot, msg, cmd, richEmbed) => {
     .then((channel) => {
       channel.send({
         embed: richEmbed.setColor('#ff0000').setDescription(
-`**Update #4**
+`**Update #5**
 
-- Users are now mentionable: ${"`" + "stop <user>" + "`"} and ${"`" + "delete <#> <user>" + "`"}.
-- ${"`" + "delete <#> <user>" + "`"} deletes the last ${"`" + "#" + "`"} of messages from ${"`" + "user" + "`"}.
-- You can now set the bot to send stopped and deleted word lists through DM with ${"`" + "set toggledm" + "`"}. This can be disabled again under the same command.
-- Stop and delete warnings are now both customizable through ${"`" + "set stopmsg <msg>" + "`"} and ${"`" + "set deletemsg <msg>" + "`"} where ${"`" + "msg" + "`"} is your custom message.
-- ${"`" + "dmhelp" + "`"} command was added. Use this instead of ${"`" + "help" + "`"} to get the commands in your DMs.
+ Added reset command, which resets all bot settings and lists: ${"`" + "!reset" + "`"}.
+- Words with apostrophes can now be added to stop and delete lists: ${"`" + "!stop don't" + "`"}.
+- Restricted words will no longer be deleted if listed at once. For example, ${"`" + "!delete go fish" + "`"} and ${"`" + "!delete set stop" + "`"} will no longer add those words.
+- Found a small bug and squashed it. So, the ${"`" + "!stop video" + "`"} command works again!
+- Updated documentation, help command, and update commands to match updates.
 
-**Other updates**
+**A small note**
 
-- If bulk delete number is >= 100, a warning message is sent to user.
-- Fixed bug where commands and subcommands could be stopped/deleted.
-- Documentation has been made more clear in help and info commands.
+Thank you to all those who pointed out these bugs and suggested improvements. I'd never be able to catch all those bugs myself! Your help is always appreciated, and never hesitate to discuss the bot with me in the server or on GitHub. I hope it is obvious that your input matters.
 
 If you enjoy using Stop Bot, please upvote it on the [Discord Bot List](https://discordbots.org/bot/stop-bot)! :heart:`
         )
