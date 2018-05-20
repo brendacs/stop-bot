@@ -1,6 +1,6 @@
 {
-  "name": "stopbot-es6",
-  "version": "1.0.0",
+  "name": "stopbot",
+  "version": "3.0.1",
   "description": "",
   "main": "stopbot.js",
   "scripts": {
