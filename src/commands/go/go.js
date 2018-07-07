@@ -5,13 +5,14 @@ import {
   stopClient
 } from '../../constants';
 import { isAdmin } from '../../utils/checkPerms';
+import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
 
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
-const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
     const thisAuthor = msg.author.id;
@@ -60,6 +61,9 @@ const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, isD
   else if (!isAdmin(msg) && subcmd !== 'fish' && subcmd !== 'inv') {
     msg.reply('you can\'t use this command.');
   } else if (isAdmin(msg) && typeof subcmd !== 'undefined') {
+    const isStopped = isOnStopList(stopList, subcmd);
+    const isDeleted = isOnDeleteList(deleteList, subcmd);
+    
     if (isStopped) {
       subcmd = subcmd.replace(/'/g, "''");
       stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${thisGuild}`);

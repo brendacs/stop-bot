@@ -1,8 +1,9 @@
 import { getStopMessage, getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
 import { isAdmin } from '../utils/checkPerms';
+import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
 
-const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
@@ -41,6 +42,10 @@ const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, i
       }
     } else if (typeof subcmd !== 'undefined') {
       if (isAdmin(msg)) {
+        
+        const isStopped = isOnStopList(stopList, subcmd);
+        const isDeleted = isOnDeleteList(deleteList, subcmd);
+
         if (isStopped) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to stop.');
         } else if (isDeleted) {

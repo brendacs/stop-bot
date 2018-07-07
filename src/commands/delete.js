@@ -1,8 +1,9 @@
 import { getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
 import { isAdmin, isMod } from '../utils/checkPerms';
+import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
 
-const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList) => {
   if (!subcmd) return;
 
   // check if any reserved words are set to be deleted
@@ -52,6 +53,10 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList, 
       .catch(err => console.log(err));
   } else if (subcmd && isNaN(subcmd)) {
     if (isAdmin(msg)) {
+
+      const isStopped = isOnStopList(stopList, subcmd);
+      const isDeleted = isOnDeleteList(deleteList, subcmd);
+
       if (isDeleted) {
         msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
       } else if (isStopped) {
