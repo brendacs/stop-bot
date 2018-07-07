@@ -1,19 +1,17 @@
-import { getToggleDM } from '../getSettings.js';
+import { getToggleDM } from '../utils/getSettings';
+import { reservedWords } from '../constants';
 
 const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
-  const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix', 'video'];
   if (!subcmd) return;
 
   // check if any reserved words are set to be deleted
   let wordsToBeDeleted = subcmd.split(', ');
-  let reservedWordUsed = false;
   for (let word of wordsToBeDeleted) {
-    if (reserved.indexOf(word) !== -1) {
+    if (reservedWords.indexOf(word) !== -1) {
       msg.channel.send({
         embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be deleted.`)
       });
-      reservedWordUsed = true;
-      break;
+      return;
     }
   }
 
@@ -51,7 +49,7 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild
         }
       })
       .catch(err => console.log(err));
-  } else if (subcmd && isNaN(subcmd) && !reservedWordUsed) {
+  } else if (subcmd && isNaN(subcmd)) {
     if (admin) {
       if (isDeleted) {
         msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');

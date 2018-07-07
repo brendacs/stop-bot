@@ -1,13 +1,10 @@
 import Discord from 'discord.js';
 import fs from 'fs';
 import pg from 'pg';
-import msgParser from './msgParser.js';
-import { checkAdmin, checkMod } from './checkPerms.js';
+import msgParser from './msgParser';
+import { checkAdmin, checkMod } from './utils/checkPerms';
 
 const messageHandler = (bot, stopClient) => {
-  const channel = new Discord.Channel();
-  const richEmbed = new Discord.RichEmbed();
-
   bot.on('message', (msg) => {
     if (msg.author.bot) return;
 

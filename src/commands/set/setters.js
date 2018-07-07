@@ -7,7 +7,7 @@ export const setDefault = (stopClient, msg, richEmbed) => {
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`Your settings have been reset to default.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     })
     .catch(err => {
       console.log(err);
@@ -20,7 +20,7 @@ export const setPrefix = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed) => 
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New prefix has been set to ${"`" + thirdcmd + "`"}.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     })
     .catch(err => {
       console.log(err);
@@ -33,7 +33,7 @@ export const setStopMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New stop message has been set.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     })
     .catch(err => {
       console.log(err);
@@ -46,7 +46,7 @@ export const setDeleteMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmb
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New delete message has been set.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     })
     .catch(err => {
       console.log(err);
@@ -61,7 +61,7 @@ export const setToggleDM = (stopClient, msg, cmd, subcmd, richEmbed) => {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`DM lists has been ${toggled}.`);
-        msg.channel.send({embed});
+        msg.channel.send({ embed });
       })
       .catch(err => {
         console.log(err);

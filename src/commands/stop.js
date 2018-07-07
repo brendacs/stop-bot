@@ -1,18 +1,24 @@
-import { getStopMessage, getToggleDM } from '../getSettings.js';
+import { getStopMessage, getToggleDM } from '../utils/getSettings';
+import { reservedWords } from '../constants';
 
 const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
-  getStopMessage(stopClient, msg).then(stopMessage => {
-    const reserved = ['help', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'fish', 'inv', 'prefix'];
-    if (!subcmd) {
-      msg.channel.send(stopMessage);
-    } else if (reserved.indexOf(subcmd) !== -1) {
+  // check if any reserved words are set to be deleted
+  let wordsToBeStopped = subcmd.split(', ');
+  for (let word of wordsToBeStopped) {
+    if (subcmd !== 'video' && reservedWords.indexOf(word) !== -1) {
       msg.channel.send({
         embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be stopped.`)
       });
       return;
+    }
+  }
+
+  getStopMessage(stopClient, msg).then(stopMessage => {
+    if (!subcmd) {
+      msg.channel.send(stopMessage);
     } else if (mentions.first() !== undefined) {
       msg.channel.send(`${mentions.first(mentionsNum)}\n${stopMessage}`);
     } else if (subcmd === 'video') {

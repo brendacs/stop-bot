@@ -1,12 +1,12 @@
 import Discord from 'discord.js';
-import helpCmd from './help/help.js';
-import getInfo from './info.js';
-import getUpdates from './updates.js';
-import stopCmd from './stop.js';
-import deleteCmd from './delete.js';
-import goCmd from './go/go.js';
-import setInit from './set/set.js';
-import resetCmd from './reset.js';
+import helpCmd from './help/help';
+import getInfo from './info';
+import getUpdates from './updates';
+import stopCmd from './stop';
+import deleteCmd from './delete';
+import goCmd from './go/go';
+import setInit from './set/set';
+import resetCmd from './reset';
 
 const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList) => {
   const richEmbed = new Discord.RichEmbed();

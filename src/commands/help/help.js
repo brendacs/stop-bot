@@ -1,4 +1,4 @@
-import helpList from './helpList.js';
+import helpList from './helpList';
 
 const helpCmd = (msg, cmd, richEmbed) => {
   const embed = richEmbed
@@ -13,11 +13,11 @@ ${helpList.headings.docs}
 For full documentation and explanations, visit [Stop Bot GitHub](https://github.com/brendacs/stop-bot).
 For further help and support, join the [Stop Discord Server](https://discord.gg/HwkMkKh).`)
   if (cmd === 'help') {
-    msg.channel.send({embed});
+    msg.channel.send({ embed });
   } else if (cmd === 'dmhelp') {
     msg.member.createDM()
       .then(channel => {
-        channel.send({embed});
+        channel.send({ embed });
       });
   } else {
     return;

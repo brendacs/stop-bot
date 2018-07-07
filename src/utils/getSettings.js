@@ -1,6 +1,6 @@
-import msgParser from './msgParser.js';
-import stopCmd from './commands/stop.js';
-import deleteCmd from './commands/delete.js';
+import msgParser from '../msgParser';
+import stopCmd from '../commands/stop';
+import deleteCmd from '../commands/delete';
 
 export const getPrefix = async (stopClient, msg) => {
   const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${msg.guild.id}'`;

@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ability to disable bot messages upon automatic deletion of messages
 - Ability to disable fishing within servers (or channels)
 - Defend against SQL injections using prepared statements
-- Add unit tests using Mocha and/or Chai
+- Add unit tests using Yarn and Jest
+- Clean up code's constants, utils, and imports
+- Fix bug where reserved words can be put on stop list
 
 ## v3.0.1 - 2018-05-19
 ### Added

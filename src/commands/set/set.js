@@ -4,14 +4,14 @@ import {
   setStopMessage,
   setDeleteMessage,
   setToggleDM
-} from './setters.js';
+} from './setters';
 
 const setInit = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed) => {
   if (!admin || !mod) {
     const embed = richEmbed
       .setColor('#ff0000')
       .setDescription(`You are not permitted to change this bot's settings. You must have **manage messages** or **administrator** permissions.`);
-    msg.channel.send({embed})
+    msg.channel.send({ embed })
     return;
   };
   const settingsQuery = `SELECT * FROM server_settings WHERE serverid='${thisGuild}'`;
@@ -29,7 +29,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
     const embed = richEmbed
       .setColor('#ff0000')
       .setDescription(`What would you like to set?\n\nAvailable options:\n**${options.join(' | ')}**`);
-    msg.channel.send({embed});
+    msg.channel.send({ embed });
   } else if (subcmd === 'default') {
     setDefault(stopClient, msg, richEmbed);
   } else if (subcmd === 'prefix') {
@@ -37,14 +37,14 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`Include your prefix to set it. Example: ${"`" + "!set prefix ~" + "`"}.\nRemember it can only be one character.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     } else if (thirdcmd) {
       if (thirdcmd.length === 1) setPrefix(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`Prefixes for this bot are limited to one character.`);
-        msg.channel.send({embed});
+        msg.channel.send({ embed });
       }
     }
   } else if (subcmd === 'stopmsg') {
@@ -52,14 +52,14 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`Include your stop message to set it. Example: ${"`" + "!set stopmsg Please stop that" + "`"}.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     } else if (thirdcmd) {
       if (thirdcmd.length > 0) setStopMessage(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`Message cannot be blank or less than 1 character.`);
-        msg.channel.send({embed});
+        msg.channel.send({ embed });
       }
     }
   } else if (subcmd === 'deletemsg') {
@@ -67,14 +67,14 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`Include your delete message to set it. Example: ${"`" + "!set deletemsg Your message got deleted" + "`"}.`);
-      msg.channel.send({embed});
+      msg.channel.send({ embed });
     } else if (thirdcmd) {
       if (thirdcmd.length > 0) setDeleteMessage(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`Message cannot be blank or less than 1 character.`);
-        msg.channel.send({embed});
+        msg.channel.send({ embed });
       }
     }
   } else if (subcmd === 'toggledm') {

@@ -1,13 +1,12 @@
-import commands from './commands/commands.js';
+import commands from './commands/commands';
 import {
   getPrefix,
   getStopMessage,
   getDeleteMessage
-} from './getSettings.js';
+} from './utils/getSettings';
+import { cmds } from './constants';
 
 const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
-  const cmds = ['help', 'dmhelp', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'reset'];
-
   let args, cmd, subcmd, thirdcmd;
 
   let mentions = msg.mentions.users;

@@ -2,16 +2,14 @@ import Discord from 'discord.js';
 import logger from 'winston';
 import request from 'superagent';
 import auth from '../auth.json';
-import messageHandler from './messageHandler.js';
+import messageHandler from './messageHandler';
 import express from 'express';
 import pg from 'pg';
+import { PGUSER, PGDATABASE } from './constants';
 
 const app = express();
 
 // database configs
-const PGUSER = 'brendazhang';
-const PGDATABASE = 'stopbot_db';
-
 const config = {
   user: PGUSER, // name of the user account
   database: PGDATABASE, // name of the database
@@ -40,7 +38,7 @@ logger.add(logger.transports.Console, {
 });
 logger.level = 'debug';
 
-const TOKEN = auth.token;
+const TOKEN = auth.testing_token;
 const DBOT_TOKEN = auth.dbot_token;
 const PWBOT_TOKEN = auth.pwbot_token;
 

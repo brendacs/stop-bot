@@ -1,13 +1,12 @@
-import goFish from './goFish.js';
+import goFish from './goFish';
+import { coolDownMinutesFish, coolDownMinutesInv } from '../../constants';
+
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
 const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
-  const coolDownMinutesFish = 3 * 60 * 1000;
-  const coolDownMinutesInv = 0.25 * 60 * 1000;
-
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
     const thisAuthor = msg.author.id;
