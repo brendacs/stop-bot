@@ -1,7 +1,8 @@
 import { getStopMessage, getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
+import { isAdmin } from '../utils/checkPerms';
 
-const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
@@ -39,7 +40,7 @@ const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, 
         msg.channel.send('There are no words on the stop list.');
       }
     } else if (typeof subcmd !== 'undefined') {
-      if (admin) {
+      if (isAdmin(msg)) {
         if (isStopped) {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to stop.');
         } else if (isDeleted) {
@@ -50,7 +51,7 @@ const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, 
           subcmd = subcmd.replace(/''/g, "'");
           msg.channel.send('`' + subcmd + '`' + ' will now be stopped.');
         }
-      } else if (!admin) {
+      } else if (!isAdmin(msg)) {
         msg.reply('you can\'t use this command.');
       }
     } else return;

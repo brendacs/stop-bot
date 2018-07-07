@@ -1,7 +1,8 @@
 import { getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
+import { isAdmin, isMod } from '../utils/checkPerms';
 
-const deleteCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (!subcmd) return;
 
   // check if any reserved words are set to be deleted
@@ -30,7 +31,7 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, 
     } else {
       msg.channel.send('There are no words on the delete list.')
     }
-  } else if (!isNaN(subcmd) && mod) {
+  } else if (!isNaN(subcmd) && isMod(msg)) {
     let limit = parseInt(subcmd) + 1;
     if (limit >= 100) {
       msg.channel.send({
@@ -50,7 +51,7 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, 
       })
       .catch(err => console.log(err));
   } else if (subcmd && isNaN(subcmd)) {
-    if (admin) {
+    if (isAdmin(msg)) {
       if (isDeleted) {
         msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
       } else if (isStopped) {
@@ -61,7 +62,7 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, 
         subcmd = subcmd.replace(/''/g, "'");
         msg.channel.send('`' + subcmd + '`' + ' will be deleted every time it appears.');
       }
-    } else if (!admin) {
+    } else if (!isAdmin(msg)) {
       msg.reply('you can\'t use this command.');
     }
   } else {

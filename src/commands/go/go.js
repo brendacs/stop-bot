@@ -4,13 +4,14 @@ import {
   coolDownMinutesInv,
   stopClient
 } from '../../constants';
+import { isAdmin } from '../../utils/checkPerms';
 
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
-const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
+const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
     const thisAuthor = msg.author.id;
@@ -56,9 +57,9 @@ const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, is
   }
 
   // For subcmds that are not fish or inv
-  else if (!admin && subcmd !== 'fish' && subcmd !== 'inv') {
+  else if (!isAdmin(msg) && subcmd !== 'fish' && subcmd !== 'inv') {
     msg.reply('you can\'t use this command.');
-  } else if (admin && typeof subcmd !== 'undefined') {
+  } else if (isAdmin(msg) && typeof subcmd !== 'undefined') {
     if (isStopped) {
       subcmd = subcmd.replace(/'/g, "''");
       stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${thisGuild}`);

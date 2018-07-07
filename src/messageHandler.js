@@ -2,7 +2,6 @@ import Discord from 'discord.js';
 import fs from 'fs';
 import pg from 'pg';
 import msgParser from './msgParser';
-import { checkAdmin, checkMod } from './utils/checkPerms';
 import { stopClient } from './constants';
 
 const messageHandler = (bot) => {
@@ -10,10 +9,6 @@ const messageHandler = (bot) => {
     if (msg.author.bot) return;
 
     const thisGuild = msg.guild.id;
-    const thisAuthor = msg.author.id;
-
-    let admin = checkAdmin(msg);
-    let mod = checkMod(msg);
 
     stopClient.query(`SELECT EXISTS (SELECT 1 FROM server_settings WHERE serverid=${thisGuild})`)
     .then(result => {
@@ -46,7 +41,7 @@ const messageHandler = (bot) => {
           .then(result => {
             stopList = result.rows[0]['stoplist'];
             deleteList = result.rows[0]['deletelist'];
-            msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
+            msgParser(bot, msg, thisGuild, stopList, deleteList);
           })
           .catch(err => console.log(err));
       })

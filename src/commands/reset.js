@@ -1,8 +1,9 @@
 import { setDefault } from './set/setters';
 import { stopClient, richEmbed } from '../constants';
+import { isAdmin, isMod } from '../utils/checkPerms';
 
-const resetCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild) => {
-  if (admin || mod) {
+const resetCmd = (msg, cmd, subcmd, thirdcmd, thisGuild) => {
+  if (isAdmin(msg) || isMod(msg)) {
     setDefault(msg);
     stopClient.query(`UPDATE word_lists SET deletelist = '{}' WHERE serverid=${msg.guild.id}`);
     stopClient.query(`UPDATE word_lists SET stoplist = '{}' WHERE serverid=${msg.guild.id}`)

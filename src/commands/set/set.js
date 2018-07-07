@@ -6,9 +6,10 @@ import {
   setToggleDM
 } from './setters';
 import { stopClient, richEmbed } from '../../constants';
+import { isAdmin, isMod } from '../../utils/checkPerms';
 
-const setInit = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild) => {
-  if (!admin || !mod) {
+const setInit = (msg, cmd, subcmd, thirdcmd, thisGuild) => {
+  if (!isAdmin(msg) || !isMod(msg)) {
     const embed = richEmbed
       .setColor('#ff0000')
       .setDescription(`You are not permitted to change this bot's settings. You must have **manage messages** or **administrator** permissions.`);
@@ -19,12 +20,12 @@ const setInit = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild) => {
   stopClient.query(settingsQuery)
     .then(result => {
       let settings = result.rows[0];
-      setCmd(msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, settings);
+      setCmd(msg, cmd, subcmd, thirdcmd, thisGuild, settings);
     })
     .catch(err => console.log(err));
 }
 
-const setCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, settings) => {
+const setCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, settings) => {
   const options = ['default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm'];
   if (options.indexOf(subcmd) === -1) {
     const embed = richEmbed

@@ -1,10 +1,10 @@
-export const checkAdmin = (msg) => {
+export const isAdmin = (msg) => {
   checkNull(msg);
   let admin = msg.member.hasPermission('ADMINISTRATOR');
   return admin;
 }
 
-export const checkMod = (msg) => {
+export const isMod = (msg) => {
   checkNull(msg);
   let mod = msg.member.hasPermission('MANAGE_MESSAGES');
   return mod;
@@ -16,5 +16,3 @@ export const checkNull = (msg) => {
     msg.guild.fetchMember(msg.author, true);
   }
 }
-
-export default checkMod;
