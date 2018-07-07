@@ -1,7 +1,7 @@
 import { getToggleDM } from '../utils/getSettings';
-import { reservedWords } from '../constants';
+import { reservedWords, stopClient, richEmbed } from '../constants';
 
-const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+const deleteCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (!subcmd) return;
 
   // check if any reserved words are set to be deleted
@@ -17,7 +17,7 @@ const deleteCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild
 
   if (subcmd === 'list') {
     if (deleteList.length !== 0) {
-      getToggleDM(stopClient, msg).then(enabled => {
+      getToggleDM(msg).then(enabled => {
         if (enabled) {
           msg.member.createDM()
             .then(channel => {

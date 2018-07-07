@@ -3,8 +3,9 @@ import fs from 'fs';
 import pg from 'pg';
 import msgParser from './msgParser';
 import { checkAdmin, checkMod } from './utils/checkPerms';
+import { stopClient } from './constants';
 
-const messageHandler = (bot, stopClient) => {
+const messageHandler = (bot) => {
   bot.on('message', (msg) => {
     if (msg.author.bot) return;
 
@@ -45,7 +46,7 @@ const messageHandler = (bot, stopClient) => {
           .then(result => {
             stopList = result.rows[0]['stoplist'];
             deleteList = result.rows[0]['deletelist'];
-            msgParser(bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList);
+            msgParser(bot, msg, admin, mod, thisGuild, stopList, deleteList);
           })
           .catch(err => console.log(err));
       })

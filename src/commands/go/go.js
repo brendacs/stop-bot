@@ -1,12 +1,16 @@
 import goFish from './goFish';
-import { coolDownMinutesFish, coolDownMinutesInv } from '../../constants';
+import {
+  coolDownMinutesFish,
+  coolDownMinutesInv,
+  stopClient
+} from '../../constants';
 
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
-const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+const goCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
     const thisAuthor = msg.author.id;
@@ -27,7 +31,7 @@ const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, de
             // Go fish
             if (subcmd === 'fish') {
               if (!allowedFishTimes[msg.author.id] || allowedFishTimes[msg.author.id] <= Date.now()) {
-                goFish(stopClient, msg, cmd, subcmd, richEmbed, fishList);
+                goFish(msg, cmd, subcmd, fishList);
                 nextAllowedFishCapture = msg.createdTimestamp + coolDownMinutesFish;
                 allowedFishTimes[msg.author.id] = nextAllowedFishCapture;
               } else {
@@ -38,7 +42,7 @@ const goCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, de
             // See inventory
             else if (subcmd === 'inv') {
               if (!allowedInvTimes[msg.author.id] || allowedInvTimes[msg.author.id] <= Date.now()) {
-                goFish(stopClient, msg, cmd, subcmd, richEmbed, fishList);
+                goFish(msg, cmd, subcmd, fishList);
                 nextAllowedInvOpen = msg.createdTimestamp + coolDownMinutesInv;
                 allowedInvTimes[msg.author.id] = nextAllowedInvOpen;
               } else {

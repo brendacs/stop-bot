@@ -1,8 +1,9 @@
 import msgParser from '../msgParser';
 import stopCmd from '../commands/stop';
 import deleteCmd from '../commands/delete';
+import { stopClient } from '../constants';
 
-export const getPrefix = async (stopClient, msg) => {
+export const getPrefix = async (msg) => {
   const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${msg.guild.id}'`;
   let prefix = await stopClient.query(prefixQuery)
     .then(result => {
@@ -14,7 +15,7 @@ export const getPrefix = async (stopClient, msg) => {
   return prefix;
 }
 
-export const getStopMessage = async (stopClient, msg) => {
+export const getStopMessage = async (msg) => {
   const stopMessageQuery = `SELECT stopmessage FROM server_settings WHERE serverid='${msg.guild.id}'`;
   let stopMessage = await stopClient.query(stopMessageQuery)
     .then(result => {
@@ -26,7 +27,7 @@ export const getStopMessage = async (stopClient, msg) => {
   return stopMessage;
 }
 
-export const getDeleteMessage = async (stopClient, msg) => {
+export const getDeleteMessage = async (msg) => {
   const deleteMessageQuery = `SELECT deletemessage FROM server_settings WHERE serverid='${msg.guild.id}'`;
   let deleteMessage = await stopClient.query(deleteMessageQuery)
     .then(result => {
@@ -38,7 +39,7 @@ export const getDeleteMessage = async (stopClient, msg) => {
   return deleteMessage;
 }
 
-export const getToggleDM = async (stopClient, msg) => {
+export const getToggleDM = async (msg) => {
   const toggleDMQuery = `SELECT dmlists FROM server_settings WHERE serverid='${msg.guild.id}'`;
   let enabled = await stopClient.query(toggleDMQuery)
     .then(result => {

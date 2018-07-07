@@ -1,5 +1,21 @@
-export const PGUSER = 'brendazhang';
-export const PGDATABASE = 'stopbot_db';
+import Discord from 'discord.js';
+import pg from 'pg';
+
+// Database configs
+const PGUSER = 'brendazhang';
+const PGDATABASE = 'stopbot_db';
+
+const dbconfig = {
+  user: PGUSER, // name of the user account
+  database: PGDATABASE, // name of the database
+  max: 10, // max number of clients in the pool
+  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
+};
+
+export const stopClient = new pg.Client(dbconfig);
+
+// Bot constants
+export const richEmbed = new Discord.RichEmbed();
 export const cmds = ['help', 'dmhelp', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'reset'];
 export const reservedWords = cmds.concat(['fish', 'inv', 'default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm', 'video']);
 export const coolDownMinutesFish = 3 * 60 * 1000;

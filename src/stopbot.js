@@ -4,28 +4,17 @@ import request from 'superagent';
 import auth from '../auth.json';
 import messageHandler from './messageHandler';
 import express from 'express';
-import pg from 'pg';
-import { PGUSER, PGDATABASE } from './constants';
+import { stopClient } from './constants';
 
 const app = express();
 
-// database configs
-const config = {
-  user: PGUSER, // name of the user account
-  database: PGDATABASE, // name of the database
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000 // how long a client is allowed to remain idle before being closed
-};
-
-// database connection
-const stopClient = new pg.Client(config);
 stopClient.connect()
   .then(client => {
     console.log('Connected to DB')
   })
   .catch(err => {
     console.log('Error connecting: ', err.message, err.stack)
-  })
+  });
 
 app.listen(5430, () => {
   console.log('Server started');
@@ -72,6 +61,6 @@ bot.on('ready', (evt) => {
   bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
 });
 
-messageHandler(bot, stopClient);
+messageHandler(bot);
 
 bot.login(TOKEN);

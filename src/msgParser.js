@@ -6,13 +6,13 @@ import {
 } from './utils/getSettings';
 import { cmds } from './constants';
 
-const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, deleteList) => {
+const msgParser = (bot, msg, admin, mod, thisGuild, stopList, deleteList) => {
   let args, cmd, subcmd, thirdcmd;
 
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
-  getPrefix(stopClient, msg).then(prefix => {
+  getPrefix(msg).then(prefix => {
     if (msg.toString().substring(0, 1) === prefix) { // if prefix is used
       args = msg.toString().substring(1).split(' ');
       cmd = args[0];
@@ -28,19 +28,19 @@ const msgParser = (bot, stopClient, msg, admin, mod, thisGuild, stopList, delete
     }
 
     if (cmd !== undefined && stopList && deleteList && cmds.indexOf(cmd) !== -1) {
-      commands(bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList);
+      commands(bot, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList);
     } else {
       // check messages beginning with exclamation marks and are not commands
-      checkMessage(stopClient, msg, stopList, deleteList);
+      checkMessage(msg, stopList, deleteList);
     }
   });
 }
 
-const checkMessage = (stopClient, msg, stopList, deleteList) => {
+const checkMessage = (msg, stopList, deleteList) => {
   const string = msg.content;
   for (let i = 0; i < stopList.length; i++) {
     if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
-      getStopMessage(stopClient, msg).then(stopMessage => {
+      getStopMessage(msg).then(stopMessage => {
         msg.reply(stopMessage);
         return; // prevents bot from sending multiple messages if multiple words in one msg
       });
@@ -48,7 +48,7 @@ const checkMessage = (stopClient, msg, stopList, deleteList) => {
   }
   for (let i = 0; i < deleteList.length; i++) {
     if (string.toString().toLowerCase().indexOf(deleteList[i]) !== -1) {
-      getDeleteMessage(stopClient, msg).then(deleteMessage => {
+      getDeleteMessage(msg).then(deleteMessage => {
         msg.delete();
         msg.reply(deleteMessage);
         return;

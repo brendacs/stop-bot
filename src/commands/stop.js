@@ -1,7 +1,7 @@
 import { getStopMessage, getToggleDM } from '../utils/getSettings';
-import { reservedWords } from '../constants';
+import { reservedWords, stopClient, richEmbed } from '../constants';
 
-const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed) => {
+const stopCmd = (msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
@@ -16,7 +16,7 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
     }
   }
 
-  getStopMessage(stopClient, msg).then(stopMessage => {
+  getStopMessage(msg).then(stopMessage => {
     if (!subcmd) {
       msg.channel.send(stopMessage);
     } else if (mentions.first() !== undefined) {
@@ -25,7 +25,7 @@ const stopCmd = (stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, 
       msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
     } else if (subcmd === 'list') {
       if (stopList.length !== 0) {
-        getToggleDM(stopClient, msg).then(enabled => {
+        getToggleDM(msg).then(enabled => {
           if (enabled) {
             msg.member.createDM()
               .then(channel => {

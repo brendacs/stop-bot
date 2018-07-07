@@ -1,4 +1,3 @@
-import Discord from 'discord.js';
 import helpCmd from './help/help';
 import getInfo from './info';
 import getUpdates from './updates';
@@ -8,9 +7,7 @@ import goCmd from './go/go';
 import setInit from './set/set';
 import resetCmd from './reset';
 
-const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList) => {
-  const richEmbed = new Discord.RichEmbed();
-
+const commands = (bot, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList) => {
   let isStopped;
   let isDeleted;
 
@@ -26,14 +23,14 @@ const commands = (bot, stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisG
     isDeleted = false;
   }
 
-  if (cmd === 'help' || cmd === 'dmhelp') helpCmd(msg, cmd, richEmbed);
-  else if (cmd === 'info') getInfo(bot, msg, cmd, richEmbed);
-  else if (cmd === 'updates') getUpdates(bot, msg, cmd, richEmbed);
-  else if (cmd === 'stop') stopCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
-  else if (cmd === 'delete') deleteCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
-  else if (cmd === 'go')  goCmd(stopClient, msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted, richEmbed);
-  else if (cmd === 'set') setInit(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed);
-  else if (cmd === 'reset') resetCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed);
+  if (cmd === 'help' || cmd === 'dmhelp') helpCmd(msg, cmd);
+  else if (cmd === 'info') getInfo(bot, msg, cmd);
+  else if (cmd === 'updates') getUpdates(msg, cmd);
+  else if (cmd === 'stop') stopCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  else if (cmd === 'delete') deleteCmd(msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  else if (cmd === 'go')  goCmd(msg, cmd, subcmd, admin, mod, thisGuild, stopList, deleteList, isStopped, isDeleted);
+  else if (cmd === 'set') setInit(msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild);
+  else if (cmd === 'reset') resetCmd(msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild);
 }
 
 export default commands;

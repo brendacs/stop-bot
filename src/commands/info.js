@@ -1,4 +1,6 @@
-const getInfo = (bot, msg, cmd, richEmbed) => {
+import { richEmbed } from '../constants';
+
+const getInfo = (bot, msg, cmd) => {
   msg.channel.send({
     embed: richEmbed.setColor('#ff0000').setDescription(
 `This bot is running on ${bot.guilds.size} servers and ${bot.channels.size} channels with ${bot.users.size} users.

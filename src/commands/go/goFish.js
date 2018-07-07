@@ -1,6 +1,12 @@
-import { allFishEmojis, allFishNames, allDBNames } from '../../constants';
+import {
+  allFishEmojis,
+  allFishNames,
+  allDBNames,
+  stopClient,
+  richEmbed
+} from '../../constants';
 
-const goFish = (stopClient, msg, cmd, subcmd, richEmbed, fishList) => {
+const goFish = (msg, cmd, subcmd, fishList) => {
   if (subcmd === 'fish') {
     // Reset to empty array on every "!go fish" message
     const fishCaught = [];

@@ -1,4 +1,6 @@
-export const setDefault = (stopClient, msg, richEmbed) => {
+import { stopClient, richEmbed } from '../../constants';
+
+export const setDefault = (msg) => {
   stopClient.query(`UPDATE server_settings SET prefix = '!' WHERE serverid=${msg.guild.id}`);
   stopClient.query(`UPDATE server_settings SET stopmessage = NULL WHERE serverid=${msg.guild.id}`);
   stopClient.query(`UPDATE server_settings SET deletemessage = NULL WHERE serverid=${msg.guild.id}`);
@@ -14,7 +16,7 @@ export const setDefault = (stopClient, msg, richEmbed) => {
     });
 }
 
-export const setPrefix = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed) => {
+export const setPrefix = (msg, cmd, subcmd, thirdcmd) => {
   stopClient.query(`UPDATE server_settings SET prefix = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
     .then(result => {
       const embed = richEmbed
@@ -27,7 +29,7 @@ export const setPrefix = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed) => 
     });
 }
 
-export const setStopMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed) => {
+export const setStopMessage = (msg, cmd, subcmd, thirdcmd) => {
   stopClient.query(`UPDATE server_settings SET stopmessage = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
     .then(result => {
       const embed = richEmbed
@@ -40,7 +42,7 @@ export const setStopMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed
     });
 }
 
-export const setDeleteMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmbed) => {
+export const setDeleteMessage = (msg, cmd, subcmd, thirdcmd) => {
   stopClient.query(`UPDATE server_settings SET deletemessage = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
     .then(result => {
       const embed = richEmbed
@@ -53,7 +55,7 @@ export const setDeleteMessage = (stopClient, msg, cmd, subcmd, thirdcmd, richEmb
     });
 }
 
-export const setToggleDM = (stopClient, msg, cmd, subcmd, richEmbed) => {
+export const setToggleDM = (msg, cmd, subcmd) => {
   stopClient.query(`UPDATE server_settings SET dmlists = NOT dmlists WHERE serverid=${msg.guild.id}`)
     .then(result => {
       stopClient.query(`SELECT dmlists FROM server_settings WHERE serverid='${msg.guild.id}'`).then(result => {

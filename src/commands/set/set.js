@@ -5,8 +5,9 @@ import {
   setDeleteMessage,
   setToggleDM
 } from './setters';
+import { stopClient, richEmbed } from '../../constants';
 
-const setInit = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed) => {
+const setInit = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild) => {
   if (!admin || !mod) {
     const embed = richEmbed
       .setColor('#ff0000')
@@ -18,12 +19,12 @@ const setInit = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, 
   stopClient.query(settingsQuery)
     .then(result => {
       let settings = result.rows[0];
-      setCmd(stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed, settings);
+      setCmd(msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, settings);
     })
     .catch(err => console.log(err));
 }
 
-const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, richEmbed, settings) => {
+const setCmd = (msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, settings) => {
   const options = ['default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm'];
   if (options.indexOf(subcmd) === -1) {
     const embed = richEmbed
@@ -31,7 +32,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
       .setDescription(`What would you like to set?\n\nAvailable options:\n**${options.join(' | ')}**`);
     msg.channel.send({ embed });
   } else if (subcmd === 'default') {
-    setDefault(stopClient, msg, richEmbed);
+    setDefault(msg);
   } else if (subcmd === 'prefix') {
     if (thirdcmd === undefined) {
       const embed = richEmbed
@@ -39,7 +40,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
         .setDescription(`Include your prefix to set it. Example: ${"`" + "!set prefix ~" + "`"}.\nRemember it can only be one character.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length === 1) setPrefix(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
+      if (thirdcmd.length === 1) setPrefix(msg, cmd, subcmd, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -54,7 +55,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
         .setDescription(`Include your stop message to set it. Example: ${"`" + "!set stopmsg Please stop that" + "`"}.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length > 0) setStopMessage(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
+      if (thirdcmd.length > 0) setStopMessage(msg, cmd, subcmd, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -69,7 +70,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
         .setDescription(`Include your delete message to set it. Example: ${"`" + "!set deletemsg Your message got deleted" + "`"}.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length > 0) setDeleteMessage(stopClient, msg, cmd, subcmd, thirdcmd, richEmbed);
+      if (thirdcmd.length > 0) setDeleteMessage(msg, cmd, subcmd, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -78,7 +79,7 @@ const setCmd = (stopClient, msg, cmd, subcmd, thirdcmd, admin, mod, thisGuild, r
       }
     }
   } else if (subcmd === 'toggledm') {
-    setToggleDM(stopClient, msg, cmd, subcmd, richEmbed);
+    setToggleDM(msg, cmd, subcmd);
   }
 }
 

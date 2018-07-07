@@ -1,6 +1,7 @@
 import helpList from './helpList';
+import { richEmbed } from '../../constants';
 
-const helpCmd = (msg, cmd, richEmbed) => {
+const helpCmd = (msg, cmd) => {
   const embed = richEmbed
     .setColor('#ff0000')
     .setDescription(                  
