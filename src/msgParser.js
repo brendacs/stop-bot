@@ -6,7 +6,7 @@ import {
 } from './utils/getSettings';
 import { cmds } from './constants';
 
-const msgParser = (bot, msg, thisGuild, stopList, deleteList) => {
+const msgParser = (bot, msg, stopList, deleteList) => {
   let args, cmd, subcmd, thirdcmd;
 
   let mentions = msg.mentions.users;
@@ -28,7 +28,7 @@ const msgParser = (bot, msg, thisGuild, stopList, deleteList) => {
     }
 
     if (cmd !== undefined && stopList && deleteList && cmds.indexOf(cmd) !== -1) {
-      commands(bot, msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList);
+      commands(bot, msg, cmd, subcmd, thirdcmd, stopList, deleteList);
     } else {
       // check messages beginning with exclamation marks and are not commands
       checkMessage(msg, stopList, deleteList);

@@ -2,8 +2,9 @@ import { getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
 import { isAdmin, isMod } from '../utils/checkPerms';
 import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
+import { getGuildId } from '../utils/utils';
 
-const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList) => {
+const deleteCmd = (msg, cmd, subcmd, thirdcmd, stopList, deleteList) => {
   if (!subcmd) return;
 
   // check if any reserved words are set to be deleted
@@ -62,8 +63,9 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, stopList, deleteList) 
       } else if (isStopped) {
         msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to stop.');
       } else {
+        const guildId = getGuildId(msg);
         subcmd = subcmd.replace(/'/g, "''");
-        stopClient.query(`UPDATE word_lists SET deletelist = deletelist || '{${subcmd.toLowerCase()}}' WHERE serverid=${thisGuild}`);
+        stopClient.query(`UPDATE word_lists SET deletelist = deletelist || '{${subcmd.toLowerCase()}}' WHERE serverid=${guildId}`);
         subcmd = subcmd.replace(/''/g, "'");
         msg.channel.send('`' + subcmd + '`' + ' will be deleted every time it appears.');
       }

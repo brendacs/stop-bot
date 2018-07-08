@@ -2,9 +2,11 @@ import msgParser from '../msgParser';
 import stopCmd from '../commands/stop';
 import deleteCmd from '../commands/delete';
 import { stopClient } from '../constants';
+import { getGuildId } from './utils';
 
 export const getPrefix = async (msg) => {
-  const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  const guildId = getGuildId(msg);
+  const prefixQuery = `SELECT prefix FROM server_settings WHERE serverid='${guildId}'`;
   let prefix = await stopClient.query(prefixQuery)
     .then(result => {
       const defaultPrefix = '!';
@@ -16,7 +18,8 @@ export const getPrefix = async (msg) => {
 }
 
 export const getStopMessage = async (msg) => {
-  const stopMessageQuery = `SELECT stopmessage FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  const guildId = getGuildId(msg);
+  const stopMessageQuery = `SELECT stopmessage FROM server_settings WHERE serverid='${guildId}'`;
   let stopMessage = await stopClient.query(stopMessageQuery)
     .then(result => {
       const defaultMessage = `${new Date().toString()}\nIT\'S TIME TO STOP.`;
@@ -28,7 +31,8 @@ export const getStopMessage = async (msg) => {
 }
 
 export const getDeleteMessage = async (msg) => {
-  const deleteMessageQuery = `SELECT deletemessage FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  const guildId = getGuildId(msg);
+  const deleteMessageQuery = `SELECT deletemessage FROM server_settings WHERE serverid='${guildId}'`;
   let deleteMessage = await stopClient.query(deleteMessageQuery)
     .then(result => {
       const defaultMessage = `Detected something horrible. Deleted.`;
@@ -40,7 +44,8 @@ export const getDeleteMessage = async (msg) => {
 }
 
 export const getToggleDM = async (msg) => {
-  const toggleDMQuery = `SELECT dmlists FROM server_settings WHERE serverid='${msg.guild.id}'`;
+  const guildId = getGuildId(msg);
+  const toggleDMQuery = `SELECT dmlists FROM server_settings WHERE serverid='${guildId}'`;
   let enabled = await stopClient.query(toggleDMQuery)
     .then(result => {
       let status = result.rows[0]['dmlists'] ? true : false;

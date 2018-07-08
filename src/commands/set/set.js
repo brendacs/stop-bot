@@ -7,8 +7,11 @@ import {
 } from './setters';
 import { stopClient, richEmbed } from '../../constants';
 import { isAdmin, isMod } from '../../utils/checkPerms';
+import { getGuildId } from '../../utils/utils';
 
-const setInit = (msg, cmd, subcmd, thirdcmd, thisGuild) => {
+const setInit = (msg, cmd, subcmd, thirdcmd) => {
+  const guildId = getGuildId(msg);
+
   if (!isAdmin(msg) || !isMod(msg)) {
     const embed = richEmbed
       .setColor('#ff0000')
@@ -16,17 +19,18 @@ const setInit = (msg, cmd, subcmd, thirdcmd, thisGuild) => {
     msg.channel.send({ embed })
     return;
   };
-  const settingsQuery = `SELECT * FROM server_settings WHERE serverid='${thisGuild}'`;
+  const settingsQuery = `SELECT * FROM server_settings WHERE serverid='${guildId}'`;
   stopClient.query(settingsQuery)
     .then(result => {
       let settings = result.rows[0];
-      setCmd(msg, cmd, subcmd, thirdcmd, thisGuild, settings);
+      setCmd(msg, cmd, subcmd, thirdcmd, settings);
     })
     .catch(err => console.log(err));
 }
 
-const setCmd = (msg, cmd, subcmd, thirdcmd, thisGuild, settings) => {
+const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
   const options = ['default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm'];
+
   if (options.indexOf(subcmd) === -1) {
     const embed = richEmbed
       .setColor('#ff0000')

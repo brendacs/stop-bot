@@ -1,10 +1,12 @@
 import { stopClient, richEmbed } from '../../constants';
+import { getGuildId } from '../../utils/utils';
 
 export const setDefault = (msg) => {
-  stopClient.query(`UPDATE server_settings SET prefix = '!' WHERE serverid=${msg.guild.id}`);
-  stopClient.query(`UPDATE server_settings SET stopmessage = NULL WHERE serverid=${msg.guild.id}`);
-  stopClient.query(`UPDATE server_settings SET deletemessage = NULL WHERE serverid=${msg.guild.id}`);
-  stopClient.query(`UPDATE server_settings SET dmlists = false WHERE serverid=${msg.guild.id}`)
+  const guildId = getGuildId(msg);
+  stopClient.query(`UPDATE server_settings SET prefix = '!' WHERE serverid=${guildId}`);
+  stopClient.query(`UPDATE server_settings SET stopmessage = NULL WHERE serverid=${guildId}`);
+  stopClient.query(`UPDATE server_settings SET deletemessage = NULL WHERE serverid=${guildId}`);
+  stopClient.query(`UPDATE server_settings SET dmlists = false WHERE serverid=${guildId}`)
     .then(result => {
       const embed = richEmbed
         .setColor('#ff0000')
@@ -17,7 +19,8 @@ export const setDefault = (msg) => {
 }
 
 export const setPrefix = (msg, cmd, subcmd, thirdcmd) => {
-  stopClient.query(`UPDATE server_settings SET prefix = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
+  const guildId = getGuildId(msg);
+  stopClient.query(`UPDATE server_settings SET prefix = '${thirdcmd}' WHERE serverid=${guildId}`)
     .then(result => {
       const embed = richEmbed
         .setColor('#ff0000')
@@ -30,7 +33,8 @@ export const setPrefix = (msg, cmd, subcmd, thirdcmd) => {
 }
 
 export const setStopMessage = (msg, cmd, subcmd, thirdcmd) => {
-  stopClient.query(`UPDATE server_settings SET stopmessage = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
+  const guildId = getGuildId(msg);
+  stopClient.query(`UPDATE server_settings SET stopmessage = '${thirdcmd}' WHERE serverid=${guildId}`)
     .then(result => {
       const embed = richEmbed
         .setColor('#ff0000')
@@ -43,7 +47,8 @@ export const setStopMessage = (msg, cmd, subcmd, thirdcmd) => {
 }
 
 export const setDeleteMessage = (msg, cmd, subcmd, thirdcmd) => {
-  stopClient.query(`UPDATE server_settings SET deletemessage = '${thirdcmd}' WHERE serverid=${msg.guild.id}`)
+  const guildId = getGuildId(msg);
+  stopClient.query(`UPDATE server_settings SET deletemessage = '${thirdcmd}' WHERE serverid=${guildId}`)
     .then(result => {
       const embed = richEmbed
         .setColor('#ff0000')
@@ -56,9 +61,10 @@ export const setDeleteMessage = (msg, cmd, subcmd, thirdcmd) => {
 }
 
 export const setToggleDM = (msg, cmd, subcmd) => {
-  stopClient.query(`UPDATE server_settings SET dmlists = NOT dmlists WHERE serverid=${msg.guild.id}`)
+  const guildId = getGuildId(msg);
+  stopClient.query(`UPDATE server_settings SET dmlists = NOT dmlists WHERE serverid=${guildId}`)
     .then(result => {
-      stopClient.query(`SELECT dmlists FROM server_settings WHERE serverid='${msg.guild.id}'`).then(result => {
+      stopClient.query(`SELECT dmlists FROM server_settings WHERE serverid='${guildId}'`).then(result => {
         let toggled = result.rows[0]['dmlists'] ? 'enabled' : 'disabled';
         const embed = richEmbed
           .setColor('#ff0000')

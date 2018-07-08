@@ -3,18 +3,19 @@ import fs from 'fs';
 import pg from 'pg';
 import msgParser from './msgParser';
 import { stopClient } from './constants';
+import { getGuildId } from './utils/utils';
 
 const messageHandler = (bot) => {
   bot.on('message', (msg) => {
     if (msg.author.bot) return;
 
-    const thisGuild = msg.guild.id;
+    const guildId = getGuildId(msg);
 
-    stopClient.query(`SELECT EXISTS (SELECT 1 FROM server_settings WHERE serverid=${thisGuild})`)
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM server_settings WHERE serverid=${guildId})`)
     .then(result => {
       let guildExists = result.rows[0]['exists'];
       if (!guildExists) {
-        stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${thisGuild}, '')`)
+        stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${guildId}, '')`)
           .then(result => {
             console.log('inserted settings');
           })
@@ -22,15 +23,15 @@ const messageHandler = (bot) => {
       }
     });
 
-    const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${thisGuild}'`;
+    const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${guildId}'`;
     let stopList;
     let deleteList;
 
-    stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${thisGuild})`)
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM word_lists WHERE serverid=${guildId})`)
       .then(result => {
         let guildExists = result.rows[0]['exists'];
         if (!guildExists) {
-          stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${thisGuild}, '{}', '{}')`)
+          stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${guildId}, '{}', '{}')`)
             .then(result => {
               console.log('inserted');
               bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
@@ -41,7 +42,7 @@ const messageHandler = (bot) => {
           .then(result => {
             stopList = result.rows[0]['stoplist'];
             deleteList = result.rows[0]['deletelist'];
-            msgParser(bot, msg, thisGuild, stopList, deleteList);
+            msgParser(bot, msg, stopList, deleteList);
           })
           .catch(err => console.log(err));
       })

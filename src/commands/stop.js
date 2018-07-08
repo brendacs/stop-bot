@@ -2,8 +2,9 @@ import { getStopMessage, getToggleDM } from '../utils/getSettings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
 import { isAdmin } from '../utils/checkPerms';
 import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
+import { getGuildId } from '../utils/utils';
 
-const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
+const stopCmd = (msg, cmd, subcmd, stopList, deleteList) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
@@ -42,6 +43,8 @@ const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
       }
     } else if (typeof subcmd !== 'undefined') {
       if (isAdmin(msg)) {
+
+        const guildId = getGuildId(msg);
         
         const isStopped = isOnStopList(stopList, subcmd);
         const isDeleted = isOnDeleteList(deleteList, subcmd);
@@ -52,7 +55,7 @@ const stopCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
           msg.channel.send('`' + subcmd + '`' + ' is already on the list of words to delete.');
         } else {
           subcmd = subcmd.replace(/'/g, "''");
-          stopClient.query(`UPDATE word_lists SET stoplist = stoplist || '{${subcmd.toLowerCase()}}' WHERE serverid=${thisGuild}`);
+          stopClient.query(`UPDATE word_lists SET stoplist = stoplist || '{${subcmd.toLowerCase()}}' WHERE serverid=${guildId}`);
           subcmd = subcmd.replace(/''/g, "'");
           msg.channel.send('`' + subcmd + '`' + ' will now be stopped.');
         }

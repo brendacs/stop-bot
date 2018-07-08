@@ -5,25 +5,27 @@ import {
   stopClient
 } from '../../constants';
 import { isAdmin } from '../../utils/checkPerms';
-import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
+import { isOnStopList, isOnDeleteList } from '../../utils/checkLists';
+import { getGuildId, getAuthorId } from '../../utils/utils';
 
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
-const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
+const goCmd = (msg, cmd, subcmd, stopList, deleteList) => {
+  const guildId = getGuildId(msg);
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
-    const thisAuthor = msg.author.id;
-    const fishListQuery = `SELECT * FROM fish_lists WHERE userid = '${thisAuthor}'`;
+    const authorId = getAuthorId(msg);
+    const fishListQuery = `SELECT * FROM fish_lists WHERE userid = '${authorId}'`;
 
     // Create or select fish list in DB
-    stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${thisAuthor})`)
+    stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${authorId})`)
       .then(result => {
         let userExists = result.rows[0]['exists'];
         if (!userExists) {
-          stopClient.query(`INSERT INTO fish_lists VALUES (${thisAuthor}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
+          stopClient.query(`INSERT INTO fish_lists VALUES (${authorId}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
             .then(result => {console.log('inserted')})
         }
         stopClient.query(fishListQuery)
@@ -32,23 +34,23 @@ const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
 
             // Go fish
             if (subcmd === 'fish') {
-              if (!allowedFishTimes[msg.author.id] || allowedFishTimes[msg.author.id] <= Date.now()) {
+              if (!allowedFishTimes[authorId] || allowedFishTimes[authorId] <= Date.now()) {
                 goFish(msg, cmd, subcmd, fishList);
                 nextAllowedFishCapture = msg.createdTimestamp + coolDownMinutesFish;
-                allowedFishTimes[msg.author.id] = nextAllowedFishCapture;
+                allowedFishTimes[authorId] = nextAllowedFishCapture;
               } else {
-                msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((allowedFishTimes[msg.author.id] - Date.now()) / 1000) + ' more seconds to repair.');
+                msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((allowedFishTimes[authorId] - Date.now()) / 1000) + ' more seconds to repair.');
               }
             }
 
             // See inventory
             else if (subcmd === 'inv') {
-              if (!allowedInvTimes[msg.author.id] || allowedInvTimes[msg.author.id] <= Date.now()) {
+              if (!allowedInvTimes[authorId] || allowedInvTimes[authorId] <= Date.now()) {
                 goFish(msg, cmd, subcmd, fishList);
                 nextAllowedInvOpen = msg.createdTimestamp + coolDownMinutesInv;
-                allowedInvTimes[msg.author.id] = nextAllowedInvOpen;
+                allowedInvTimes[authorId] = nextAllowedInvOpen;
               } else {
-                msg.channel.send('Your inventory is heavy. You will require ' + Math.floor((allowedInvTimes[msg.author.id] - Date.now()) / 1000) + ' more seconds to rest.');
+                msg.channel.send('Your inventory is heavy. You will require ' + Math.floor((allowedInvTimes[authorId] - Date.now()) / 1000) + ' more seconds to rest.');
               }
             }
           })
@@ -66,12 +68,12 @@ const goCmd = (msg, cmd, subcmd, thisGuild, stopList, deleteList) => {
     
     if (isStopped) {
       subcmd = subcmd.replace(/'/g, "''");
-      stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${thisGuild}`);
+      stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${guildId}`);
       subcmd = subcmd.replace(/''/g, "'");
       msg.channel.send('`' + subcmd + '`' + ' will no longer be stopped.');
     } else if (isDeleted) {
       subcmd = subcmd.replace(/'/g, "''");
-      stopClient.query(`UPDATE word_lists SET deletelist = array_remove(deletelist, '${subcmd}') WHERE serverid=${thisGuild}`);
+      stopClient.query(`UPDATE word_lists SET deletelist = array_remove(deletelist, '${subcmd}') WHERE serverid=${guildId}`);
       subcmd = subcmd.replace(/''/g, "'");
       msg.channel.send('`' + subcmd + '`' + ' will no longer be deleted.');
     } else {

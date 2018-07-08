@@ -5,6 +5,7 @@ import {
   stopClient,
   richEmbed
 } from '../../constants';
+import { getAuthorId } from '../../utils/utils';
 
 const goFish = (msg, cmd, subcmd, fishList) => {
   if (subcmd === 'fish') {
@@ -23,7 +24,8 @@ const goFish = (msg, cmd, subcmd, fishList) => {
     msg.channel.send('You caught ' + fishNumber + ' ' + allFishNames[fishType] + '!');
 
     // Update database with amount
-    stopClient.query(`UPDATE fish_lists SET ${allDBNames[fishType]} = ${allDBNames[fishType]} + ${fishNumber} WHERE userid=${msg.author.id}`);
+    const authorId = getAuthorId(msg);
+    stopClient.query(`UPDATE fish_lists SET ${allDBNames[fishType]} = ${allDBNames[fishType]} + ${fishNumber} WHERE userid=${authorId}`);
 
   } else if (subcmd === 'inv') {
 
