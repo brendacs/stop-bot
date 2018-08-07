@@ -60,6 +60,12 @@ a.button {
   }
 }
 
+a.button.disabled {
+  background-color: silver;
+  color: lightgray;
+  cursor: default;
+}
+
 .hide {
   display: none;
 }
