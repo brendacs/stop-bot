@@ -9,8 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ability to disable fishing within servers (or channels)
 - Defend against SQL injections using prepared statements
 - Add unit tests using Yarn and Jest
-- Clean up code's constants, utils, and imports
 - Fix bug where reserved words can be put on stop list
+
+## v3.0.2 - 2019-02-19
+### Added
+- Added ability to detect message updates and automatically send warning or delete edited messages
+
+### Fixed
+- A couple minor security problems, moved database auth info and constants to separate file
+- Reorganized constants and utils, made better use of reusable functions, cleaned up params
 
 ## v3.0.1 - 2018-05-19
 ### Added
