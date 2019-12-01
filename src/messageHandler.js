@@ -1,6 +1,3 @@
-import Discord from 'discord.js';
-import fs from 'fs';
-import pg from 'pg';
 import msgParser from './msgParser';
 import { stopClient } from './constants';
 import { getGuildId } from './utils/utils';
@@ -15,7 +12,7 @@ const checkLists = (bot, msg) => {
     let guildExists = result.rows[0]['exists'];
     if (!guildExists) {
       stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${guildId}, '')`)
-        .then(result => {
+        .then(() => {
           console.log('inserted settings');
         })
         .catch(err => console.log(err));
@@ -31,7 +28,7 @@ const checkLists = (bot, msg) => {
       let guildExists = result.rows[0]['exists'];
       if (!guildExists) {
         stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${guildId}, '{}', '{}')`)
-          .then(result => {
+          .then(() => {
             console.log('inserted');
             bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
           })
@@ -53,7 +50,7 @@ const messageHandler = (bot) => {
     checkLists(bot, msg);
   });
 
-  bot.on('messageUpdate', (old, newMsg) => {
+  bot.on('messageUpdate', (_, newMsg) => {
     checkLists(bot, newMsg);
   });
 };

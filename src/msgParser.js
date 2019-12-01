@@ -8,8 +8,6 @@ import { cmds } from './constants';
 
 const msgParser = (bot, msg, stopList, deleteList) => {
   let args, cmd, subcmd, thirdcmd;
-
-  let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
 
   getPrefix(msg).then(prefix => {

@@ -4,7 +4,8 @@
   "description": "",
   "main": "stopbot.js",
   "scripts": {
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "start": "node lib/stopbot.js"
   },
   "author": "",
   "license": "ISC",

@@ -13,7 +13,7 @@ let nextAllowedInvOpen = 0;
 let allowedFishTimes = {};
 let allowedInvTimes = {};
 
-const goCmd = (msg, cmd, subcmd, stopList, deleteList) => {
+const goCmd = (msg, subcmd, stopList, deleteList) => {
   const guildId = getGuildId(msg);
   if (subcmd === 'fish' || subcmd === 'inv') {
     let fishList;
@@ -35,7 +35,7 @@ const goCmd = (msg, cmd, subcmd, stopList, deleteList) => {
             // Go fish
             if (subcmd === 'fish') {
               if (!allowedFishTimes[authorId] || allowedFishTimes[authorId] <= Date.now()) {
-                goFish(msg, cmd, subcmd, fishList);
+                goFish(msg, subcmd, fishList);
                 nextAllowedFishCapture = msg.createdTimestamp + coolDownMinutesFish;
                 allowedFishTimes[authorId] = nextAllowedFishCapture;
               } else {
@@ -46,7 +46,7 @@ const goCmd = (msg, cmd, subcmd, stopList, deleteList) => {
             // See inventory
             else if (subcmd === 'inv') {
               if (!allowedInvTimes[authorId] || allowedInvTimes[authorId] <= Date.now()) {
-                goFish(msg, cmd, subcmd, fishList);
+                goFish(msg, subcmd, fishList);
                 nextAllowedInvOpen = msg.createdTimestamp + coolDownMinutesInv;
                 allowedInvTimes[authorId] = nextAllowedInvOpen;
               } else {

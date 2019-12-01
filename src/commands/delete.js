@@ -4,19 +4,8 @@ import { isAdmin, isMod } from '../utils/checkPerms';
 import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
 import { getGuildId } from '../utils/utils';
 
-const deleteCmd = (msg, cmd, subcmd, thirdcmd, stopList, deleteList) => {
+const deleteCmd = (msg, subcmd, stopList, deleteList) => {
   if (!subcmd) return;
-
-  // check if any reserved words are set to be deleted
-  let wordsToBeDeleted = subcmd.split(', ');
-  for (let word of wordsToBeDeleted) {
-    if (reservedWords.indexOf(word) !== -1) {
-      msg.channel.send({
-        embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be deleted.`)
-      });
-      return;
-    }
-  }
 
   if (subcmd === 'list') {
     if (deleteList.length !== 0) {
@@ -54,6 +43,17 @@ const deleteCmd = (msg, cmd, subcmd, thirdcmd, stopList, deleteList) => {
       .catch(err => console.log(err));
   } else if (subcmd && isNaN(subcmd)) {
     if (isAdmin(msg)) {
+
+      // Check if any reserved words are set to be deleted
+      let wordsToBeDeleted = subcmd.split(', ');
+      for (let word of wordsToBeDeleted) {
+        if (reservedWords.indexOf(word) !== -1) {
+          msg.channel.send({
+            embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be deleted.`)
+          });
+          return;
+        }
+      }
 
       const isStopped = isOnStopList(stopList, subcmd);
       const isDeleted = isOnDeleteList(deleteList, subcmd);

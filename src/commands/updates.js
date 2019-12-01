@@ -1,6 +1,6 @@
 import { richEmbed } from '../constants';
 
-const getUpdates = (msg, cmd) => {
+const getUpdates = (msg) => {
   msg.channel.send({
     embed: richEmbed.setColor('#ff0000').setDescription(
 `Check your DMs for the latest update.\n
@@ -9,10 +9,10 @@ You can even see updates before they're released in the [#github-log](https://di
     )
   });
 
-  getUpdateDM(msg, cmd)
+  getUpdateDM(msg)
 }
 
-const getUpdateDM = (msg, cmd) => {
+const getUpdateDM = (msg) => {
   msg.member.user.createDM()
     .then((channel) => {
       channel.send({
