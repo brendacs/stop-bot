@@ -40,8 +40,8 @@ const checkMessage = (msg, stopList, deleteList) => {
     if (string.toString().toLowerCase().indexOf(stopList[i]) !== -1) {
       getStopMessage(msg).then(stopMessage => {
         msg.reply(stopMessage);
-        return; // prevents bot from sending multiple messages if multiple words in one msg
       });
+      return; // prevents sending multiple warnings if multiple words in one msg
     }
   }
   for (let i = 0; i < deleteList.length; i++) {
@@ -49,8 +49,8 @@ const checkMessage = (msg, stopList, deleteList) => {
       getDeleteMessage(msg).then(deleteMessage => {
         msg.delete();
         msg.reply(deleteMessage);
-        return;
       });
+      return;
     }
   }
 }
