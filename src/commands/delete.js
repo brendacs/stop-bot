@@ -1,7 +1,7 @@
-import { getToggleDM } from '../utils/getSettings';
+import { getToggleDM } from '../utils/settings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
-import { isAdmin, isMod } from '../utils/checkPerms';
-import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
+import { isAdmin, isMod } from '../utils/perms';
+import { isOnStopList, isOnDeleteList } from '../utils/list';
 import { getGuildId } from '../utils/utils';
 
 export default function deleteCmd(msg, subcmd, stopList, deleteList) {

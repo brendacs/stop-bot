@@ -3,7 +3,7 @@ import {
   getPrefix,
   getStopMessage,
   getDeleteMessage
-} from './utils/getSettings';
+} from './utils/settings';
 import { cmds } from './constants';
 
 const msgParser = (bot, msg, stopList, deleteList) => {

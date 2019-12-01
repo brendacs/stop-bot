@@ -4,8 +4,8 @@ import {
   coolDownMinutesInv,
   stopClient
 } from '../../constants';
-import { isAdmin } from '../../utils/checkPerms';
-import { isOnStopList, isOnDeleteList } from '../../utils/checkLists';
+import { isAdmin } from '../../utils/perms';
+import { isOnStopList, isOnDeleteList } from '../../utils/list';
 import { getGuildId, getAuthorId } from '../../utils/utils';
 
 let nextAllowedFishCapture = 0;

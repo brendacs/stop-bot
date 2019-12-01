@@ -1,7 +1,7 @@
-import { getStopMessage, getToggleDM } from '../utils/getSettings';
+import { getStopMessage, getToggleDM } from '../utils/settings';
 import { reservedWords, stopClient, richEmbed } from '../constants';
-import { isAdmin } from '../utils/checkPerms';
-import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
+import { isAdmin } from '../utils/perms';
+import { isOnStopList, isOnDeleteList } from '../utils/list';
 import { getGuildId } from '../utils/utils';
 
 export default function stopCmd(msg, subcmd, stopList, deleteList) {

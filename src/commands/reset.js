@@ -1,6 +1,6 @@
 import { setDefault } from './set/setters';
 import { stopClient, richEmbed } from '../constants';
-import { isAdmin, isMod } from '../utils/checkPerms';
+import { isAdmin, isMod } from '../utils/perms';
 import { getGuildId } from '../utils/utils';
 
 const resetCmd = (msg) => {
