@@ -5,6 +5,7 @@
   "main": "stopbot.js",
   "scripts": {
     "build": "babel src -d lib",
+    "dev": "babel src -d lib; node lib/stopbot.js",
     "start": "node lib/stopbot.js"
   },
   "author": "",
