@@ -7,7 +7,7 @@ export const setDefault = (msg) => {
   stopClient.query(`UPDATE server_settings SET stopmessage = NULL WHERE serverid=${guildId}`);
   stopClient.query(`UPDATE server_settings SET deletemessage = NULL WHERE serverid=${guildId}`);
   stopClient.query(`UPDATE server_settings SET dmlists = false WHERE serverid=${guildId}`)
-    .then(result => {
+    .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`Your settings have been reset to default.`);
@@ -18,10 +18,10 @@ export const setDefault = (msg) => {
     });
 }
 
-export const setPrefix = (msg, cmd, subcmd, thirdcmd) => {
+export const setPrefix = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
   stopClient.query(`UPDATE server_settings SET prefix = '${thirdcmd}' WHERE serverid=${guildId}`)
-    .then(result => {
+    .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New prefix has been set to ${"`" + thirdcmd + "`"}.`);
@@ -32,10 +32,10 @@ export const setPrefix = (msg, cmd, subcmd, thirdcmd) => {
     });
 }
 
-export const setStopMessage = (msg, cmd, subcmd, thirdcmd) => {
+export const setStopMessage = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
   stopClient.query(`UPDATE server_settings SET stopmessage = '${thirdcmd}' WHERE serverid=${guildId}`)
-    .then(result => {
+    .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New stop message has been set.`);
@@ -46,10 +46,10 @@ export const setStopMessage = (msg, cmd, subcmd, thirdcmd) => {
     });
 }
 
-export const setDeleteMessage = (msg, cmd, subcmd, thirdcmd) => {
+export const setDeleteMessage = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
   stopClient.query(`UPDATE server_settings SET deletemessage = '${thirdcmd}' WHERE serverid=${guildId}`)
-    .then(result => {
+    .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
         .setDescription(`New delete message has been set.`);
@@ -60,10 +60,10 @@ export const setDeleteMessage = (msg, cmd, subcmd, thirdcmd) => {
     });
 }
 
-export const setToggleDM = (msg, cmd, subcmd) => {
+export const setToggleDM = (msg) => {
   const guildId = getGuildId(msg);
   stopClient.query(`UPDATE server_settings SET dmlists = NOT dmlists WHERE serverid=${guildId}`)
-    .then(result => {
+    .then(() => {
       stopClient.query(`SELECT dmlists FROM server_settings WHERE serverid='${guildId}'`).then(result => {
         let toggled = result.rows[0]['dmlists'] ? 'enabled' : 'disabled';
         const embed = richEmbed

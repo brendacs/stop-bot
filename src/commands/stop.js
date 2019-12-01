@@ -4,20 +4,9 @@ import { isAdmin } from '../utils/checkPerms';
 import { isOnStopList, isOnDeleteList } from '../utils/checkLists';
 import { getGuildId } from '../utils/utils';
 
-const stopCmd = (msg, cmd, subcmd, stopList, deleteList) => {
+const stopCmd = (msg, subcmd, stopList, deleteList) => {
   let mentions = msg.mentions.users;
   let mentionsNum = msg.mentions.users.array().length;
-
-  // check if any reserved words are set to be deleted
-  let wordsToBeStopped = subcmd.split(', ');
-  for (let word of wordsToBeStopped) {
-    if (subcmd !== 'video' && reservedWords.indexOf(word) !== -1) {
-      msg.channel.send({
-        embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be stopped.`)
-      });
-      return;
-    }
-  }
 
   getStopMessage(msg).then(stopMessage => {
     if (!subcmd) {
@@ -41,8 +30,19 @@ const stopCmd = (msg, cmd, subcmd, stopList, deleteList) => {
       } else {
         msg.channel.send('There are no words on the stop list.');
       }
-    } else if (typeof subcmd !== 'undefined') {
+    } else if (subcmd) {
       if (isAdmin(msg)) {
+
+        // Check if any reserved words are set to be deleted
+        let wordsToBeStopped = subcmd.split(', ');
+        for (let word of wordsToBeStopped) {
+          if (subcmd !== 'video' && reservedWords.indexOf(word) !== -1) {
+            msg.channel.send({
+              embed: richEmbed.setColor('#ff0000').setDescription(`This word is reserved for bot functionality and cannot be stopped.`)
+            });
+            return;
+          }
+        }
 
         const guildId = getGuildId(msg);
         

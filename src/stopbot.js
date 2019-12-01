@@ -9,7 +9,7 @@ import { stopClient } from './constants';
 const app = express();
 
 stopClient.connect()
-  .then(client => {
+  .then(() => {
     console.log('Connected to DB')
   })
   .catch(err => {
@@ -36,7 +36,7 @@ const bot = new Discord.Client({
   autorun: true
 });
 
-bot.on('ready', (evt) => {
+bot.on('ready', () => {
   logger.info('Connected');
   logger.info('Logged in as: ');
   logger.info(bot.user.username + ' - ' + bot.user.id);

@@ -7,7 +7,7 @@ import {
 } from '../../constants';
 import { getAuthorId } from '../../utils/utils';
 
-const goFish = (msg, cmd, subcmd, fishList) => {
+const goFish = (msg, subcmd, fishList) => {
   if (subcmd === 'fish') {
     // Reset to empty array on every "!go fish" message
     const fishCaught = [];

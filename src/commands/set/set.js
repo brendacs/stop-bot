@@ -9,7 +9,7 @@ import { stopClient, richEmbed } from '../../constants';
 import { isAdmin, isMod } from '../../utils/checkPerms';
 import { getGuildId } from '../../utils/utils';
 
-const setInit = (msg, cmd, subcmd, thirdcmd) => {
+const setInit = (msg, subcmd, thirdcmd) => {
   const guildId = getGuildId(msg);
 
   if (!isAdmin(msg) || !isMod(msg)) {
@@ -23,12 +23,12 @@ const setInit = (msg, cmd, subcmd, thirdcmd) => {
   stopClient.query(settingsQuery)
     .then(result => {
       let settings = result.rows[0];
-      setCmd(msg, cmd, subcmd, thirdcmd, settings);
+      setCmd(msg, subcmd, thirdcmd);
     })
     .catch(err => console.log(err));
 }
 
-const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
+const setCmd = (msg, subcmd, thirdcmd) => {
   const options = ['default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm'];
 
   if (options.indexOf(subcmd) === -1) {
@@ -45,7 +45,7 @@ const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
         .setDescription(`Include your prefix to set it. Example: ${"`" + "!set prefix ~" + "`"}.\nRemember it can only be one character.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length === 1) setPrefix(msg, cmd, subcmd, thirdcmd);
+      if (thirdcmd.length === 1) setPrefix(msg, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -60,7 +60,7 @@ const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
         .setDescription(`Include your stop message to set it. Example: ${"`" + "!set stopmsg Please stop that" + "`"}.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length > 0) setStopMessage(msg, cmd, subcmd, thirdcmd);
+      if (thirdcmd.length > 0) setStopMessage(msg, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -75,7 +75,7 @@ const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
         .setDescription(`Include your delete message to set it. Example: ${"`" + "!set deletemsg Your message got deleted" + "`"}.`);
       msg.channel.send({ embed });
     } else if (thirdcmd) {
-      if (thirdcmd.length > 0) setDeleteMessage(msg, cmd, subcmd, thirdcmd);
+      if (thirdcmd.length > 0) setDeleteMessage(msg, thirdcmd);
       else {
         const embed = richEmbed
           .setColor('#ff0000')
@@ -84,7 +84,7 @@ const setCmd = (msg, cmd, subcmd, thirdcmd, settings) => {
       }
     }
   } else if (subcmd === 'toggledm') {
-    setToggleDM(msg, cmd, subcmd);
+    setToggleDM(msg);
   }
 }
 

@@ -3,13 +3,13 @@ import { stopClient, richEmbed } from '../constants';
 import { isAdmin, isMod } from '../utils/checkPerms';
 import { getGuildId } from '../utils/utils';
 
-const resetCmd = (msg, cmd, subcmd, thirdcmd) => {
+const resetCmd = (msg) => {
   if (isAdmin(msg) || isMod(msg)) {
     const guildId = getGuildId(msg);
     setDefault(msg);
     stopClient.query(`UPDATE word_lists SET deletelist = '{}' WHERE serverid=${guildId}`);
     stopClient.query(`UPDATE word_lists SET stoplist = '{}' WHERE serverid=${guildId}`)
-      .then(result => {
+      .then(() => {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`Your stop list and delete lists have been reset.`);

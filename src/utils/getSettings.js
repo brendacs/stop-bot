@@ -1,6 +1,3 @@
-import msgParser from '../msgParser';
-import stopCmd from '../commands/stop';
-import deleteCmd from '../commands/delete';
 import { stopClient } from '../constants';
 import { getGuildId } from './utils';
 
