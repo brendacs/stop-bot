@@ -17,7 +17,7 @@ export const richEmbed = new Discord.RichEmbed();
 export const cmds = ['help', 'dmhelp', 'info', 'updates', 'stop', 'delete', 'go', 'set', 'reset'];
 export const reservedWords = cmds.concat(['fish', 'inv', 'default', 'prefix', 'stopmsg', 'deletemsg', 'toggledm', 'video']);
 export const coolDownMinutesFish = 3 * 60 * 1000;
-export const coolDownMinutesInv = 0.25 * 60 * 1000;
+export const coolDownMinutesInv = 2 * 60 * 1000;
 
 // Arrays of fish names, emojis names, and db names
 const fishEmojis = [':fish:', ':fish_cake:', ':fishing_pole_and_fish:', ':tropical_fish:', ':blowfish:'];

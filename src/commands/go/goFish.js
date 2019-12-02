@@ -2,45 +2,96 @@ import {
   allDBNames,
   allFishEmojis,
   allFishNames,
+  coolDownMinutesFish,
+  coolDownMinutesInv,
   richEmbed,
   stopClient
 } from '../../constants';
 import {getAuthorId} from '../../utils/utils';
 
-const goFish = (msg, subcmd, fishList) => {
-  if (subcmd === 'fish') {
-    // Reset to empty array on every "!go fish" message
-    const fishCaught = [];
+let nextAllowedFishCapture = 0;
+let nextAllowedInvOpen = 0;
+let allowedFishTimes = {};
+let allowedInvTimes = {};
 
-    // Get random fish and random number of fish
-    const fishType = Math.floor(Math.random() * 20);
-    const fishNumber = Math.floor(Math.random() * 5) + 1;
+export default function initFishing(msg, subcmd) {
+  let fishList;
+  const authorId = getAuthorId(msg);
+  const fishListQuery = `SELECT * FROM fish_lists WHERE userid = '${authorId}'`;
 
-    // Push emojis to temp array to join for message
-    for (let times = 0; times < fishNumber; times++) {
-      fishCaught.push(allFishEmojis[fishType]);
-    }
-    msg.channel.send(fishCaught.join(' '));
-    msg.channel.send('You caught ' + fishNumber + ' ' + allFishNames[fishType] + '!');
+  // Create or select fish list in DB
+  stopClient.query(`SELECT EXISTS (SELECT 1 FROM fish_lists WHERE userid=${authorId})`)
+    .then(result => {
+      let userExists = result.rows[0]['exists'];
+      if (!userExists) {
+        stopClient.query(`INSERT INTO fish_lists VALUES (${authorId}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
+          .then(() => {
+            // console.log('inserted');
+          });
+      }
 
-    // Update database with amount
-    const authorId = getAuthorId(msg);
-    stopClient.query(`UPDATE fish_lists SET ${allDBNames[fishType]} = ${allDBNames[fishType]} + ${fishNumber} WHERE userid=${authorId}`);
+      // Go fish
+      if (subcmd === 'fish') {
+        if (!allowedFishTimes[authorId] || allowedFishTimes[authorId] <= Date.now()) {
+          goFish(msg);
+          nextAllowedFishCapture = msg.createdTimestamp + coolDownMinutesFish;
+          allowedFishTimes[authorId] = nextAllowedFishCapture;
+        } else {
+          msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((allowedFishTimes[authorId] - Date.now()) / 1000) + ' more seconds to repair.');
+        }
+        return;
+      }
 
-  } else if (subcmd === 'inv') {
+      stopClient.query(fishListQuery)
+        .then(result => {
+          fishList = result.rows[0];
 
-    // Rich embed message of inventory
-    const embed = richEmbed
-      .setColor('#ff0000')
-      .setDescription(`${msg.author}'s inventory
+          // See inventory
+          if (subcmd === 'inv') {
+            console.log(allowedInvTimes[authorId], Date.now());
+            if (!allowedInvTimes[authorId] || allowedInvTimes[authorId] <= Date.now()) {
+              goInv(msg, fishList);
+              nextAllowedInvOpen = msg.createdTimestamp + coolDownMinutesInv;
+              allowedInvTimes[authorId] = nextAllowedInvOpen;
+            } else {
+              msg.channel.send('Your inventory is heavy. You will require ' + Math.floor((allowedInvTimes[authorId] - Date.now()) / 1000) + ' more seconds to rest.');
+            }
+          }
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.error(err.stack));
+}
 
-  **${fishList['fish']}** x :fish: ║ **${fishList['cake']}** x :fish_cake: ║ **${fishList['fishpole']}** x :fishing_pole_and_fish: ║ **${fishList['tropical']}** x :tropical_fish:
+const goFish = (msg) => {
+  // Reset to empty array on every "!go fish" message
+  const fishCaught = [];
 
-  **${fishList['blowfish']}** x :blowfish: ║ **${fishList['cutewhale']}** x :whale: ║ **${fishList['bluewhale']}** x :whale2: ║ **${fishList['dolphin']}** x :dolphin: ║ **${fishList['octopus']}** x :octopus:
-  `);
-    msg.channel.send({embed});
+  // Get random fish and random number of fish
+  const fishType = Math.floor(Math.random() * 20);
+  const fishNumber = Math.floor(Math.random() * 5) + 1;
+
+  // Push emojis to temp array to join for message
+  for (let times = 0; times < fishNumber; times++) {
+    fishCaught.push(allFishEmojis[fishType]);
   }
+  msg.channel.send(fishCaught.join(' '));
+  msg.channel.send('You caught ' + fishNumber + ' ' + allFishNames[fishType] + '!');
+
+  // Update database with amount
+  const authorId = getAuthorId(msg);
+  stopClient.query(`UPDATE fish_lists SET ${allDBNames[fishType]} = ${allDBNames[fishType]} + ${fishNumber} WHERE userid=${authorId}`);
 };
 
-export default goFish;
+const goInv = (msg, fishList) => {
+  // Rich embed message of inventory
+  const embed = richEmbed
+    .setColor('#ff0000')
+    .setDescription(`${msg.author}'s inventory
 
+      **${fishList['fish']}** x :fish: ║ **${fishList['cake']}** x :fish_cake: ║ **${fishList['fishpole']}** x :fishing_pole_and_fish: ║ **${fishList['tropical']}** x :tropical_fish:
+
+      **${fishList['blowfish']}** x :blowfish: ║ **${fishList['cutewhale']}** x :whale: ║ **${fishList['bluewhale']}** x :whale2: ║ **${fishList['dolphin']}** x :dolphin: ║ **${fishList['octopus']}** x :octopus:`
+    );
+  msg.channel.send({embed});
+};
