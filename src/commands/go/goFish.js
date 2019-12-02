@@ -34,11 +34,9 @@ const goFish = (msg, subcmd, fishList) => {
       .setColor('#ff0000')
       .setDescription(`${msg.author}'s inventory
 
-  **${fishList['fish']}**  x  :fish:     **${fishList['cake']}**  x  :fish_cake:      **${fishList['fishpole']}**  x  :fishing_pole_and_fish:
+  **${fishList['fish']}** x :fish: ║ **${fishList['cake']}** x :fish_cake: ║ **${fishList['fishpole']}** x :fishing_pole_and_fish: ║ **${fishList['tropical']}** x :tropical_fish:
 
-  **${fishList['tropical']}**  x  :tropical_fish:      **${fishList['blowfish']}**  x  :blowfish:      **${fishList['cutewhale']}**  x  :whale:
-
-  **${fishList['bluewhale']}**  x  :whale2:      **${fishList['dolphin']}**  x  :dolphin:      **${fishList['octopus']}**  x  :octopus:
+  **${fishList['blowfish']}** x :blowfish: ║ **${fishList['cutewhale']}** x :whale: ║ **${fishList['bluewhale']}** x :whale2: ║ **${fishList['dolphin']}** x :dolphin: ║ **${fishList['octopus']}** x :octopus:
   `);
     msg.channel.send({embed});
   }

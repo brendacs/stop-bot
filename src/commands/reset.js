@@ -12,11 +12,11 @@ const resetCmd = (msg) => {
       .then(() => {
         const embed = richEmbed
           .setColor('#ff0000')
-          .setDescription('Your stop list and delete lists have been reset.');
+          .setDescription('Your stop list and delete list have been reset.');
         msg.channel.send({embed});
       });
   } else {
-    msg.reply('you can\'t use this command.');
+    msg.reply('you must have the proper permissions use this command.');
   }
 };
 
