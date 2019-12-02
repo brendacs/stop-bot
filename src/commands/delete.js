@@ -1,6 +1,6 @@
-import { richEmbed } from '../constants';
-import { isMod } from '../utils/perms';
-import { addToList, getList } from '../utils/list';
+import {richEmbed} from '../constants';
+import {isMod} from '../utils/perms';
+import {addToList, getList} from '../utils/list';
 
 export default function deleteCmd(msg, subcmd, stopList, deleteList) {
   if (!subcmd) return;
@@ -14,11 +14,11 @@ function bulkDelete(msg, subcmd) {
   let limit = parseInt(subcmd) + 1;
   if (limit >= 100) {
     msg.channel.send({
-      embed: richEmbed.setColor('#ff0000').setDescription(`Number of messages must be under 100.`)
+      embed: richEmbed.setColor('#ff0000').setDescription('Number of messages must be under 100.')
     });
     return;
   }
-  msg.channel.fetchMessages({ limit: limit })
+  msg.channel.fetchMessages({limit: limit})
     .then((latestMessages) => {
       let mentions = msg.mentions.users;
       let mentionsNum = msg.mentions.users.array().length;

@@ -1,5 +1,5 @@
-import { stopClient, richEmbed } from '../../constants';
-import { getGuildId } from '../../utils/utils';
+import {stopClient, richEmbed} from '../../constants';
+import {getGuildId} from '../../utils/utils';
 
 export const setDefault = (msg) => {
   const guildId = getGuildId(msg);
@@ -10,13 +10,13 @@ export const setDefault = (msg) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription(`Your settings have been reset to default.`);
-      msg.channel.send({ embed });
+        .setDescription('Your settings have been reset to default.');
+      msg.channel.send({embed});
     })
     .catch(err => {
       console.log(err);
     });
-}
+};
 
 export const setPrefix = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
@@ -24,13 +24,13 @@ export const setPrefix = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription(`New prefix has been set to ${"`" + thirdcmd + "`"}.`);
-      msg.channel.send({ embed });
+        .setDescription(`New prefix has been set to \`${thirdcmd}\`.`);
+      msg.channel.send({embed});
     })
     .catch(err => {
       console.log(err);
     });
-}
+};
 
 export const setStopMessage = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
@@ -38,13 +38,13 @@ export const setStopMessage = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription(`New stop message has been set.`);
-      msg.channel.send({ embed });
+        .setDescription('New stop message has been set.');
+      msg.channel.send({embed});
     })
     .catch(err => {
       console.log(err);
     });
-}
+};
 
 export const setDeleteMessage = (msg, thirdcmd) => {
   const guildId = getGuildId(msg);
@@ -52,13 +52,13 @@ export const setDeleteMessage = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription(`New delete message has been set.`);
-      msg.channel.send({ embed });
+        .setDescription('New delete message has been set.');
+      msg.channel.send({embed});
     })
     .catch(err => {
       console.log(err);
     });
-}
+};
 
 export const setToggleDM = (msg) => {
   const guildId = getGuildId(msg);
@@ -69,13 +69,10 @@ export const setToggleDM = (msg) => {
         const embed = richEmbed
           .setColor('#ff0000')
           .setDescription(`DM lists has been ${toggled}.`);
-        msg.channel.send({ embed });
-      })
-      .catch(err => {
-        console.log(err);
+        msg.channel.send({embed});
       });
     })
     .catch(err => {
       console.log(err);
     });
-}
+};

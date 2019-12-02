@@ -4,16 +4,16 @@ import request from 'superagent';
 import auth from '../auth.json';
 import messageHandler from './messageHandler';
 import express from 'express';
-import { stopClient } from './constants';
+import {stopClient} from './constants';
 
 const app = express();
 
 stopClient.connect()
   .then(() => {
-    console.log('Connected to DB')
+    console.log('Connected to DB');
   })
   .catch(err => {
-    console.log('Error connecting: ', err.message, err.stack)
+    console.log('Error connecting: ', err.message, err.stack);
   });
 
 app.listen(5430, () => {
@@ -23,7 +23,7 @@ app.listen(5430, () => {
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
-    colorize: true
+  colorize: true
 });
 logger.level = 'debug';
 
@@ -47,7 +47,7 @@ bot.on('ready', () => {
     .send({server_count: bot.guilds.size})
     .end(err => {
       if (err) return console.error(err);
-      console.log("Success (dbot)!");
+      console.log('Success (dbot)!');
     });
 
   request.post(`https://bots.discord.pw/api/bots/${bot.user.id}/stats`)
@@ -55,7 +55,7 @@ bot.on('ready', () => {
     .send({server_count: bot.guilds.size})
     .end(err => {
       if (err) return console.error(err);
-      console.log("Success (pwbot)!");
+      console.log('Success (pwbot)!');
     });
 
   bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});

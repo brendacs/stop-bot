@@ -4,9 +4,9 @@ import {
   coolDownMinutesInv,
   stopClient
 } from '../../constants';
-import { isAdmin } from '../../utils/perms';
-import { isOnStopList, isOnDeleteList } from '../../utils/list';
-import { getGuildId, getAuthorId } from '../../utils/utils';
+import {isAdmin} from '../../utils/perms';
+import {isOnStopList, isOnDeleteList} from '../../utils/list';
+import {getGuildId, getAuthorId} from '../../utils/utils';
 
 let nextAllowedFishCapture = 0;
 let nextAllowedInvOpen = 0;
@@ -26,7 +26,9 @@ const goCmd = (msg, subcmd, stopList, deleteList) => {
         let userExists = result.rows[0]['exists'];
         if (!userExists) {
           stopClient.query(`INSERT INTO fish_lists VALUES (${authorId}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)`)
-            .then(result => {console.log('inserted')})
+            .then(() => {
+              console.log('inserted');
+            });
         }
         stopClient.query(fishListQuery)
           .then(result => {
@@ -65,23 +67,23 @@ const goCmd = (msg, subcmd, stopList, deleteList) => {
   } else if (isAdmin(msg) && typeof subcmd !== 'undefined') {
     const isStopped = isOnStopList(stopList, subcmd);
     const isDeleted = isOnDeleteList(deleteList, subcmd);
-    
+
     if (isStopped) {
-      subcmd = subcmd.replace(/'/g, "''");
+      subcmd = subcmd.replace(/'/g, '\'\'');
       stopClient.query(`UPDATE word_lists SET stoplist = array_remove(stoplist, '${subcmd}') WHERE serverid=${guildId}`);
-      subcmd = subcmd.replace(/''/g, "'");
+      subcmd = subcmd.replace(/'/g, '\'');
       msg.channel.send('`' + subcmd + '`' + ' will no longer be stopped.');
     } else if (isDeleted) {
-      subcmd = subcmd.replace(/'/g, "''");
+      subcmd = subcmd.replace(/'/g, '\'\'');
       stopClient.query(`UPDATE word_lists SET deletelist = array_remove(deletelist, '${subcmd}') WHERE serverid=${guildId}`);
-      subcmd = subcmd.replace(/''/g, "'");
-      msg.channel.send('`' + subcmd + '`' + ' will no longer be deleted.');
+      subcmd = subcmd.replace(/'/g, '\'');
+      msg.channel.send(`\`${subcmd}\` will no longer be deleted.`);
     } else {
-      msg.channel.send('`' + subcmd + '`' + ' was not on the list of stopped or deleted words.');
+      msg.channel.send(`\`${subcmd}\` was not on the list of stopped or deleted words.`);
     }
   } else {
     msg.reply('what do you want to unstop?');
   }
-}
+};
 
 export default goCmd;

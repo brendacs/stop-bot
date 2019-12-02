@@ -1,11 +1,11 @@
 import {
+  allDBNames,
   allFishEmojis,
   allFishNames,
-  allDBNames,
-  stopClient,
-  richEmbed
+  richEmbed,
+  stopClient
 } from '../../constants';
-import { getAuthorId } from '../../utils/utils';
+import {getAuthorId} from '../../utils/utils';
 
 const goFish = (msg, subcmd, fishList) => {
   if (subcmd === 'fish') {
@@ -40,9 +40,9 @@ const goFish = (msg, subcmd, fishList) => {
 
   **${fishList['bluewhale']}**  x  :whale2:      **${fishList['dolphin']}**  x  :dolphin:      **${fishList['octopus']}**  x  :octopus:
   `);
-    msg.channel.send({ embed });
+    msg.channel.send({embed});
   }
-}
+};
 
 export default goFish;
 

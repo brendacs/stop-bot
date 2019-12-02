@@ -16,6 +16,6 @@ const commands = (bot, msg, cmd, subcmd, thirdcmd, stopList, deleteList) => {
   else if (cmd === 'go')  goCmd(msg, subcmd, stopList, deleteList);
   else if (cmd === 'set') setInit(msg, subcmd, thirdcmd);
   else if (cmd === 'reset') resetCmd(msg, cmd, subcmd, thirdcmd);
-}
+};
 
 export default commands;

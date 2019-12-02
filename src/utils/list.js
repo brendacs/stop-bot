@@ -1,7 +1,7 @@
-import { getToggleDM } from './settings';
-import { reservedWords, stopClient, richEmbed } from '../constants';
-import { isAdmin } from './perms';
-import { getGuildId } from './utils';
+import {getToggleDM} from './settings';
+import {reservedWords, stopClient, richEmbed} from '../constants';
+import {isAdmin} from './perms';
+import {getGuildId} from './utils';
 
 export function addToList(msg, subcmd, stopList, deleteList, listName) {
   if (isAdmin(msg)) {
@@ -28,9 +28,9 @@ export function addToList(msg, subcmd, stopList, deleteList, listName) {
     }
 
     const guildId = getGuildId(msg);
-    subcmd = subcmd.replace(/'/g, "''");
+    subcmd = subcmd.replace(/'/g, '\'\'');
     stopClient.query(`UPDATE word_lists SET ${dblist} = ${dblist} || '{${subcmd.toLowerCase()}}' WHERE serverid=${guildId}`);
-    subcmd = subcmd.replace(/''/g, "'");
+    subcmd = subcmd.replace(/'/g, '\'');
     msg.channel.send(`\`${subcmd}\` will now be ${verb}.`);
     return;
   }

@@ -1,5 +1,5 @@
-import { getStopMessage } from '../utils/settings';
-import { addToList, getList } from '../utils/list';
+import {getStopMessage} from '../utils/settings';
+import {addToList, getList} from '../utils/list';
 
 export default function stopCmd(msg, subcmd, stopList, deleteList) {
   let mentions = msg.mentions.users;

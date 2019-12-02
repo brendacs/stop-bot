@@ -1,10 +1,10 @@
+import {cmds} from './constants';
 import commands from './commands/commands';
 import {
   getPrefix,
   getStopMessage,
   getDeleteMessage
 } from './utils/settings';
-import { cmds } from './constants';
 
 const msgParser = (bot, msg, stopList, deleteList) => {
   let args, cmd, subcmd, thirdcmd;
@@ -32,7 +32,7 @@ const msgParser = (bot, msg, stopList, deleteList) => {
       checkMessage(msg, stopList, deleteList);
     }
   });
-}
+};
 
 const checkMessage = (msg, stopList, deleteList) => {
   const string = msg.content;
@@ -53,6 +53,6 @@ const checkMessage = (msg, stopList, deleteList) => {
       return;
     }
   }
-}
+};
 
 export default msgParser;
