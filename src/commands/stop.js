@@ -1,10 +1,11 @@
 import {getStopMessage} from '../utils/settings';
 import {addToList, getList} from '../utils/list';
+import {getStrings} from '../constants';
 
 export default function stopCmd(msg, subcmd, stopList, deleteList) {
   let mentions = msg.mentions.users;
   if (!subcmd || mentions.first()) sendStopMessage(msg, subcmd, mentions);
-  else if (subcmd === 'video') msg.channel.send('https://www.youtube.com/watch?v=2k0SmqbBIpQ');
+  else if (subcmd === 'video') msg.channel.send(getStrings().stopVideo);
   else if (subcmd === 'list') getList(msg, stopList, 'stop');
   else if (subcmd) addToList(msg, subcmd, stopList, deleteList, 'stop');
 }

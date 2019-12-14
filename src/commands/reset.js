@@ -1,5 +1,5 @@
 import {setDefault} from './set/setters';
-import {stopClient, richEmbed} from '../constants';
+import {getStrings, stopClient, richEmbed} from '../constants';
 import {isAdmin, isMod} from '../utils/perms';
 import {getGuildId} from '../utils/utils';
 
@@ -12,11 +12,11 @@ const resetCmd = (msg) => {
       .then(() => {
         const embed = richEmbed
           .setColor('#ff0000')
-          .setDescription('Your stop list and delete list have been reset.');
+          .setDescription(getStrings().resetDescription);
         msg.channel.send({embed});
       });
   } else {
-    msg.reply('you must have the proper permissions use this command.');
+    msg.reply(getStrings().permissionsReply);
   }
 };
 

@@ -1,4 +1,4 @@
-import {richEmbed} from '../constants';
+import {getStrings, richEmbed} from '../constants';
 import {isMod} from '../utils/perms';
 import {addToList, getList} from '../utils/list';
 
@@ -14,7 +14,7 @@ function bulkDelete(msg, subcmd) {
   let limit = parseInt(subcmd) + 1;
   if (limit >= 100) {
     msg.channel.send({
-      embed: richEmbed.setColor('#ff0000').setDescription('Number of messages must be under 100.')
+      embed: richEmbed.setColor('#ff0000').setDescription(getStrings().bulkDeleteLimit)
     });
     return;
   }
