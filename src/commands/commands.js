@@ -1,4 +1,4 @@
-import helpCmd from './help/help';
+import helpCmd from './help';
 import getInfo from './info';
 import getUpdates from './updates';
 import stopCmd from './stop';

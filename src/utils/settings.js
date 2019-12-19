@@ -1,4 +1,4 @@
-import {stopClient} from '../constants';
+import {getStrings, stopClient} from '../constants';
 import {getGuildId} from './utils';
 
 export const getPrefix = async (msg) => {
@@ -19,7 +19,7 @@ export const getStopMessage = async (msg) => {
   const stopMessageQuery = `SELECT stopmessage FROM server_settings WHERE serverid='${guildId}'`;
   let stopMessage = await stopClient.query(stopMessageQuery)
     .then(result => {
-      const defaultMessage = `${new Date().toString()}\nIT'S TIME TO STOP.`;
+      const defaultMessage = getStrings().settingsStopMessage;
       let message = result.rows[0]['stopmessage'] !== null ? result.rows[0]['stopmessage'] : defaultMessage;
       return message;
     })
@@ -32,7 +32,7 @@ export const getDeleteMessage = async (msg) => {
   const deleteMessageQuery = `SELECT deletemessage FROM server_settings WHERE serverid='${guildId}'`;
   let deleteMessage = await stopClient.query(deleteMessageQuery)
     .then(result => {
-      const defaultMessage = 'Detected something horrible. Deleted.';
+      const defaultMessage = getStrings().settingsDeleteMessage;
       let message = result.rows[0]['deletemessage'] !== null ? result.rows[0]['deletemessage'] : defaultMessage;
       return message;
     })

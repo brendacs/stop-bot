@@ -11,12 +11,11 @@ const checkLists = (bot, msg) => {
     .then(result => {
       let guildExists = result.rows[0]['exists'];
       if (!guildExists) {
-        stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${guildId}, '')`)
-          .then(() => {
-            console.log('inserted settings');
-          })
-          .catch(err => console.log(err));
+        stopClient.query(`INSERT INTO server_settings (serverid, prefix) VALUES (${guildId}, '')`);
       }
+    })
+    .catch(err => {
+      console.log(err);
     });
 
   const wordListQuery = `SELECT * FROM word_lists WHERE serverid = '${guildId}'`;
@@ -29,7 +28,6 @@ const checkLists = (bot, msg) => {
       if (!guildExists) {
         stopClient.query(`INSERT INTO word_lists (serverid, stoplist, deletelist) VALUES (${guildId}, '{}', '{}')`)
           .then(() => {
-            console.log('inserted');
             bot.user.setPresence({status: 'online', game: {name: `!help | ${bot.guilds.size} servers`, type: 0}});
           })
           .catch(err => console.log(err));

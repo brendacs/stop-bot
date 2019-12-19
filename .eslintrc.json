@@ -15,7 +15,7 @@
     "rules": {
         "array-bracket-spacing": ["error", "never"],
         "computed-property-spacing": ["error", "never"],
-        "indent": ["error", 2],
+        "indent": ["error", 2, {"SwitchCase": 1}],
         "linebreak-style": ["error", "unix"],
         "no-trailing-spaces": ["error"],
         "object-curly-spacing": ["error", "never"],

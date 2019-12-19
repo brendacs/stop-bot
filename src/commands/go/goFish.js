@@ -4,6 +4,7 @@ import {
   allFishNames,
   coolDownMinutesFish,
   coolDownMinutesInv,
+  getStrings,
   richEmbed,
   stopClient
 } from '../../constants';
@@ -37,7 +38,7 @@ export default function initFishing(msg, subcmd) {
           nextAllowedFishCapture = msg.createdTimestamp + coolDownMinutesFish;
           allowedFishTimes[authorId] = nextAllowedFishCapture;
         } else {
-          msg.channel.send('Your fishing rod is broken. It will require ' + Math.floor((allowedFishTimes[authorId] - Date.now()) / 1000) + ' more seconds to repair.');
+          msg.channel.send(getStrings(allowedFishTimes[authorId]).goFish.repairRod);
         }
         return;
       }
@@ -54,7 +55,7 @@ export default function initFishing(msg, subcmd) {
               nextAllowedInvOpen = msg.createdTimestamp + coolDownMinutesInv;
               allowedInvTimes[authorId] = nextAllowedInvOpen;
             } else {
-              msg.channel.send('Your inventory is heavy. You will require ' + Math.floor((allowedInvTimes[authorId] - Date.now()) / 1000) + ' more seconds to rest.');
+              msg.channel.send(getStrings(allowedInvTimes[authorId]).goFish.restInv);
             }
           }
         })
@@ -87,11 +88,6 @@ const goInv = (msg, fishList) => {
   // Rich embed message of inventory
   const embed = richEmbed
     .setColor('#ff0000')
-    .setDescription(`${msg.author}'s inventory
-
-      **${fishList['fish']}** x :fish: ║ **${fishList['cake']}** x :fish_cake: ║ **${fishList['fishpole']}** x :fishing_pole_and_fish: ║ **${fishList['tropical']}** x :tropical_fish:
-
-      **${fishList['blowfish']}** x :blowfish: ║ **${fishList['cutewhale']}** x :whale: ║ **${fishList['bluewhale']}** x :whale2: ║ **${fishList['dolphin']}** x :dolphin: ║ **${fishList['octopus']}** x :octopus:`
-    );
+    .setDescription(getStrings(msg.author, fishList).goFish.inventoryList);
   msg.channel.send({embed});
 };

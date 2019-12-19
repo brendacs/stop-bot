@@ -1,4 +1,4 @@
-import {stopClient, richEmbed} from '../../constants';
+import {getStrings, stopClient, richEmbed} from '../../constants';
 import {getGuildId} from '../../utils/utils';
 
 export const setDefault = (msg) => {
@@ -10,7 +10,7 @@ export const setDefault = (msg) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription('Your settings have been reset to default.');
+        .setDescription(getStrings().setterDefault);
       msg.channel.send({embed});
     })
     .catch(err => {
@@ -24,7 +24,7 @@ export const setPrefix = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription(`New prefix has been set to \`${thirdcmd}\`.`);
+        .setDescription(getStrings(thirdcmd).setterNewPrefix);
       msg.channel.send({embed});
     })
     .catch(err => {
@@ -38,7 +38,7 @@ export const setStopMessage = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription('New stop message has been set.');
+        .setDescription(getStrings().setterNewStopMessage);
       msg.channel.send({embed});
     })
     .catch(err => {
@@ -52,7 +52,7 @@ export const setDeleteMessage = (msg, thirdcmd) => {
     .then(() => {
       const embed = richEmbed
         .setColor('#ff0000')
-        .setDescription('New delete message has been set.');
+        .setDescription(getStrings().setterNewDeleteMessage);
       msg.channel.send({embed});
     })
     .catch(err => {
@@ -68,7 +68,7 @@ export const setToggleDM = (msg) => {
         let toggled = result.rows[0]['dmlists'] ? 'enabled' : 'disabled';
         const embed = richEmbed
           .setColor('#ff0000')
-          .setDescription(`DM lists has been ${toggled}.`);
+          .setDescription(getStrings(toggled).setterToggleDM);
         msg.channel.send({embed});
       });
     })
