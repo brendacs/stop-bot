@@ -9,7 +9,7 @@ Thank you for wanting to contribute and make Stop better for everyone! Here is a
 * Use the development branch, `dev1`.
 * Create an app and app bot user at [Discord developers](https://discordapp.com/developers/applications/me).
 * Create an `auth.json` and add your bot token for testing.
-* Run `npm install` to install all dependencies.
+* Run `npm install` to install all dependencies. This project uses Node version 10.
 * Use `npm run build` for Babel to compile the ES6 syntax.
 * Create a branch off of `dev1` called `dev1/camelCase`.
   * ex: `dev1/makeStopCooler` or `dev1/addNewStopSign`
