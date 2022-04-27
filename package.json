@@ -23,7 +23,7 @@
     "discord.js": "^11.1.0",
     "express": "^4.15.4",
     "fs": "0.0.1-security",
-    "grunt": "^1.0.4",
+    "grunt": "^1.5.2",
     "grunt-contrib-cssmin": "^2.2.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
